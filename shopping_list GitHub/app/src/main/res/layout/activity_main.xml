@@ -20,7 +20,7 @@
         android:layout_marginEnd="54dp"
         android:src="@drawable/ic_add"
         tools:src="@drawable/ic_add"
-        android:layout_marginBottom="53dp">
+        android:layout_marginBottom="54dp">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
