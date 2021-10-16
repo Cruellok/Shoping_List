@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">shopping_list</string>
+    <string name="failed_insert">Не удалось выполнить insert</string>
+    <string name="failed_getAll">Не удалось выполнить getAll</string>
+    <string name="failed_getById">Не удалось выполнить getById</string>
+    <string name="failed_update">Не удалось выполнить update</string>
+    <string name="failed_delete">Не удалось выполнить delete</string>
+
+
+
+</resources>
