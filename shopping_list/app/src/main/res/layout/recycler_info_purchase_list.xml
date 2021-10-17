@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<layout >
+    <data>
+        <variable
+            name="vmPurchaseList"
+            type="com.persAssistant.shopping_list.presentation.purchaseList.PurchaseListViewModel" />
+    </data>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -15,17 +20,17 @@
         <TextView
             android:id="@+id/tv_date_recycler_purchaseList"
             android:layout_weight="2"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="60dp"
-            android:hint="17.10"
+            android:text="@={vmPurchaseList.strDate}"
             android:gravity="center_vertical|center_horizontal"
             />
 
         <TextView
             android:id="@+id/tv_name_recycler_purchaseList"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center_vertical"
             android:paddingStart="3dp"
             android:lines="1"
@@ -34,8 +39,8 @@
 
         <ImageView
             android:id="@+id/iv_purchaseList_edit"
-            android:layout_width="match_parent"
-            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:src="@drawable/ic_edit"
             android:scaleType="center"
@@ -43,8 +48,8 @@
 
         <ImageView
             android:id="@+id/iv_purchaseList_delete"
-            android:layout_width="match_parent"
-            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:src="@drawable/ic_close"
             android:scaleType="center"
@@ -58,3 +63,4 @@
         />
 
 </LinearLayout>
+</layout>
