@@ -1,14 +1,18 @@
 package com.persAssistant.shopping_list.data.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.persAssistant.shopping_list.data.database.DbStruct
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchaseList
-import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 
 @Dao
 interface PurchaseListRoomDao {
+
+    //запрос всех категорий
+    @Query("SELECT * FROM ${DbStruct.PurchaseListTable.tableName}")
+    fun getChangeManager(): LiveData<List<RoomPurchaseList>>
 
     // добавления записи в таблицу
     @Insert

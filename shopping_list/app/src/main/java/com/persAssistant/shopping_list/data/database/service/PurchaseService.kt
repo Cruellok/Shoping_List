@@ -64,7 +64,7 @@ class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao) {
             price = purchase.price,
             isCompleted = purchase.isCompleted)
         return Completable.fromAction {
-            purchaseRoomDao.delete(roomPurchase)
+            purchaseRoomDao.update(roomPurchase)
         }
     }
 

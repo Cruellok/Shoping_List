@@ -1,14 +1,21 @@
 package com.persAssistant.shopping_list.data.database.service
 
+import androidx.lifecycle.LiveData
 import com.persAssistant.shopping_list.data.database.dao.PurchaseListRoomDao
+import com.persAssistant.shopping_list.data.database.dao.enitity.RoomCategory
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchaseList
 import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import java.lang.Exception
+import java.util.*
 
 class PurchaseListService(private val purchaseListRoomDao: PurchaseListRoomDao) {
+
+    fun getChangeManager(): LiveData<List<RoomPurchaseList>> {
+        return purchaseListRoomDao.getChangeManager()
+    }
 
     // добавления записи в таблицу
     fun insert(purchaseList: PurchaseList): Completable {
@@ -25,13 +32,17 @@ class PurchaseListService(private val purchaseListRoomDao: PurchaseListRoomDao) 
     }
 
     //запрос всех списков
-    fun getAll (): Single<List<PurchaseList>> {
+    fun getAll (): Single<LinkedList<PurchaseList>> {
         return purchaseListRoomDao.getAll()
             .toObservable()
             .flatMapIterable {/*list*/ it }
             .map { PurchaseList(it.id, it.date, it.name) }
             .toList()
-        // вопрос в dateCode нежен ли вообще
+            .map {
+                val linkedList = LinkedList<PurchaseList>()
+                linkedList.addAll(it)
+                linkedList
+            }
     }
 
     //запрос одного списка по айди
@@ -44,7 +55,7 @@ class PurchaseListService(private val purchaseListRoomDao: PurchaseListRoomDao) 
     fun update (purchaseList: PurchaseList): Completable {
         val roomPurchaseList = RoomPurchaseList(id = purchaseList.id,dateCode = purchaseList.date.time,name = purchaseList.name)
         return Completable.fromAction {
-            purchaseListRoomDao.delete(roomPurchaseList)
+            purchaseListRoomDao.update(roomPurchaseList)
         }
     }
 

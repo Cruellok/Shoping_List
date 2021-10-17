@@ -18,7 +18,8 @@ data class RoomPurchaseList(
 
     @ColumnInfo(name = DbStruct.PurchaseListTable.Cols.date)
     var dateCode: Long
-) {
+)
+{
     var date: Date
     set(value) {
         dateCode = value.time

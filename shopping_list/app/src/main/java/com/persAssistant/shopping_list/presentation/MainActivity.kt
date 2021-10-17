@@ -1,5 +1,6 @@
 package com.persAssistant.shopping_list.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -8,80 +9,85 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.persAssistant.shopping_list.R
-import com.persAssistant.shopping_list.data.database.enitities.Category
+import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
 import com.persAssistant.shopping_list.presentation.category.CreatorCategoryActivity
 import com.persAssistant.shopping_list.presentation.category.EditorCategoryActivity
-import com.persAssistant.shopping_list.presentation.recycleVIew.OnCategoryClickListener
-import com.persAssistant.shopping_list.presentation.recycleVIew.adapter.CategoryAdapter
+import com.persAssistant.shopping_list.presentation.purchaseList.CreatorPurchaseListActivity
+import com.persAssistant.shopping_list.presentation.purchaseList.EditorPurchaseListActivity
+import com.persAssistant.shopping_list.presentation.recycleVIew.OnPurchaseListClickListener
+import com.persAssistant.shopping_list.presentation.recycleVIew.adapter.PurchaseListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.recycler_info_category.*
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerViewCategory: RecyclerView
-    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var recyclerViewPurchaseList: RecyclerView
+    private lateinit var purchaseListAdapter: PurchaseListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.recycler_category)
+        setContentView(R.layout.recycler_purchase_list)
 
         initRecyclerView()
 
-        (application as App).categoryService.getChangeManager().observe(this, androidx.lifecycle.Observer {
+        (application as App).purchaseListService.getChangeManager().observe(this, androidx.lifecycle.Observer {
             initAdapter()
         })
 
-        val addCategory: FloatingActionButton = findViewById(R.id.btn_add_category)
-        addCategory.setOnClickListener {
-            val intent = CreatorCategoryActivity.getIntent(this)
+        val addPurchaseList: FloatingActionButton = findViewById(R.id.btn_add_purchaseList)
+        addPurchaseList.setOnClickListener {
+            val intent = CreatorPurchaseListActivity.getIntent(this)
             startActivity(intent)
         }
     }
 
     private fun initRecyclerView() {
-        recyclerViewCategory = findViewById(R.id.recyclerView_category)
-        recyclerViewCategory.layoutManager = LinearLayoutManager(applicationContext)
-        recyclerViewCategory.itemAnimator = DefaultItemAnimator()
-        categoryAdapter = CategoryAdapter(LinkedList(), object : OnCategoryClickListener {
+        recyclerViewPurchaseList = findViewById(R.id.recyclerView_purchaseList)
+        recyclerViewPurchaseList.layoutManager = LinearLayoutManager(applicationContext)
+        recyclerViewPurchaseList.itemAnimator = DefaultItemAnimator()
+        purchaseListAdapter = PurchaseListAdapter(LinkedList(), object : OnPurchaseListClickListener {
 
-            val categoryService = (application as App).categoryService
+            val purchaseListService = (application as App).purchaseListService
 
-            override fun categoryItemClicked(category: Category) {
-                val intent = EditorCategoryActivity.getIntent(applicationContext, category.id!!)
+            override fun purchaseListItemClicked(purchaseList: PurchaseList) {
+                val intent = Intent(this@MainActivity, CategoryMainActivity::class.java)
                 startActivity(intent)
             }
 
-            override fun deleteItem(category: Category) {
+            override fun deleteItem(purchaseList: PurchaseList) {
                 //---Delete---
-                categoryService.delete(category)
+                purchaseListService.delete(purchaseList)
                     .subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({/*Выполнено*/
-                        categoryAdapter.removeCategory(category.id)
+                        purchaseListAdapter.removePurchaseList(purchaseList.id)
                     }, {/*Ошибка*/ })
 
                 Toast.makeText(
                     this@MainActivity,
-                    " id = " + category.id + " name = " + category.name,
+                    " id = " + purchaseList.id + " name = " + purchaseList.name,
                     Toast.LENGTH_LONG
                 ).show()
             }
+
+            override fun editItem(purchaseList: PurchaseList) {
+                val intent = EditorPurchaseListActivity.getIntent(applicationContext, purchaseList.id!!)
+                startActivity(intent)            }
         })
-        recyclerViewCategory.adapter = categoryAdapter
+        recyclerViewPurchaseList.adapter = purchaseListAdapter
         initAdapter()
     }
 
     private fun initAdapter() {
-        val categoryService = (application as App).categoryService
-        categoryService.getAll()
+        val purchaseListService = (application as App).purchaseListService
+        purchaseListService.getAll()
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Есть данные*/
-                categoryAdapter.updateItems(it)
+                purchaseListAdapter.updateItems(it)
             }, {/*Ошибка*/ })
     }
 }

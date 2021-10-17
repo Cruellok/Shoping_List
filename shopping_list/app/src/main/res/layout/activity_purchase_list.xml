@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+    <data>
+        <variable
+            name="vmPurchaseList"
+            type="com.persAssistant.shopping_list.presentation.purchaseList.PurchaseListViewModel" />
+    </data>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Название списка"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <EditText
+            android:id="@+id/et_name_purchaseList"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="@={vmPurchaseList.name}"/>
+
+
+        <TextView
+            android:id="@+id/tv_date_purchaseList"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_height="match_parent"
+            android:hint="Выберете дату"
+            android:text="@={vmPurchaseList.strDate}"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_save_purchaseList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#4CAF50"
+        android:textColor="@android:color/white"
+        android:onClick="@{view -> vmPurchaseList.save()}"
+        android:text="Сохранить"/>
+
+
+</LinearLayout>
+</layout>

@@ -17,8 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.CategoryMainActivity" />
         <activity android:name=".presentation.category.CreatorCategoryActivity" />
         <activity android:name=".presentation.category.EditorCategoryActivity" />
+        <activity android:name=".presentation.purchaseList.CreatorPurchaseListActivity" />
+        <activity android:name=".presentation.purchaseList.EditorPurchaseListActivity" />
     </application>
 
 </manifest>

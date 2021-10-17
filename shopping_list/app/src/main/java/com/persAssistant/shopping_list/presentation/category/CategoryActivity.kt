@@ -11,7 +11,7 @@ abstract class CategoryActivity : AppCompatActivity() {
 
     protected abstract fun createViewModel(): CategoryViewModel
 
-    lateinit var ui: ActivityCategoryBinding
+    protected lateinit var ui: ActivityCategoryBinding
     protected lateinit var viewModel: CategoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

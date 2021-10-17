@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_date_recycler_purchaseList"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="17.10"
+            android:gravity="center_vertical|center_horizontal"
+            />
+
+        <TextView
+            android:id="@+id/tv_name_recycler_purchaseList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingStart="3dp"
+            android:lines="1"
+            android:text="Name"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_purchaseList_edit"
+            android:layout_width="match_parent"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_edit"
+            android:scaleType="center"
+            />
+
+        <ImageView
+            android:id="@+id/iv_purchaseList_delete"
+            android:layout_width="match_parent"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_close"
+            android:scaleType="center"
+            />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        />
+
+</LinearLayout>

@@ -3,7 +3,6 @@ package com.persAssistant.shopping_list.data.database.dao
 import androidx.room.*
 import com.persAssistant.shopping_list.data.database.DbStruct
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchase
-import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 
