@@ -26,9 +26,7 @@ class PurchaseListAdapter(
 
         holder.name.text = purchaseListRecycleView.name
 
-        val pattern = "dd.MM.yyyy"
-        val simpleDateFormat = SimpleDateFormat(pattern)
-        val strDate: String = simpleDateFormat.format(purchaseListRecycleView.date)
+        val strDate = SimpleDateFormat("dd.MM.yyyy").format(purchaseListRecycleView.date)
         holder.date.text = strDate
 
         holder.bindView(purchaseListRecycleView, onPurchaseListClickListener)

@@ -12,7 +12,7 @@ class CreatorPurchaseListViewModel (application: Application) : PurchaseListView
     override fun save() {
 
         val app = getApplication<App>()
-        val purchaseList = PurchaseList(name = name.value ?: "",date = date ?: Date())
+        val purchaseList = PurchaseList(name = name.value ?: "",date = date )
         app.purchaseListService.insert(purchaseList)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())

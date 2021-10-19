@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.databinding.ActivityPurchaseListBinding
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.xml.datatype.DatatypeConstants.MONTHS
 
@@ -26,27 +27,26 @@ abstract class PurchaseListActivity : AppCompatActivity() {
         viewModel.closeEvent.observe(this, Observer {
             finish()
         })
+        ui.tvDatePurchaseList.text = viewModel.strDate.value
+
 
         ui.tvDatePurchaseList.setOnClickListener {
+
+            val date = SimpleDateFormat("dd.MM.yyyy").parse(viewModel.strDate.value)
             val calendar = Calendar.getInstance()
+            calendar.time = date!!
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, years, monthOfYear, dayOfMonth ->
-
-                //сам добавил цифру 1
-                val monthY: Int = monthOfYear + 1
-                val strDate = "$dayOfMonth.$monthY.$years"
-                ui.tvDatePurchaseList.text = strDate
-                viewModel.strDate.value = strDate
-                viewModel.date = Date(years-1900, monthOfYear, dayOfMonth)
+            val datePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                calendar.set(year,monthOfYear,dayOfMonth)
+                viewModel.date = calendar.time
 
             }, year, month, day)
 
             datePickerDialog.show()
         }
-
         ui.vmPurchaseList = viewModel
         ui.lifecycleOwner = this
     }
