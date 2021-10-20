@@ -61,5 +61,4 @@ class TestCategoryService : CommonTest() {
         assertEquals("Функция вернула не верный результат CategoryTest ", 1, categoryService.getAll().blockingGet().size)
     }
 
-
 }
