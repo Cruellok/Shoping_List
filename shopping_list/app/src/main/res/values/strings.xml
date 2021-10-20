@@ -6,6 +6,9 @@
     <string name="failed_update">Не удалось выполнить update</string>
     <string name="failed_delete">Не удалось выполнить delete</string>
 
+    <string name="list">Список</string>
+    <string name="categories">Категории</string>
+    <string name="home">Home</string>
 
 
 </resources>

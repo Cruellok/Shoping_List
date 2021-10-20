@@ -12,7 +12,7 @@ interface PurchaseListRoomDao {
 
     //запрос всех категорий
     @Query("SELECT * FROM ${DbStruct.PurchaseListTable.tableName}")
-    fun getChangeManager(): LiveData<List<RoomPurchaseList>>
+    fun getChangeSingle(): LiveData<List<RoomPurchaseList>>
 
     // добавления записи в таблицу
     @Insert

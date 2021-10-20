@@ -10,5 +10,4 @@ abstract class CommonTest {
         appContext.deleteDatabase(RoomDataBaseHelper.DATABASE_NAME)
         Thread.sleep(1000)
     }
-
 }

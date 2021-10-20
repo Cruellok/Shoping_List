@@ -6,7 +6,7 @@ import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class EditorCategoryViewModel(application: Application,private var id: Long): CategoryViewModel(application) {
+class EditorCategoryViewModel(application: Application, private var id: Long): CategoryViewModel(application) {
 
     init {
         val app = getApplication<App>()

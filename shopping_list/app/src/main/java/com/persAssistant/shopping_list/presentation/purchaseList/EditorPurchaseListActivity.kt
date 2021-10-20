@@ -1,10 +1,8 @@
 package com.persAssistant.shopping_list.presentation.purchaseList
 
-import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import java.lang.Exception
-import java.util.*
 
 class EditorPurchaseListActivity : PurchaseListActivity() {
 

@@ -16,10 +16,10 @@ data class RoomPurchase(
         var name: String,
 
         @ColumnInfo(name = DbStruct.Purchase.Cols.categoryId)
-        var categoryId: Long ,
+        var categoryId: Long,
 
         @ColumnInfo(name = DbStruct.Purchase.Cols.listId)
-        var listId: Long ,
+        var listId: Long,
 
         @ColumnInfo(name = DbStruct.Purchase.Cols.price)
         var price: Double? = null,

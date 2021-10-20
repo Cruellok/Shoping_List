@@ -8,7 +8,7 @@ import io.reactivex.Maybe
 import io.reactivex.Single
 import java.lang.Exception
 
-class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao) {
+class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao){
 
     // добавления записи в таблицу
     fun insert(purchase: Purchase): Completable {
@@ -22,9 +22,8 @@ class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao) {
 
         return Completable.fromAction {
             val result = purchaseRoomDao.insert(roomPurchase)
-            if (result != -1L) {
+            if (result != -1L)
                 purchase.id = result
-            }
             else
                 throw Exception("Failed to execute insert")
         }
@@ -34,15 +33,15 @@ class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao) {
     fun getAll(): Single<List<Purchase>> {
         return purchaseRoomDao.getAll()
             .toObservable()
-            .flatMapIterable {/*list*/ it }
-            .map { Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted) }
+            .flatMapIterable {/*list*/ it}
+            .map {Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
             .toList()
     }
 
     //запрос одного списка по айди
     fun getById(id: Long): Maybe<Purchase> {
         return purchaseRoomDao.getById(id)
-            .map { Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
+            .map {Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
     }
 
     //запрос списка покупок относящегося к определенному по айди

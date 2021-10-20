@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.presentation.recycleVIew.adapter
+package com.persAssistant.shopping_list.presentation.purchaseListRecyclerVIew.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
-import com.persAssistant.shopping_list.presentation.recycleVIew.OnPurchaseListClickListener
+import com.persAssistant.shopping_list.presentation.purchaseListRecyclerVIew.OnPurchaseListClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PurchaseListAdapter(
-    private var items: LinkedList<PurchaseList>,
-    private val onPurchaseListClickListener: OnPurchaseListClickListener
-) : RecyclerView.Adapter<PurchaseListAdapter.ViewHolder>() {
+class PurchaseListAdapter( private var items: LinkedList<PurchaseList>, private val onPurchaseListClickListener: OnPurchaseListClickListener)
+    : RecyclerView.Adapter<PurchaseListAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return items.size
@@ -23,19 +21,14 @@ class PurchaseListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val purchaseListRecycleView = items[position]
-
         holder.name.text = purchaseListRecycleView.name
-        val strDate = SimpleDateFormat("dd.MM.yyyy").format(purchaseListRecycleView.date)
-        holder.date.text = strDate
+        holder.date.text = SimpleDateFormat("dd.MM.yyyy").format(purchaseListRecycleView.date)
         holder.bindView(purchaseListRecycleView, onPurchaseListClickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.recycler_info_purchase_list,
-            parent,
-            false
-        )
+            R.layout.recycler_info_purchase_list, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -45,14 +38,10 @@ class PurchaseListAdapter(
         val delete: ImageView = view.findViewById(R.id.iv_purchaseList_delete)
         val date: TextView = view.findViewById(R.id.tv_date_recycler_purchaseList)
 
-        
-        fun bindView(
-            purchaseList: PurchaseList,
-            onPurchaseListClickListener: OnPurchaseListClickListener
-        ){
-            delete.setOnClickListener { onPurchaseListClickListener.deleteItem(purchaseList) }
-            edit.setOnClickListener{ onPurchaseListClickListener.editItem(purchaseList)}
-            name.setOnClickListener{ onPurchaseListClickListener.purchaseListItemClicked(purchaseList)}
+        fun bindView(purchaseList: PurchaseList, onPurchaseListClickListener: OnPurchaseListClickListener){
+            delete.setOnClickListener {onPurchaseListClickListener.deleteItem(purchaseList)}
+            edit.setOnClickListener {onPurchaseListClickListener.editItem(purchaseList)}
+            name.setOnClickListener {onPurchaseListClickListener.purchaseListItemClicked(purchaseList)}
         }
     }
 
@@ -61,18 +50,11 @@ class PurchaseListAdapter(
         notifyDataSetChanged()
     }
 
-    fun addPurchaseList(purchaseList: PurchaseList){
-        items.add(purchaseList)
-        notifyDataSetChanged()
-    }
-
     fun removePurchaseList(id: Long?){
         val purchaseListToRemove = items.find {it.id == id}
         items.remove(purchaseListToRemove)
         notifyDataSetChanged()
     }
-
-
 }
 
 

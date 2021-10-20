@@ -18,8 +18,7 @@ class EditorCategoryActivity : CategoryActivity() {
     override fun createViewModel(): CategoryViewModel {
         val id = intent.getLongExtra(KEY,-1L)
         if(id == -1L)
-            throw Exception("Ошибка в EditorCategoryActivity.getIntent отсутствует Id ")
-
+            throw Exception("Ошибка в EditorCategoryActivity.getIntent отсутствует Id")
         return EditorCategoryViewModel(application,id)
     }
 }

@@ -21,5 +21,4 @@ abstract class PurchaseListViewModel (application: Application): AndroidViewMode
     }
 
     abstract fun save()
-
 }

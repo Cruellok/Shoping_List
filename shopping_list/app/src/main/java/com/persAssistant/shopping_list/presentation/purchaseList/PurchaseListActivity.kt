@@ -40,7 +40,6 @@ abstract class PurchaseListActivity : AppCompatActivity() {
             val datePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 calendar.set(year,monthOfYear,dayOfMonth)
                 viewModel.date = calendar.time
-
             }, year, month, day)
 
             datePickerDialog.show()

@@ -1,39 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_recyclerPurchaseList"
+    <FrameLayout
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="List"
-        android:textSize="40sp"
-        android:gravity="center"
-        >
+        android:layout_height="0dp"
+        android:layout_weight="0.9"/>
 
-    </TextView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_purchaseList"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tv_recyclerPurchaseList"
-        >
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:background="@color/white"
+        app:itemTextColor="@color/teal_200"
+        app:menu="@menu/menu_bottom_navigation"
+        />
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add_purchaseList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="48dp"
-        android:src="@drawable/ic_add">
-
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
-</RelativeLayout>
+</LinearLayout>

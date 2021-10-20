@@ -4,16 +4,12 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.data.database.enitities.Category
-import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
 import com.persAssistant.shopping_list.data.database.service.CategoryService
-import com.persAssistant.shopping_list.data.database.service.PurchaseListService
-import com.persAssistant.shopping_list.data.database.service.PurchaseService
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
-import java.util.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -22,10 +18,8 @@ import java.util.*
  */
 @RunWith(AndroidJUnit4::class)
 class TestCategoryService : CommonTest() {
-
     private val appContext = InstrumentationRegistry.getInstrumentation().targetContext
     private val dataBaseHelper = RoomDataBaseHelper.getInstance(appContext)
-
     private val categoryDao = dataBaseHelper.getCategoryRoomDao()
     private val categoryService = CategoryService(categoryDao)
 
@@ -60,5 +54,4 @@ class TestCategoryService : CommonTest() {
         //---Get All---
         assertEquals("Функция вернула не верный результат CategoryTest ", 1, categoryService.getAll().blockingGet().size)
     }
-
 }
