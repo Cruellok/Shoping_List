@@ -11,7 +11,8 @@ import com.persAssistant.shopping_list.data.database.enitities.Category
 import com.persAssistant.shopping_list.presentation.recycleVIew.OnCategoryClickListener
 import java.util.*
 
-class CategoryAdapter (private var items: LinkedList<Category>, private val onCategoryClickListener: OnCategoryClickListener) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter (private var items: LinkedList<Category>, private val onCategoryClickListener: OnCategoryClickListener)
+    : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return items.size

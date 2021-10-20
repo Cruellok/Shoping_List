@@ -24,7 +24,7 @@ class EditorPurchaseListViewModel(application: Application, private var id: Long
     override fun save() {
 
         val app = getApplication<App>()
-        val purchaseList = PurchaseList(id = id, name = name.value ?: "",date = date ?: Date() )
+        val purchaseList = PurchaseList(id = id, name = name.value ?: "",date = date)
         app.purchaseListService.update(purchaseList)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())

@@ -52,9 +52,7 @@ class PurchaseListAdapter(
         ){
             delete.setOnClickListener { onPurchaseListClickListener.deleteItem(purchaseList) }
             edit.setOnClickListener{ onPurchaseListClickListener.editItem(purchaseList)}
-            name.setOnClickListener{ onPurchaseListClickListener.purchaseListItemClicked(
-                purchaseList
-            )}
+            name.setOnClickListener{ onPurchaseListClickListener.purchaseListItemClicked(purchaseList)}
         }
     }
 

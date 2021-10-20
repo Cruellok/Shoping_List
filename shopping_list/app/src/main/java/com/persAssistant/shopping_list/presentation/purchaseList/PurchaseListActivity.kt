@@ -27,12 +27,10 @@ abstract class PurchaseListActivity : AppCompatActivity() {
         viewModel.closeEvent.observe(this, Observer {
             finish()
         })
-        ui.tvDatePurchaseList.text = viewModel.strDate.value
-
 
         ui.tvDatePurchaseList.setOnClickListener {
 
-            val date = SimpleDateFormat("dd.MM.yyyy").parse(viewModel.strDate.value)
+            val date = SimpleDateFormat("dd.MM.yyyy").parse(viewModel.strDate.value!!)
             val calendar = Calendar.getInstance()
             calendar.time = date!!
             val year = calendar.get(Calendar.YEAR)
