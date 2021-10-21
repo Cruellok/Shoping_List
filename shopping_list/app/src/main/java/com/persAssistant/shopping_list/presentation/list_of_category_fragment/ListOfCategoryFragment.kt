@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.presentation
+package com.persAssistant.shopping_list.presentation.list_of_category_fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -13,19 +13,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.Category
+import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.category.CreatorCategoryActivity
 import com.persAssistant.shopping_list.presentation.category.EditorCategoryActivity
-import com.persAssistant.shopping_list.presentation.categoryRecyclerView.OnCategoryClickListener
-import com.persAssistant.shopping_list.presentation.categoryRecyclerView.adapter.CategoryAdapter
+import com.persAssistant.shopping_list.presentation.list_of_category_fragment.adapter.CategoryAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class CategoryFragment : Fragment() {
+class ListOfCategoryFragment : Fragment() {
 
     private lateinit var recyclerViewCategory: RecyclerView
     private lateinit var categoryAdapter: CategoryAdapter
-    lateinit var app :App
+    lateinit var app : App
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
          val view = inflater.inflate(R.layout.recycler_category, container, false)

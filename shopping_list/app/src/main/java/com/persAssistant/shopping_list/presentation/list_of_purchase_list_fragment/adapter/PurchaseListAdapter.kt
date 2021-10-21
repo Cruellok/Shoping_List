@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.presentation.purchaseListRecyclerVIew.adapter
+package com.persAssistant.shopping_list.presentation.list_of_purchase_list_fragment.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
-import com.persAssistant.shopping_list.presentation.purchaseListRecyclerVIew.OnPurchaseListClickListener
+import com.persAssistant.shopping_list.presentation.list_of_purchase_list_fragment.OnPurchaseListClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 

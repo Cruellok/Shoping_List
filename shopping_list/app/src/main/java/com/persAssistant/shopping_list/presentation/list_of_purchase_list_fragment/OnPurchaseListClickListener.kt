@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.presentation.purchaseListRecyclerVIew
+package com.persAssistant.shopping_list.presentation.list_of_purchase_list_fragment
 
 import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
 

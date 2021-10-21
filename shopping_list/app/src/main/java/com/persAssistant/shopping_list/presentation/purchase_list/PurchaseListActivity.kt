@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.presentation.purchaseList
+package com.persAssistant.shopping_list.presentation.purchase_list
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -9,7 +9,6 @@ import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.databinding.ActivityPurchaseListBinding
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.MONTHS
 
 abstract class PurchaseListActivity : AppCompatActivity() {
 

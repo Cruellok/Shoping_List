@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.presentation.purchaseList
+package com.persAssistant.shopping_list.presentation.purchase_list
 
 import android.content.Context
 import android.content.Intent

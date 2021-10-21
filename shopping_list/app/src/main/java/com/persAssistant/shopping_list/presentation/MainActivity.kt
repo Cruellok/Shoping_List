@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.persAssistant.shopping_list.R
+import com.persAssistant.shopping_list.presentation.list_of_category_fragment.ListOfCategoryFragment
+import com.persAssistant.shopping_list.presentation.list_of_purchase_list_fragment.ListOfPurchaseListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 open class MainActivity : AppCompatActivity() {
@@ -16,10 +18,9 @@ open class MainActivity : AppCompatActivity() {
         setFragment(ListOfPurchaseListFragment())
 
         bottomNav.setOnItemSelectedListener {menu ->
-
             when(menu.itemId){
                 R.id.bottomNav_category -> {
-                    setFragment(CategoryFragment())
+                    setFragment(ListOfCategoryFragment())
 
                     true
                 }
@@ -30,13 +31,11 @@ open class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
 
-    fun setFragment(fragment : Fragment){
+    private fun setFragment(fragment : Fragment){
         val fragmentManager = supportFragmentManager.beginTransaction()
         fragmentManager.replace(R.id.fragment,fragment)
         fragmentManager.commit()
     }
-
 }

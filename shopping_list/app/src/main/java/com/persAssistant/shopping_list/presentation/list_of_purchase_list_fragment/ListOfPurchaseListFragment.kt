@@ -1,7 +1,6 @@
-package com.persAssistant.shopping_list.presentation
+package com.persAssistant.shopping_list.presentation.list_of_purchase_list_fragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
-import com.persAssistant.shopping_list.presentation.purchaseList.CreatorPurchaseListActivity
-import com.persAssistant.shopping_list.presentation.purchaseList.EditorPurchaseListActivity
-import com.persAssistant.shopping_list.presentation.purchaseListRecyclerVIew.OnPurchaseListClickListener
-import com.persAssistant.shopping_list.presentation.purchaseListRecyclerVIew.adapter.PurchaseListAdapter
+import com.persAssistant.shopping_list.presentation.App
+import com.persAssistant.shopping_list.presentation.purchase_list.CreatorPurchaseListActivity
+import com.persAssistant.shopping_list.presentation.purchase_list.EditorPurchaseListActivity
+import com.persAssistant.shopping_list.presentation.list_of_purchase_list_fragment.adapter.PurchaseListAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
@@ -26,7 +25,7 @@ class ListOfPurchaseListFragment: Fragment() {
 
     private lateinit var recyclerViewPurchaseList: RecyclerView
     private lateinit var purchaseListAdapter: PurchaseListAdapter
-    lateinit var app :App
+    lateinit var app : App
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.recycler_purchase_list , container , false)
