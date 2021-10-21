@@ -47,10 +47,19 @@ class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao){
     //запрос списка покупок относящегося к определенному по айди
     fun getAllByListId(id: Long): Single<List<Purchase>> {
         return purchaseRoomDao.getAllByListId(id)
-            .toObservable()
-            .flatMapIterable {/*list*/ it }
-            .map { Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted) }
-            .toList()
+                .toObservable()
+                .flatMapIterable {/*list*/ it }
+                .map { Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted) }
+                .toList()
+    }
+
+    //запрос categories относящегося к определенному по айди
+    fun getAllByCategoryId(id: Long): Single<List<Purchase>> {
+        return purchaseRoomDao.getAllByCategoryId(id)
+                .toObservable()
+                .flatMapIterable {/*list*/ it }
+                .map { Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted) }
+                .toList()
     }
 
     //обновление списка по id

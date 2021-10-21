@@ -25,6 +25,10 @@ interface PurchaseRoomDao {
     @Query("SELECT * FROM ${DbStruct.Purchase.tableName} WHERE ${DbStruct.Purchase.Cols.listId} = :id")
     fun getAllByListId(id: Long): Single<List<RoomPurchase>>
 
+    //запрос списка по Category id
+    @Query("SELECT * FROM ${DbStruct.Purchase.tableName} WHERE ${DbStruct.Purchase.Cols.categoryId} = :id")
+    fun getAllByCategoryId(id: Long): Single<List<RoomPurchase>>
+
     //обновление категории
     @Update
     fun update(roomPurchase: RoomPurchase): Int

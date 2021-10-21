@@ -104,7 +104,7 @@ class TestPurchaseService : CommonTest() {
         //---insert---
         purchaseService.insert(bread).blockingGet()
 
-        //---getById---
+        //---delete---
         assertEquals("Функция вернула не верный результат insertTest ", null, purchaseService.delete(bread).blockingGet() )
     }
 
@@ -126,9 +126,32 @@ class TestPurchaseService : CommonTest() {
         purchaseService.insert(pliers).blockingGet()
         purchaseService.insert(bulb).blockingGet()
 
-        //---getById---
+        //---getAllByListId---
         assertEquals("Функция вернула не верный результат insertTest ", 2, purchaseService.getAllByListId(carList.id!!).blockingGet().size)
         assertEquals("Функция вернула не верный результат insertTest ", 4, purchaseService.getAllByListId(everydayLifeList.id!!).blockingGet().size)
+    }
+
+    @Test
+    fun getAllByCategoryId() {
+        initialized()
+        val pliers = Purchase(name = "пассатижи", categoryId = undefinedCategory.id!!,listId = carList.id!!,isCompleted = 0)
+        val matches = Purchase(name = "спички", categoryId = undefinedCategory.id!!,listId = everydayLifeList.id!!,isCompleted = 1)
+        val bread = Purchase(name = "хлеб", categoryId = foodCategory.id!!,listId = everydayLifeList.id!!,isCompleted = 0)
+        val duck = Purchase(name = "савок", categoryId = homeCategory.id!!,listId = everydayLifeList.id!!,isCompleted = 1)
+        val iron = Purchase(name = "утюг", categoryId = homeCategory.id!!,listId = everydayLifeList.id!!,isCompleted = 1)
+        val bulb = Purchase(name = "лампочка", categoryId = undefinedCategory.id!!,listId = carList.id!!,isCompleted = 0)
+
+        //---insert---
+        purchaseService.insert(iron).blockingGet()
+        purchaseService.insert(duck).blockingGet()
+        purchaseService.insert(bread).blockingGet()
+        purchaseService.insert(matches).blockingGet()
+        purchaseService.insert(pliers).blockingGet()
+        purchaseService.insert(bulb).blockingGet()
+
+        //---getAllByCategoryId---
+        assertEquals("Функция вернула не верный результат insertTest ", 2, purchaseService.getAllByCategoryId(homeCategory.id!!).blockingGet().size)
+        assertEquals("Функция вернула не верный результат insertTest ", 3, purchaseService.getAllByCategoryId(undefinedCategory.id!!).blockingGet().size)
     }
 
     @Test
@@ -149,7 +172,7 @@ class TestPurchaseService : CommonTest() {
         purchaseService.insert(pliers).blockingGet()
         purchaseService.insert(bulb).blockingGet()
 
-        //---getById---
+        //---getAll---
         assertEquals("Функция вернула не верный результат insertTest ", 6, purchaseService.getAll().blockingGet().size )
     }
 
