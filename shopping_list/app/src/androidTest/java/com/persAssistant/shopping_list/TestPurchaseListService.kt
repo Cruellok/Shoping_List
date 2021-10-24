@@ -42,9 +42,9 @@ class TestPurchaseListService : CommonTest(){
         purchaseListService.insert(carList).blockingGet()
         purchaseListService.insert(homeList).blockingGet()
         //Проверка инсерта, что вернется объект по добавленному id
-        assertEquals("Функция вернула не верный результат purchaseList ", PurchaseList(id = travelList.id , name = "Путешествие", date = today ), purchaseListService.getById(travelList.id!!).blockingGet())
-        assertEquals("Функция вернула не верный результат purchaseList ", PurchaseList(id = carList.id , name = "Автомобиль", date = today ), purchaseListService.getById(carList.id!!).blockingGet())
-        assertEquals("Функция вернула не верный результат purchaseList ", PurchaseList(id = homeList.id , name = "Дом", date = today ), purchaseListService.getById(homeList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат purchaseList ", PurchaseList(id = travelList.id, name = "Путешествие", date = today ), purchaseListService.getById(travelList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат purchaseList ", PurchaseList(id = carList.id, name = "Автомобиль", date = today ), purchaseListService.getById(carList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат purchaseList ", PurchaseList(id = homeList.id, name = "Дом", date = today ), purchaseListService.getById(homeList.id!!).blockingGet())
 
         //---Update---
         travelList = PurchaseList(id = travelList.id, name = "Тренировка", date = tomorrow )

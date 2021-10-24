@@ -33,18 +33,18 @@ class TestCategoryService : CommonTest() {
         categoryService.insert(foodCategory).blockingGet()
         categoryService.insert(undefinedCategory).blockingGet()
         //Проверка инсерта, что вернется объект по добавленному id
-        assertEquals("Функция вернула не верный результат CategoryTest ", Category(id = foodCategory.id,name = "Еда"), categoryService.getById(foodCategory.id!!).blockingGet())
-        assertEquals("Функция вернула не верный результат CategoryTest ", Category(id = undefinedCategory.id,name = "Неопределенно"), categoryService.getById(undefinedCategory.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат CategoryTest ", Category(id = foodCategory.id, name = "Еда"), categoryService.getById(foodCategory.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат CategoryTest ", Category(id = undefinedCategory.id, name = "Неопределенно"), categoryService.getById(undefinedCategory.id!!).blockingGet())
 
         //---Update---
-        foodCategory = Category(id = foodCategory.id!!,name = "Молочка")
-        undefinedCategory = Category(id = undefinedCategory.id!!,name = "Неизвестно")
+        foodCategory = Category(id = foodCategory.id!!, name = "Молочка")
+        undefinedCategory = Category(id = undefinedCategory.id!!, name = "Неизвестно")
 
         categoryService.update(foodCategory).blockingGet()
         categoryService.update(undefinedCategory).blockingGet()
         //Проверка инсерта, что вернется объект по добавленному id
-        assertEquals("Функция вернула не верный результат CategoryTest ", Category(id = foodCategory.id,name = "Молочка"), categoryService.getById(foodCategory.id!!).blockingGet())
-        assertEquals("Функция вернула не верный результат CategoryTest ", Category(id = undefinedCategory.id,name = "Неизвестно"), categoryService.getById(undefinedCategory.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат CategoryTest ", Category(id = foodCategory.id, name = "Молочка"), categoryService.getById(foodCategory.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат CategoryTest ", Category(id = undefinedCategory.id, name = "Неизвестно"), categoryService.getById(undefinedCategory.id!!).blockingGet())
 
         //---Delete---
         categoryService.delete(foodCategory).blockingGet()

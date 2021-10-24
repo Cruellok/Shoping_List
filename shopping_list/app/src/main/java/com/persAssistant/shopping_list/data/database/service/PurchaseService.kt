@@ -29,37 +29,32 @@ class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao){
         }
     }
 
-    //запрос всех списков
-    fun getAll(): Single<List<Purchase>> {
-        return purchaseRoomDao.getAll()
-            .toObservable()
-            .flatMapIterable {/*list*/ it}
-            .map {Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
-            .toList()
-    }
-
     //запрос одного списка по айди
     fun getById(id: Long): Maybe<Purchase> {
         return purchaseRoomDao.getById(id)
             .map {Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
     }
 
+    private fun processDaoPurchases(single: Single<List<RoomPurchase>>): Single<List<Purchase>>{
+        return single.toObservable()
+                .flatMapIterable {/*list*/ it}
+                .map {Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
+                .toList()
+    }
+
+    //запрос всех списков
+    fun getAll(): Single<List<Purchase>> {
+        return processDaoPurchases(purchaseRoomDao.getAll())
+    }
+
     //запрос списка покупок относящегося к определенному по айди
     fun getAllByListId(id: Long): Single<List<Purchase>> {
-        return purchaseRoomDao.getAllByListId(id)
-                .toObservable()
-                .flatMapIterable {/*list*/ it }
-                .map { Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted) }
-                .toList()
+        return processDaoPurchases(purchaseRoomDao.getAllByListId(id))
     }
 
     //запрос categories относящегося к определенному по айди
     fun getAllByCategoryId(id: Long): Single<List<Purchase>> {
-        return purchaseRoomDao.getAllByCategoryId(id)
-                .toObservable()
-                .flatMapIterable {/*list*/ it }
-                .map { Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted) }
-                .toList()
+        return processDaoPurchases(purchaseRoomDao.getAllByCategoryId(id))
     }
 
     //обновление списка по id
