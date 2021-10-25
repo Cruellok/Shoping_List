@@ -57,7 +57,7 @@ class ListOfPurchaseListFragment: Fragment() {
 
             override fun purchaseListItemClicked(purchaseList: PurchaseList) {
                 val intent = Intent(requireContext(), ListOfPurchaseActivity::class.java)
-                intent.putExtra(PurchaseActivity.KEY_PURCHASELIST_ID,purchaseList.id)
+                intent.putExtra(PurchaseActivity.KEY_PURCHASELIST_ID, purchaseList.id)
                 startActivity(intent)
             }
 

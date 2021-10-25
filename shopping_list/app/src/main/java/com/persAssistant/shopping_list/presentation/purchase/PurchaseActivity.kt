@@ -9,12 +9,13 @@ import com.persAssistant.shopping_list.databinding.ActivityPurchaseBinding
 import java.lang.Exception
 
 abstract class PurchaseActivity: AppCompatActivity() {
-    protected abstract fun createViewModel(listId: Long): PurchaseViewModel
+    protected abstract fun createViewModel(): PurchaseViewModel
     protected lateinit var ui: ActivityPurchaseBinding
     protected lateinit var viewModel: PurchaseViewModel
 
     companion object {
         const val KEY_PURCHASELIST_ID = "PURCHASE_LIST_ID"
+        const val KEY_PURCHASE_ID = "PURCHASE_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,11 +23,7 @@ abstract class PurchaseActivity: AppCompatActivity() {
 
         ui = DataBindingUtil.setContentView(this, R.layout.activity_purchase)
 
-        val listId = intent.getLongExtra(KEY_PURCHASELIST_ID,-1L)
-        if(listId == -1L)
-            throw Exception("Ошибка в PurchaseActivity отсутствует listId")
-
-        viewModel = createViewModel(listId)
+        viewModel = createViewModel()
         viewModel.closeEvent.observe(this, Observer {
             finish()
         })

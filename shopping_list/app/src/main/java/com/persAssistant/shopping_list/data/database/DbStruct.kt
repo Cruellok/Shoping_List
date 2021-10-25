@@ -23,6 +23,7 @@ object DbStruct {
             const val listId = "listId"
             const val price = "price"
             const val isCompleted = "isCompleted"
+            const val INVALID_ID = -1L
         }
     }
 

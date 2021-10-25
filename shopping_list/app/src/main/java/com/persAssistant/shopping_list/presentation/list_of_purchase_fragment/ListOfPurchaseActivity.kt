@@ -32,28 +32,26 @@ class ListOfPurchaseActivity: AppCompatActivity() {
 
         app = (this.applicationContext as App)
 
+        val purchaseListId = intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID,-1)
+        if(purchaseListId == -1L)
+            throw Exception("Ошибка в ListOfPurchaseActivity отсутствует listId")
+
         app.purchaseService.getChangeSingle().observe(this, androidx.lifecycle.Observer {
-            initAdapter()
+            initAdapter(purchaseListId)
         })
 
         recyclerViewPurchase = findViewById(R.id.recyclerView_purchase)
-        initRecyclerView()
+        initRecyclerView(purchaseListId)
 
         val addPurchase: FloatingActionButton = findViewById(R.id.btn_add_purchase)
         addPurchase.setOnClickListener {
 
-            //делаю проверку , передался ли ID ... По сути этот год и не нужен
-            val listId = intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID,-1)
-            if(listId == -1L)
-                throw Exception("Ошибка в ListOfPurchaseActivity отсутствует listId")
-
-            val intent = CreatorPurchaseActivity.getIntent(this)
-            intent.putExtra(PurchaseActivity.KEY_PURCHASELIST_ID,listId)
+            val intent = CreatorPurchaseActivity.getIntent(this,purchaseListId)
             startActivity(intent)
         }
     }
 
-    private fun initRecyclerView() {
+    private fun initRecyclerView(purchaseListId: Long) {
         recyclerViewPurchase.layoutManager = LinearLayoutManager(this)
         recyclerViewPurchase.itemAnimator = DefaultItemAnimator()
         purchaseAdapter = PurchaseAdapter(LinkedList(), object: OnPurchaseClickListener {
@@ -81,17 +79,22 @@ class ListOfPurchaseActivity: AppCompatActivity() {
             }
 
             override fun editItem(purchase: Purchase) {
+                val listId = intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID,-1)
+                if(listId == -1L)
+                    throw Exception("Ошибка в ListOfPurchaseActivity отсутствует listId")
+
                 val intent = EditorPurchaseActivity.getIntent(applicationContext, purchase.id!!)
+                intent.putExtra(PurchaseActivity.KEY_PURCHASELIST_ID,listId)
                 startActivity(intent)
             }
         })
         recyclerViewPurchase.adapter = purchaseAdapter
-        initAdapter()
+        initAdapter(purchaseListId)
     }
 
-    private fun initAdapter() {
+    private fun initAdapter(purchaseListId : Long) {
         val purchaseService = app.purchaseService
-        purchaseService.getAll()
+        purchaseService.getAllByListId(purchaseListId)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Есть данные*/
