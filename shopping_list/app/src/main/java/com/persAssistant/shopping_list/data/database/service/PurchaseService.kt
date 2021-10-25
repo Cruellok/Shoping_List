@@ -1,14 +1,22 @@
 package com.persAssistant.shopping_list.data.database.service
 
+import androidx.lifecycle.LiveData
 import com.persAssistant.shopping_list.data.database.dao.PurchaseRoomDao
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchase
+import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchaseList
 import com.persAssistant.shopping_list.data.database.enitities.Purchase
+import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import java.lang.Exception
+import java.util.*
 
 class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao){
+
+    fun getChangeSingle(): LiveData<List<RoomPurchase>> {
+        return purchaseRoomDao.getChangeSingle()
+    }
 
     // добавления записи в таблицу
     fun insert(purchase: Purchase): Completable {
@@ -35,25 +43,30 @@ class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao){
             .map {Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
     }
 
-    private fun processDaoPurchases(single: Single<List<RoomPurchase>>): Single<List<Purchase>>{
+    private fun processDaoPurchases(single: Single<List<RoomPurchase>>): Single<LinkedList<Purchase>>{
         return single.toObservable()
-                .flatMapIterable {/*list*/ it}
-                .map {Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
-                .toList()
+            .flatMapIterable {/*list*/ it}
+            .map {Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
+            .toList()
+            .map {
+                val linkedList = LinkedList<Purchase>()
+                linkedList.addAll(it)
+                linkedList
+            }
     }
 
     //запрос всех списков
-    fun getAll(): Single<List<Purchase>> {
+    fun getAll(): Single<LinkedList<Purchase>> {
         return processDaoPurchases(purchaseRoomDao.getAll())
     }
 
     //запрос списка покупок относящегося к определенному по айди
-    fun getAllByListId(id: Long): Single<List<Purchase>> {
+    fun getAllByListId(id: Long): Single<LinkedList<Purchase>> {
         return processDaoPurchases(purchaseRoomDao.getAllByListId(id))
     }
 
     //запрос categories относящегося к определенному по айди
-    fun getAllByCategoryId(id: Long): Single<List<Purchase>> {
+    fun getAllByCategoryId(id: Long): Single<LinkedList<Purchase>> {
         return processDaoPurchases(purchaseRoomDao.getAllByCategoryId(id))
     }
 

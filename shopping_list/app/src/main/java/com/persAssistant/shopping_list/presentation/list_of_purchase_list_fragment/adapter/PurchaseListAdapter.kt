@@ -33,8 +33,8 @@ class PurchaseListAdapter( private var items: LinkedList<PurchaseList>, private 
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var name: TextView = view.findViewById(R.id.tv_name_recycler_purchaseList)
-        var edit: ImageView = view.findViewById(R.id.iv_purchaseList_edit)
+        val name: TextView = view.findViewById(R.id.tv_name_recycler_purchaseList)
+        val edit: ImageView = view.findViewById(R.id.iv_purchaseList_edit)
         val delete: ImageView = view.findViewById(R.id.iv_purchaseList_delete)
         val date: TextView = view.findViewById(R.id.tv_date_recycler_purchaseList)
 
