@@ -177,4 +177,32 @@ class TestPurchaseService : CommonTest() {
         assertEquals("Функция вернула не верный результат insertTest ", 6, purchaseService.getAll().blockingGet().size )
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Test
+    fun insertTest2() {
+        initialized()
+        val games = Purchase(name = "игрушка", categoryId = -100, listId = 1, isCompleted = 0)
+
+        //---insert---
+        purchaseService.insert(games).blockingGet()
+
+        //---getById---
+        assertEquals("Функция вернула не верный результат insertTest ", null, purchaseService.getById(games.id!!).blockingGet())
+    }
+
 }

@@ -59,11 +59,6 @@ class ListOfPurchaseActivity: AppCompatActivity() {
             val purchaseService = app.purchaseService
 
             override fun purchaseItemClicked(purchase: Purchase) {
-//                val intent = Intent(ListOfPurchaseListFragment, PurchaseActivity::class.java)
-//                intent.putExtra(PurchaseActivity.KEY_PURCHASELIST_ID,purchase.id)
-//                startActivity(intent)
-//                ListOfPurchaseFragment
-
             }
 
             override fun deleteItem(purchase: Purchase) {

@@ -13,9 +13,6 @@ abstract class PurchaseViewModel(application: Application): AndroidViewModel(app
     var price = MutableLiveData<String>()
     var categoryId: Long
     var listId: Long = DbStruct.Purchase.Cols.INVALID_ID
-    set(value) {
-        field = value
-    }
 
     init {
         val app = getApplication<App>()

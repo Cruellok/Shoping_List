@@ -1,6 +1,7 @@
 package com.persAssistant.shopping_list.presentation
 
 import android.app.Application
+import com.persAssistant.shopping_list.data.database.DbStruct
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.data.database.service.PurchaseListService
@@ -12,7 +13,7 @@ class App: Application() {
     lateinit var purchaseService: PurchaseService
     lateinit var purchaseListService: PurchaseListService
     //temporarily variable
-    val defaultCategoryId: Long = -1000
+    val defaultCategoryId = DbStruct.Purchase.Cols.defaultCategoryId
 
     override fun onCreate() {
         super.onCreate()
