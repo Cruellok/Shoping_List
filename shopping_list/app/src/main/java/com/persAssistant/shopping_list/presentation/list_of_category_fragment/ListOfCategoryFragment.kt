@@ -51,8 +51,8 @@ class ListOfCategoryFragment : Fragment() {
             val categoryService = app.categoryService
 
             override fun categoryItemClicked(category: Category) {
-                val intent = EditorCategoryActivity.getIntent(requireContext().applicationContext, category.id!!)
-                startActivity(intent)
+//                val intent = EditorCategoryActivity.getIntent(requireContext().applicationContext, category.id!!)
+//                startActivity(intent)
             }
 
             override fun deleteItem(category: Category) {
@@ -65,6 +65,11 @@ class ListOfCategoryFragment : Fragment() {
                         }, {/*Ошибка*/ })
 
                 Toast.makeText(requireContext(), " id = " + category.id + " name = " + category.name, Toast.LENGTH_LONG).show()
+            }
+
+            override fun editItem(category: Category) {
+                val intent = EditorCategoryActivity.getIntent(requireContext().applicationContext, category.id!!)
+                startActivity(intent)
             }
         })
         recyclerViewCategory.adapter = categoryAdapter

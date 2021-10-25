@@ -9,6 +9,12 @@
     <string name="list">Список</string>
     <string name="categories">Категории</string>
     <string name="home">Home</string>
+    <string name="list_name">Название списка</string>
+    <string name="select_the_time">Выберете дату</string>
+    <string name="indicate_the_price">Укажите цену</string>
+    <string name="save">Сохранить</string>
+    <string name="name_of_category">Название категории</string>
+    <string name="product_name">Название товара</string>
 
 
 </resources>

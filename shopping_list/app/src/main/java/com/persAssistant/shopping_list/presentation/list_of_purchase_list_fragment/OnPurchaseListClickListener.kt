@@ -6,6 +6,4 @@ interface OnPurchaseListClickListener {
     fun purchaseListItemClicked(purchaseList: PurchaseList)
     fun deleteItem(purchaseList: PurchaseList)
     fun editItem(purchaseList: PurchaseList)
-
-
 }

@@ -18,6 +18,9 @@
         </activity>
         <activity android:name=".presentation.category.CreatorCategoryActivity" />
         <activity android:name=".presentation.category.EditorCategoryActivity" />
+        <activity android:name=".presentation.purchase.CreatorPurchaseActivity" />
+        <activity android:name=".presentation.purchase.EditorPurchaseActivity" />
+        <activity android:name=".presentation.list_of_purchase_fragment.ListOfPurchaseActivity" />
         <activity android:name=".presentation.purchase_list.CreatorPurchaseListActivity" />
         <activity android:name=".presentation.purchase_list.EditorPurchaseListActivity" />
     </application>

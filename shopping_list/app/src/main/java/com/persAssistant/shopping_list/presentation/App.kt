@@ -11,6 +11,8 @@ class App: Application() {
     lateinit var categoryService: CategoryService
     lateinit var purchaseService: PurchaseService
     lateinit var purchaseListService: PurchaseListService
+    //temporarily variable
+    val defaultCategoryId: Long = -1000
 
     override fun onCreate() {
         super.onCreate()
@@ -25,5 +27,6 @@ class App: Application() {
 
         val purchaseListDao = dataBaseHelper.getPurchaseListRoomDao()
         purchaseListService = PurchaseListService(purchaseListDao)
+
     }
 }

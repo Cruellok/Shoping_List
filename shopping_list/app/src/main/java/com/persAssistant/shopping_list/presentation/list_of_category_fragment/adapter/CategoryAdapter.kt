@@ -29,11 +29,13 @@ class CategoryAdapter (private var items: LinkedList<Category>, private val onCa
     }
 
     class ViewHolder(view: View ) : RecyclerView.ViewHolder(view) {
-        var name: TextView = view.findViewById(R.id.tv_name_recycler_category)
+        val name: TextView = view.findViewById(R.id.tv_name_recycler_category)
         val delete: ImageView = view.findViewById(R.id.iv_category_delete)
-        
+        val edit: ImageView = view.findViewById(R.id.iv_category_edit)
+
         fun bindView( category: Category, onCategoryClickListener: OnCategoryClickListener){
             delete.setOnClickListener {onCategoryClickListener.deleteItem(category)}
+            edit.setOnClickListener {onCategoryClickListener.editItem(category)}
             name.setOnClickListener {onCategoryClickListener.categoryItemClicked(category)}
         }
     }

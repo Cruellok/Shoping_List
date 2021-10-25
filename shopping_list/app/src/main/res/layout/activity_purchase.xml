@@ -2,8 +2,8 @@
 <layout >
     <data>
         <variable
-            name="vmPurchaseList"
-            type="com.persAssistant.shopping_list.presentation.purchase_list.PurchaseListViewModel" />
+            name="vmPurchase"
+            type="com.persAssistant.shopping_list.presentation.purchase.PurchaseViewModel" />
     </data>
 
 <LinearLayout
@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/list_name"/>
+        android:text="@string/product_name"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,17 +29,19 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="@={vmPurchaseList.name}"/>
+            android:text="@={vmPurchase.name}"/>
 
 
-        <TextView
-            android:id="@+id/tv_date_purchaseList"
+        <EditText
+            android:id="@+id/tv_price_purchaseList"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:layout_height="match_parent"
-            android:hint="@string/select_the_time"
-            android:text="@={vmPurchaseList.strDate}"/>
+            android:background="@null"
+            android:inputType="numberDecimal"
+            android:hint="@string/indicate_the_price"
+            android:text="@={vmPurchase.price}"/>
 
     </LinearLayout>
 
@@ -49,7 +51,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#4CAF50"
         android:textColor="@android:color/white"
-        android:onClick="@{view -> vmPurchaseList.save()}"
+        android:onClick="@{view -> vmPurchase.save()}"
         android:text="@string/save"/>
 
 
