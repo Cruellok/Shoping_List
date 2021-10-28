@@ -3,14 +3,19 @@ package com.persAssistant.shopping_list.data.database.dao.enitity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.ForeignKey.CASCADE
+import androidx.room.ForeignKey.*
 import androidx.room.PrimaryKey
 import com.persAssistant.shopping_list.data.database.DbStruct
 
 @Entity(tableName = DbStruct.Purchase.tableName,
         foreignKeys = [ForeignKey(entity = RoomCategory::class,
-                parentColumns = arrayOf(DbStruct.Purchase.Cols.id),
+                parentColumns = arrayOf(DbStruct.Category.Cols.id),
                 childColumns = arrayOf(DbStruct.Purchase.Cols.categoryId),
+                onDelete = SET_DEFAULT),
+
+                ForeignKey(entity = RoomPurchaseList::class,
+                parentColumns = arrayOf(DbStruct.PurchaseListTable.Cols.id),
+                childColumns = arrayOf(DbStruct.Purchase.Cols.listId),
                 onDelete = CASCADE)])
 
 data class RoomPurchase(
@@ -22,7 +27,7 @@ data class RoomPurchase(
         @ColumnInfo(name = DbStruct.Purchase.Cols.name)
         var name: String,
 
-        @ColumnInfo(name = DbStruct.Purchase.Cols.categoryId)
+        @ColumnInfo(name = DbStruct.Purchase.Cols.categoryId, defaultValue = DbStruct.Category.Cols.DEFAULT_CATEGORIES_COUNT.toString())
         var categoryId: Long,
 
         @ColumnInfo(name = DbStruct.Purchase.Cols.listId)

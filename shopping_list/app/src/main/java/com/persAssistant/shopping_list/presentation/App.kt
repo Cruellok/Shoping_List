@@ -12,8 +12,8 @@ class App: Application() {
     lateinit var categoryService: CategoryService
     lateinit var purchaseService: PurchaseService
     lateinit var purchaseListService: PurchaseListService
-    //temporarily variable
-    val defaultCategoryId = DbStruct.Purchase.Cols.defaultCategoryId
+    //temporaries variable
+    var defaultCategoryId = DbStruct.Category.Cols.DEFAULT_CATEGORIES_COUNT
 
     override fun onCreate() {
         super.onCreate()
@@ -30,4 +30,5 @@ class App: Application() {
         purchaseListService = PurchaseListService(purchaseListDao)
 
     }
+
 }

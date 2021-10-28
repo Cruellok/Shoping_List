@@ -24,7 +24,6 @@ object DbStruct {
             const val price = "price"
             const val isCompleted = "isCompleted"
             const val INVALID_ID = -1L
-            const val defaultCategoryId = -1000L
         }
     }
 
@@ -35,6 +34,7 @@ object DbStruct {
         object Cols {
             const val id = "_id"
             const val name = "name_категории"
+            const val DEFAULT_CATEGORIES_COUNT = -1000L
         }
     }
 }

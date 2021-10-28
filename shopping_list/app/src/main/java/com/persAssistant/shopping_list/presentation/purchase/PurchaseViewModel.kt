@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.persAssistant.shopping_list.data.database.DbStruct
 import com.persAssistant.shopping_list.presentation.App
-import java.lang.Exception
 
 abstract class PurchaseViewModel(application: Application): AndroidViewModel(application) {
     var closeEvent = MutableLiveData<Unit>()
