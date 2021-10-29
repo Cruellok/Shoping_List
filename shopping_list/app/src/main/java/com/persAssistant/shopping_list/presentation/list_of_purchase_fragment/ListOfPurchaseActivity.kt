@@ -109,8 +109,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
     }
 
     private fun initAdapter(purchaseListId: Long) {
-        val purchaseService = app.purchaseService
-        purchaseService.getAllByListId(purchaseListId)
+        app.purchaseService.getAllByListId(purchaseListId)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Есть данные*/

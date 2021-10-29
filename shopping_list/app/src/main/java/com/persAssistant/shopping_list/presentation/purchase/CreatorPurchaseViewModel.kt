@@ -14,6 +14,9 @@ class CreatorPurchaseViewModel(application: Application, purchaseListId: Long) :
 
     override fun save() {
         val app = getApplication<App>()
+        if(price.value == null)
+            price.value = "0"
+
         val purchase = Purchase(name = name.value ?: "", categoryId = categoryId, listId = listId, price = price.value?.toDouble(), isCompleted = 0)
         app.purchaseService.insert(purchase)
             .subscribeOn(Schedulers.single())

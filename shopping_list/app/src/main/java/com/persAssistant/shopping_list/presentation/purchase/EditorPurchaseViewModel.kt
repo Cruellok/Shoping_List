@@ -25,6 +25,9 @@ class EditorPurchaseViewModel(application: Application, private var id: Long): P
     override fun save() {
         if(listId != DbStruct.Purchase.Cols.INVALID_ID){
             val app = getApplication<App>()
+            if(price.value == null)
+                price.value = "0"
+
             val purchase = Purchase(id = id, name = name.value ?: "", categoryId = categoryId, listId = listId, price = price.value?.toDouble(), isCompleted = 0)
             app.purchaseService.update(purchase)
                 .subscribeOn(Schedulers.single())

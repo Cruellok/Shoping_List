@@ -1,6 +1,7 @@
 package com.persAssistant.shopping_list.presentation.list_of_category_fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,8 @@ import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.category.CreatorCategoryActivity
 import com.persAssistant.shopping_list.presentation.category.EditorCategoryActivity
 import com.persAssistant.shopping_list.presentation.list_of_category_fragment.adapter.CategoryAdapter
+import com.persAssistant.shopping_list.presentation.list_of_purchase_fragment.ListOfPurchaseActivity
+import com.persAssistant.shopping_list.presentation.purchase.PurchaseActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
@@ -51,8 +54,9 @@ class ListOfCategoryFragment : Fragment() {
             val categoryService = app.categoryService
 
             override fun clickedCategoryItem(category: Category) {
-//                val intent = EditorCategoryActivity.getIntent(requireContext().applicationContext, category.id!!)
-//                startActivity(intent)
+                val intent = Intent(requireContext(), ListOfPurchaseActivity::class.java)
+                intent.putExtra(PurchaseActivity.KEY_PURCHASELIST_ID, category.id)
+                startActivity(intent)
             }
 
             override fun deleteItem(category: Category) {
