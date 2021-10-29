@@ -1,7 +1,7 @@
 package com.persAssistant.shopping_list.presentation.list_of_purchase_fragment
 
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -17,8 +17,8 @@ import com.persAssistant.shopping_list.presentation.purchase.EditorPurchaseActiv
 import com.persAssistant.shopping_list.presentation.purchase.PurchaseActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 import java.util.*
+
 
 class ListOfPurchaseActivity: AppCompatActivity() {
 
@@ -32,7 +32,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
 
         app = (this.applicationContext as App)
 
-        val purchaseListId = intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID,-1)
+        val purchaseListId = intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID, -1)
         if(purchaseListId == -1L)
             throw Exception("Ошибка в ListOfPurchaseActivity отсутствует listId")
 
@@ -46,7 +46,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
         val addPurchase: FloatingActionButton = findViewById(R.id.btn_add_purchase)
         addPurchase.setOnClickListener {
 
-            val intent = CreatorPurchaseActivity.getIntent(this,purchaseListId)
+            val intent = CreatorPurchaseActivity.getIntent(this, purchaseListId)
             startActivity(intent)
         }
     }
@@ -54,40 +54,61 @@ class ListOfPurchaseActivity: AppCompatActivity() {
     private fun initRecyclerView(purchaseListId: Long) {
         recyclerViewPurchase.layoutManager = LinearLayoutManager(this)
         recyclerViewPurchase.itemAnimator = DefaultItemAnimator()
-        purchaseAdapter = PurchaseAdapter(LinkedList(), object: OnPurchaseClickListener {
+        purchaseAdapter = PurchaseAdapter(LinkedList(), object : OnPurchaseClickListener {
 
             val purchaseService = app.purchaseService
 
-            override fun purchaseItemClicked(purchase: Purchase) {
+            override fun clickedPurchaseItem(purchase: Purchase) {
             }
 
             override fun deleteItem(purchase: Purchase) {
                 //---Delete---
                 purchaseService.delete(purchase)
-                    .subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({/*Выполнено*/
-                        purchaseAdapter.removePurchase(purchase.id)
-                    }, {/*Ошибка*/ })
+                        .subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({/*Выполнено*/
+                            purchaseAdapter.removePurchase(purchase.id)
+                        }, {/*Ошибка*/ })
 
                 Toast.makeText(applicationContext, " id = " + purchase.id + " name = " + purchase.name, Toast.LENGTH_LONG).show()
             }
 
             override fun editItem(purchase: Purchase) {
-                val listId = intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID,-1)
-                if(listId == -1L)
+                val listId = intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID, -1)
+                if (listId == -1L)
                     throw Exception("Ошибка в ListOfPurchaseActivity отсутствует listId")
 
                 val intent = EditorPurchaseActivity.getIntent(applicationContext, purchase.id!!)
-                intent.putExtra(PurchaseActivity.KEY_PURCHASELIST_ID,listId)
+                intent.putExtra(PurchaseActivity.KEY_PURCHASELIST_ID, listId)
                 startActivity(intent)
+            }
+
+            override fun clickedMenuItem(purchase: Purchase) {
+//                //creating a popup menu
+//                val popup = PopupMenu(applicationContext, tv_options_menu)
+//                //inflating menu from xml resource
+//                popup.inflate(R.menu.options_menu)
+//                //adding click listener
+//                popup.setOnMenuItemClickListener { item ->
+//                    when (item.getItemId()) {
+//                        R.id.menu_delete -> {
+//                            Toast.makeText(applicationContext,"Delete",Toast.LENGTH_LONG).show()
+//                        }
+//                        R.id.menu_edit -> {
+//                            Toast.makeText(applicationContext,"Edit",Toast.LENGTH_LONG).show()
+//                        }
+//                    }
+//                    false
+//                }
+//                //displaying the popup
+//                popup.show()
             }
         })
         recyclerViewPurchase.adapter = purchaseAdapter
         initAdapter(purchaseListId)
     }
 
-    private fun initAdapter(purchaseListId : Long) {
+    private fun initAdapter(purchaseListId: Long) {
         val purchaseService = app.purchaseService
         purchaseService.getAllByListId(purchaseListId)
             .subscribeOn(Schedulers.single())

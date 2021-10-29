@@ -41,7 +41,8 @@ class PurchaseListAdapter( private var items: LinkedList<PurchaseList>, private 
         fun bindView(purchaseList: PurchaseList, onPurchaseListClickListener: OnPurchaseListClickListener){
             delete.setOnClickListener {onPurchaseListClickListener.deleteItem(purchaseList)}
             edit.setOnClickListener {onPurchaseListClickListener.editItem(purchaseList)}
-            name.setOnClickListener {onPurchaseListClickListener.purchaseListItemClicked(purchaseList)}
+            name.setOnClickListener {onPurchaseListClickListener.clickedPurchaseListItem(purchaseList)}
+
         }
     }
 

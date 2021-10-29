@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.Purchase
 import com.persAssistant.shopping_list.presentation.list_of_purchase_fragment.OnPurchaseClickListener
-import com.persAssistant.shopping_list.presentation.purchase.PurchaseViewModel
 import java.util.*
 
 class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPurchaseClickListener: OnPurchaseClickListener)
@@ -41,8 +40,8 @@ class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPur
         fun bindView(purchase: Purchase, onPurchaseClickListener: OnPurchaseClickListener){
             delete.setOnClickListener {onPurchaseClickListener.deleteItem(purchase)}
             edit.setOnClickListener {onPurchaseClickListener.editItem(purchase)}
-            name.setOnClickListener {onPurchaseClickListener.purchaseItemClicked(purchase)}
-            price.setOnClickListener {onPurchaseClickListener.purchaseItemClicked(purchase)}
+            name.setOnClickListener {onPurchaseClickListener.clickedPurchaseItem(purchase)}
+            price.setOnClickListener {onPurchaseClickListener.clickedPurchaseItem(purchase)}
         }
     }
 

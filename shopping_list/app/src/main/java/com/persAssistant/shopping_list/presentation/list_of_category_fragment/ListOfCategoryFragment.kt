@@ -50,7 +50,7 @@ class ListOfCategoryFragment : Fragment() {
 
             val categoryService = app.categoryService
 
-            override fun categoryItemClicked(category: Category) {
+            override fun clickedCategoryItem(category: Category) {
 //                val intent = EditorCategoryActivity.getIntent(requireContext().applicationContext, category.id!!)
 //                startActivity(intent)
             }

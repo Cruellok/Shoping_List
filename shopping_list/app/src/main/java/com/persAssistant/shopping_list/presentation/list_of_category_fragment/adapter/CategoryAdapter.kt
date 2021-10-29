@@ -36,7 +36,7 @@ class CategoryAdapter (private var items: LinkedList<Category>, private val onCa
         fun bindView( category: Category, onCategoryClickListener: OnCategoryClickListener){
             delete.setOnClickListener {onCategoryClickListener.deleteItem(category)}
             edit.setOnClickListener {onCategoryClickListener.editItem(category)}
-            name.setOnClickListener {onCategoryClickListener.categoryItemClicked(category)}
+            name.setOnClickListener {onCategoryClickListener.clickedCategoryItem(category)}
         }
     }
 
