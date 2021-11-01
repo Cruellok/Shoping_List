@@ -15,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
 import com.persAssistant.shopping_list.presentation.App
-import com.persAssistant.shopping_list.presentation.list_of_purchase_fragment.ListOfPurchaseActivity
+import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.ListOfPurchaseActivity
 import com.persAssistant.shopping_list.presentation.purchase_list.CreatorPurchaseListActivity
 import com.persAssistant.shopping_list.presentation.purchase_list.EditorPurchaseListActivity
 import com.persAssistant.shopping_list.presentation.list_of_purchase_list_fragment.adapter.PurchaseListAdapter

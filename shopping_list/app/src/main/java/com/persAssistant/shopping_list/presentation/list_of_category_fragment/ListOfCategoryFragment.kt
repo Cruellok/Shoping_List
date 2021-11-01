@@ -18,7 +18,7 @@ import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.category.CreatorCategoryActivity
 import com.persAssistant.shopping_list.presentation.category.EditorCategoryActivity
 import com.persAssistant.shopping_list.presentation.list_of_category_fragment.adapter.CategoryAdapter
-import com.persAssistant.shopping_list.presentation.list_of_purchase_fragment.ListOfPurchaseActivity
+import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.ListOfPurchaseActivity
 import com.persAssistant.shopping_list.presentation.purchase.PurchaseActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

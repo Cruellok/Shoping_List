@@ -1,14 +1,14 @@
-package com.persAssistant.shopping_list.presentation.list_of_purchase_fragment.adapter
+package com.persAssistant.shopping_list.presentation.list_of_purchase_activity.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.Purchase
-import com.persAssistant.shopping_list.presentation.list_of_purchase_fragment.OnPurchaseClickListener
+import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.OnPurchaseClickListener
 import java.util.*
 
 class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPurchaseClickListener: OnPurchaseClickListener)
@@ -34,14 +34,31 @@ class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPur
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tv_name_recycler_purchase)
         val price: TextView = view.findViewById(R.id.tv_price_recycler_purchase)
-        val edit: ImageView = view.findViewById(R.id.iv_purchase_edit)
-        val delete: ImageView = view.findViewById(R.id.iv_purchase_delete)
+        val menu: TextView = view.findViewById(R.id.tv_options_menu)
 
         fun bindView(purchase: Purchase, onPurchaseClickListener: OnPurchaseClickListener){
-            delete.setOnClickListener {onPurchaseClickListener.deleteItem(purchase)}
-            edit.setOnClickListener {onPurchaseClickListener.editItem(purchase)}
             name.setOnClickListener {onPurchaseClickListener.clickedPurchaseItem(purchase)}
             price.setOnClickListener {onPurchaseClickListener.clickedPurchaseItem(purchase)}
+            menu.setOnClickListener {
+                //creating a popup menu
+                val popup = PopupMenu(it.context, menu)
+                //inflating menu from xml resource
+                popup.inflate(R.menu.options_menu)
+                //adding click listener
+                popup.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.menu_delete -> {
+                            onPurchaseClickListener.deleteItem(purchase)
+                        }
+                        R.id.menu_edit -> {
+                            onPurchaseClickListener.editItem(purchase)
+                        }
+                    }
+                    false
+                }
+                //displaying the popup
+                popup.show()
+            }
         }
     }
 
