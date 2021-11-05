@@ -21,7 +21,6 @@ open class MainActivity : AppCompatActivity() {
             when(menu.itemId){
                 R.id.bottomNav_category -> {
                     setFragment(ListOfCategoryFragment())
-
                     true
                 }
                 R.id.bottomNav_list -> {

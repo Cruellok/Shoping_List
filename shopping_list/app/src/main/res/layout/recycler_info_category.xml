@@ -20,31 +20,23 @@
             />
 
         <TextView
-            android:id="@+id/tv_name_recycler_category"
+            android:id="@+id/TV_name_recycler_category"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:gravity="center_vertical"
             android:lines="1"
             android:text="Name"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/iv_category_edit"
+        <TextView
+            android:id="@+id/TV_category_menu"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_edit"
-            android:scaleType="center"
-            />
-
-        <ImageView
-            android:id="@+id/iv_category_delete"
-            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_close"
-            android:scaleType="center"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:text="&#8942;"
             />
 
     </LinearLayout>

@@ -19,11 +19,21 @@ class EditorPurchaseViewModel(application: Application, private var id: Long): P
                 price.value = it.price.toString()
                 categoryId = it.categoryId
                 listId = it.listId
+                getCategoryName(app,categoryId)
+            }, {})
+    }
+
+    private fun getCategoryName (app: App, categoryId: Long){
+        app.categoryService.getById(categoryId)
+            .subscribeOn(Schedulers.single())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                categoryName.value = it.name
             }, {})
     }
 
     override fun save() {
-        if(listId != DbStruct.Purchase.Cols.INVALID_ID){
+        if(listId != DbStruct.PurchaseListTable.Cols.INVALID_ID){
             val app = getApplication<App>()
             if(price.value == null)
                 price.value = "0"

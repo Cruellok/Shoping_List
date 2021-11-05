@@ -19,5 +19,4 @@ class CreatorPurchaseListViewModel (application: Application) : PurchaseListView
                 closeEvent.value = Unit
             }, {})
     }
-
 }

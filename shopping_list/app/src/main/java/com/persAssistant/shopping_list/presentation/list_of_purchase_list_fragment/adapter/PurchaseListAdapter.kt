@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
@@ -33,16 +34,34 @@ class PurchaseListAdapter( private var items: LinkedList<PurchaseList>, private 
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.tv_name_recycler_purchaseList)
-        val edit: ImageView = view.findViewById(R.id.iv_purchaseList_edit)
-        val delete: ImageView = view.findViewById(R.id.iv_purchaseList_delete)
-        val date: TextView = view.findViewById(R.id.tv_date_recycler_purchaseList)
+        val name: TextView = view.findViewById(R.id.TV_name_recycler_purchaseList)
+        val date: TextView = view.findViewById(R.id.TV_date_recycler_purchaseList)
+        val menu: TextView = view.findViewById(R.id.TV_list_menu_purchase)
 
         fun bindView(purchaseList: PurchaseList, onPurchaseListClickListener: OnPurchaseListClickListener){
-            delete.setOnClickListener {onPurchaseListClickListener.deleteItem(purchaseList)}
-            edit.setOnClickListener {onPurchaseListClickListener.editItem(purchaseList)}
-            name.setOnClickListener {onPurchaseListClickListener.clickedPurchaseListItem(purchaseList)}
-
+            name.setOnClickListener {
+                onPurchaseListClickListener.clickedPurchaseListItem(purchaseList)
+            }
+            menu.setOnClickListener {
+                // Creating a popup menu
+                val popup = PopupMenu(it.context, menu)
+                // Inflating menu from xml resource
+                popup.inflate(R.menu.options_menu)
+                // Adding click listener
+                popup.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.menu_delete -> {
+                            onPurchaseListClickListener.deleteItem(purchaseList)
+                        }
+                        R.id.menu_edit -> {
+                            onPurchaseListClickListener.editItem(purchaseList)
+                        }
+                    }
+                    false
+                }
+                // Displaying the popup
+                popup.show()
+            }
         }
     }
 

@@ -1,7 +1,6 @@
 package com.persAssistant.shopping_list.data.database
 
 import android.content.Context
-import android.widget.Toast
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -12,13 +11,10 @@ import com.persAssistant.shopping_list.data.database.dao.PurchaseRoomDao
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomCategory
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchase
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchaseList
-import com.persAssistant.shopping_list.data.database.enitities.Category
-import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 
 @Database(
     entities = [RoomCategory::class, RoomPurchaseList::class, RoomPurchase::class],
@@ -36,7 +32,6 @@ abstract class RoomDataBaseHelper : RoomDatabase() {
                 DATABASE_NAME)
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
-
                         // creating default category
                         val app = App()
                         val dataBaseHelper = getInstance(context)
@@ -62,24 +57,3 @@ abstract class RoomDataBaseHelper : RoomDatabase() {
     abstract fun getPurchaseRoomDao(): PurchaseRoomDao
     abstract fun getPurchaseListRoomDao(): PurchaseListRoomDao
 }
-
-
-
-
-//val app = App()
-//val dataBaseHelper = RoomDataBaseHelper.getInstance(context)
-//val categoryDao = dataBaseHelper.getCategoryRoomDao()
-//val categoryService = CategoryService(categoryDao)
-//
-//val defaultCategory = Category(DbStruct.Purchase.Cols.DEFAULT_CATEGORY_ID,"Универсальная категория")
-//
-//categoryService.insert(defaultCategory)
-//.subscribeOn(Schedulers.single())
-//.observeOn(AndroidSchedulers.mainThread())
-//.subscribe({}, {})
-//
-//categoryService.getById(defaultCategory.id!!)
-//.subscribeOn(Schedulers.single())
-//.observeOn(AndroidSchedulers.mainThread())
-//.subscribe({}, {})
-

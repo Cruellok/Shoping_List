@@ -1,6 +1,7 @@
 package com.persAssistant.shopping_list.presentation.list_of_purchase_activity
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -25,6 +26,12 @@ class ListOfPurchaseActivity: AppCompatActivity() {
     private lateinit var purchaseAdapter: PurchaseAdapter
     lateinit var app : App
 
+    companion object{
+        const val CLICKED_FROM_CATEGORY_FRAGMENT = "CLICKED_FROM_CATEGORY_FRAGMENT"
+        const val YES_CLICKED = "YES_CLICKED"
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recycler_purchase)
@@ -38,8 +45,11 @@ class ListOfPurchaseActivity: AppCompatActivity() {
         initRecyclerView()
 
         val addPurchase: FloatingActionButton = findViewById(R.id.btn_add_purchase)
-        addPurchase.setOnClickListener {
+        val clickedFromCategoryFragment: String? = intent.getStringExtra(CLICKED_FROM_CATEGORY_FRAGMENT)
+        if(clickedFromCategoryFragment != null)
+            addPurchase.visibility = View.GONE
 
+        addPurchase.setOnClickListener {
             val intent = CreatorPurchaseActivity.getIntent(this, intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID, -1))
             startActivity(intent)
         }
@@ -76,15 +86,25 @@ class ListOfPurchaseActivity: AppCompatActivity() {
     }
 
     private fun initAdapter() {
+        val categoryId = intent.getLongExtra(PurchaseActivity.KEY_CATEGORY_ID, -1)
         val purchaseListId = intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID, -1)
-        if(purchaseListId == -1L)
-            throw Exception("Ошибка в ListOfPurchaseActivity отсутствует listId")
 
-        app.purchaseService.getAllByListId(purchaseListId)
-            .subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({/*Есть данные*/
-                purchaseAdapter.updateItems(it)
-            }, {/*Ошибка*/ })
+        if(purchaseListId == -1L && categoryId != -1L) {
+            app.purchaseService.getAllByCategoryId(categoryId)
+                .subscribeOn(Schedulers.single())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({/*Есть данные*/
+                    purchaseAdapter.updateItems(it)
+                }, {/*Ошибка*/ })
+
+        }else if(purchaseListId != -1L && categoryId == -1L) {
+            app.purchaseService.getAllByListId(purchaseListId)
+                .subscribeOn(Schedulers.single())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({/*Есть данные*/
+                    purchaseAdapter.updateItems(it)
+                }, {/*Ошибка*/ })
+        }else
+            throw Exception("Ошибка в ListOfPurchaseActivity отсутствует listId или categoryId")
     }
 }

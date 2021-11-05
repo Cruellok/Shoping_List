@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.Category
@@ -29,14 +30,33 @@ class CategoryAdapter (private var items: LinkedList<Category>, private val onCa
     }
 
     class ViewHolder(view: View ) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.tv_name_recycler_category)
-        val delete: ImageView = view.findViewById(R.id.iv_category_delete)
-        val edit: ImageView = view.findViewById(R.id.iv_category_edit)
+        val name: TextView = view.findViewById(R.id.TV_name_recycler_category)
+        val menu: TextView = view.findViewById(R.id.TV_category_menu)
 
         fun bindView( category: Category, onCategoryClickListener: OnCategoryClickListener){
-            delete.setOnClickListener {onCategoryClickListener.deleteItem(category)}
-            edit.setOnClickListener {onCategoryClickListener.editItem(category)}
-            name.setOnClickListener {onCategoryClickListener.clickedCategoryItem(category)}
+            name.setOnClickListener {
+                onCategoryClickListener.clickedCategoryItem(category)
+            }
+            menu.setOnClickListener {
+                // Creating a popup menu
+                val popup = PopupMenu(it.context, menu)
+                // Inflating menu from xml resource
+                popup.inflate(R.menu.options_menu)
+                // Adding click listener
+                popup.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.menu_delete -> {
+                            onCategoryClickListener.deleteItem(category)
+                        }
+                        R.id.menu_edit -> {
+                            onCategoryClickListener.editItem(category)
+                        }
+                    }
+                    false
+                }
+                // Displaying the popup
+                popup.show()
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <data>
         <variable
             name="vmPurchase"
@@ -7,16 +8,28 @@
     </data>
 
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/product_name"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_alignParentEnd="true"
+            android:text="Единицы"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,22 +41,124 @@
             android:id="@+id/et_name_purchaseList"
             android:layout_width="0dp"
             android:layout_weight="2"
+            android:hint="@string/indicate_the_name"
             android:layout_height="wrap_content"
             android:text="@={vmPurchase.name}"/>
 
-
         <EditText
-            android:id="@+id/tv_price_purchaseList"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
             android:layout_height="match_parent"
-            android:background="@null"
-            android:inputType="numberDecimal"
-            android:hint="@string/indicate_the_price"
-            android:text="@={vmPurchase.price}"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="шт, ml, kg"
+            />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:text="@string/number"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:id="@+id/et_purchase_price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="start"
+                android:inputType="numberDecimal"
+                android:hint="@string/indicate_the_price"
+                android:text="@={vmPurchase.price}"
+                />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:hint="1"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_selection_of_categories_for_purchases"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_alignParentStart="true"
+                android:text="@string/categories"/>
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:src="@drawable/ic_launcher_foreground"
+                />
+
+            <TextView
+                android:id="@+id/et_choose_category_in_the_purchase"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="7"
+                android:hint="@string/categories"
+                android:text="@={vmPurchase.categoryName}"
+                >
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btn_save_purchaseList"
@@ -53,7 +168,6 @@
         android:textColor="@android:color/white"
         android:onClick="@{view -> vmPurchase.save()}"
         android:text="@string/save"/>
-
 
 </LinearLayout>
 </layout>

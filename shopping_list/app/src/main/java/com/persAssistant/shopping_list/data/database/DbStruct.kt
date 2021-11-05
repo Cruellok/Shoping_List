@@ -9,6 +9,7 @@ object DbStruct {
             const val id = "_id"
             const val date = "date"
             const val name = "name_списка_покупок"
+            const val INVALID_ID = -1000L
         }
     }
 
@@ -23,7 +24,6 @@ object DbStruct {
             const val listId = "listId"
             const val price = "price"
             const val isCompleted = "isCompleted"
-            const val INVALID_ID = -1L
         }
     }
 

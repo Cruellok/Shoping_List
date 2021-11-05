@@ -202,7 +202,8 @@ class TestPurchaseService : CommonTest() {
         purchaseService.insert(games).blockingGet()
 
         //---getAll---
-        assertEquals("Функция вернула не верный результат Category ", 1,  categoryService.getAll().blockingGet().size)
+        Thread.sleep(500)
+        assertEquals("Функция вернула не верный результат Category ", 2,  categoryService.getAll().blockingGet().size)
 
         //---CheckingId---
         assertEquals("Функция вернула не верный результат Purchase ", null, games.id)
@@ -222,6 +223,7 @@ class TestPurchaseService : CommonTest() {
         purchaseService.insert(games).blockingGet()
 
         //---getAll---
+        Thread.sleep(500)
         assertEquals("Функция вернула не верный результат Purchase ", 1L, games.id)
         assertEquals("Функция вернула не верный результат Purchase ", 1, purchaseService.getAll().blockingGet().size)
         assertEquals("Функция вернула не верный результат Category ", 2, categoryService.getAll().blockingGet().size)

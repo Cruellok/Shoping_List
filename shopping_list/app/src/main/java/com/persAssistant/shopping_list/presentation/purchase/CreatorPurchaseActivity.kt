@@ -16,8 +16,9 @@ class CreatorPurchaseActivity: PurchaseActivity() {
 
     override fun createViewModel(): PurchaseViewModel {
         val listId = intent.getLongExtra(KEY_PURCHASELIST_ID,-1L)
-        if (listId == -1L)
+        if (listId == -1L){
             throw Exception("Ошибка в PurchaseActivity отсутствует listId")
+        }
         return CreatorPurchaseViewModel(application,listId)
     }
 }

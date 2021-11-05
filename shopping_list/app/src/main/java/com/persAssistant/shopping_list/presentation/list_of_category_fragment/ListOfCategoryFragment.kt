@@ -40,8 +40,8 @@ class ListOfCategoryFragment : Fragment() {
         val addCategory: FloatingActionButton = view.findViewById(R.id.btn_add_category)
         addCategory.setOnClickListener {
             val intent = CreatorCategoryActivity.getIntent(requireContext())
-            startActivity(intent)}
-
+            startActivity(intent)
+        }
         return view
     }
 
@@ -55,7 +55,8 @@ class ListOfCategoryFragment : Fragment() {
 
             override fun clickedCategoryItem(category: Category) {
                 val intent = Intent(requireContext(), ListOfPurchaseActivity::class.java)
-                intent.putExtra(PurchaseActivity.KEY_PURCHASELIST_ID, category.id)
+                intent.putExtra(PurchaseActivity.KEY_CATEGORY_ID, category.id)
+                intent.putExtra(ListOfPurchaseActivity.CLICKED_FROM_CATEGORY_FRAGMENT, ListOfPurchaseActivity.YES_CLICKED)
                 startActivity(intent)
             }
 
@@ -94,5 +95,4 @@ class ListOfCategoryFragment : Fragment() {
         super.onAttach(context)
         app = (context.applicationContext as App)
     }
-
 }

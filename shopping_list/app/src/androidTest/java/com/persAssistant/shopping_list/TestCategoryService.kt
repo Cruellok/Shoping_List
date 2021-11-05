@@ -52,6 +52,6 @@ class TestCategoryService : CommonTest() {
         assertEquals("Функция вернула не верный результат CategoryTest ", null, categoryService.getById(foodCategory.id!!).blockingGet())
 
         //---Get All---
-        assertEquals("Функция вернула не верный результат CategoryTest ", 1, categoryService.getAll().blockingGet().size)
+        assertEquals("Функция вернула не верный результат CategoryTest ", 2, categoryService.getAll().blockingGet().size)
     }
 }

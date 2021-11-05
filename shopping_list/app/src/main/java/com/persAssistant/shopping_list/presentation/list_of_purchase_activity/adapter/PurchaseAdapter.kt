@@ -3,6 +3,7 @@ package com.persAssistant.shopping_list.presentation.list_of_purchase_activity.a
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
@@ -32,19 +33,24 @@ class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPur
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.tv_name_recycler_purchase)
-        val price: TextView = view.findViewById(R.id.tv_price_recycler_purchase)
-        val menu: TextView = view.findViewById(R.id.tv_options_menu)
+        val name: TextView = view.findViewById(R.id.TV_name_recycler_purchase)
+        val price: TextView = view.findViewById(R.id.TV_price_purchase_in_recycler)
+        val menu: TextView = view.findViewById(R.id.TV_purchase_menu)
+        val category: ImageView = view.findViewById(R.id.IV_purchase)
 
         fun bindView(purchase: Purchase, onPurchaseClickListener: OnPurchaseClickListener){
-            name.setOnClickListener {onPurchaseClickListener.clickedPurchaseItem(purchase)}
-            price.setOnClickListener {onPurchaseClickListener.clickedPurchaseItem(purchase)}
+            name.setOnClickListener {
+                onPurchaseClickListener.clickedPurchaseItem(purchase)
+            }
+            price.setOnClickListener {
+                onPurchaseClickListener.clickedPurchaseItem(purchase)
+            }
             menu.setOnClickListener {
-                //creating a popup menu
+                // Creating a popup menu
                 val popup = PopupMenu(it.context, menu)
-                //inflating menu from xml resource
+                // Inflating menu from xml resource
                 popup.inflate(R.menu.options_menu)
-                //adding click listener
+                // Adding click listener
                 popup.setOnMenuItemClickListener { item ->
                     when (item.itemId) {
                         R.id.menu_delete -> {
@@ -56,7 +62,7 @@ class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPur
                     }
                     false
                 }
-                //displaying the popup
+                // Displaying the popup
                 popup.show()
             }
         }
