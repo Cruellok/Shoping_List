@@ -43,9 +43,9 @@ abstract class RoomDataBaseHelper : RoomDatabase() {
                         )}
                             .subscribeOn(Schedulers.single())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe({}, {})
-
-                        app.defaultCategoryId = defaultRoomCategory.id!!
+                            .subscribe({
+                                app.defaultCategoryId = defaultRoomCategory.id!!
+                            }, {})
                     }
                 })
                 .build()

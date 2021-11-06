@@ -2,7 +2,6 @@ package com.persAssistant.shopping_list
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.persAssistant.shopping_list.data.database.DbStruct
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.data.database.enitities.Category
 import com.persAssistant.shopping_list.data.database.enitities.Purchase

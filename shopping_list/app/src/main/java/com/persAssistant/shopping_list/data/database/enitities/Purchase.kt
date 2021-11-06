@@ -7,5 +7,7 @@ data class Purchase(
         var categoryId: Long,
         var listId: Long,
         var price: Double? = null,
+//        var quantity: Double,
+//        var unit: String? = null,
         var isCompleted: Int
 )
