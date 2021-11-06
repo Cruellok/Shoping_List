@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.persAssistant.shopping_list.data.database.DbStruct
+import com.persAssistant.shopping_list.data.database.enitities.Category
 import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -12,14 +13,13 @@ abstract class PurchaseViewModel(application: Application): AndroidViewModel(app
     var closeEvent = MutableLiveData<Unit>()
     var name = MutableLiveData<String>()
     var price = MutableLiveData<String>()
-    var categoryName = MutableLiveData<String>()
-    var categoryId: Long
+    var categoryId: Long = /*               */ DbStruct.Category.Cols.DEFAULT_CATEGORIES_COUNT
     var listId: Long = DbStruct.PurchaseListTable.Cols.INVALID_ID
+    var categoryName = MutableLiveData<String>()
 
-    init {
-        val app = getApplication<App>()
-        categoryId = app.defaultCategoryId
+    fun setCategory(category: Category){
+        categoryId = category.id!!
+        categoryName.value = category.name
     }
-
     abstract fun save()
 }

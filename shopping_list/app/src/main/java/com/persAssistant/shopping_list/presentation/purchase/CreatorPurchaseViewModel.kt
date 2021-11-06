@@ -10,6 +10,17 @@ class CreatorPurchaseViewModel(application: Application, purchaseListId: Long) :
 
     init {
         listId = purchaseListId
+        val app = getApplication<App>()
+        initCategoryName(app,categoryId)
+    }
+
+    private fun initCategoryName (app: App, categoryId: Long){
+        app.categoryService.getById(categoryId)
+            .subscribeOn(Schedulers.single())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                categoryName.value = it.name
+            }, {})
     }
 
     override fun save() {

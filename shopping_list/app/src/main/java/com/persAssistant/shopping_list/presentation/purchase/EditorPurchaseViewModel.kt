@@ -7,11 +7,11 @@ import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class EditorPurchaseViewModel(application: Application, private var id: Long): PurchaseViewModel(application) {
+class EditorPurchaseViewModel(application: Application, private var purchaseId: Long): PurchaseViewModel(application) {
 
     init {
         val app = getApplication<App>()
-        app.purchaseService.getById(id)
+        app.purchaseService.getById(purchaseId)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -19,11 +19,11 @@ class EditorPurchaseViewModel(application: Application, private var id: Long): P
                 price.value = it.price.toString()
                 categoryId = it.categoryId
                 listId = it.listId
-                getCategoryName(app,categoryId)
+                initCategoryName(app,categoryId)
             }, {})
     }
 
-    private fun getCategoryName (app: App, categoryId: Long){
+    private fun initCategoryName (app: App, categoryId: Long){
         app.categoryService.getById(categoryId)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
@@ -38,7 +38,7 @@ class EditorPurchaseViewModel(application: Application, private var id: Long): P
             if(price.value == null)
                 price.value = "0"
 
-            val purchase = Purchase(id = id, name = name.value ?: "", categoryId = categoryId, listId = listId, price = price.value?.toDouble(), isCompleted = 0)
+            val purchase = Purchase(id = purchaseId, name = name.value ?: "", categoryId = categoryId, listId = listId, price = price.value?.toDouble(), isCompleted = 0)
             app.purchaseService.update(purchase)
                 .subscribeOn(Schedulers.single())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -12,6 +12,10 @@ import com.persAssistant.shopping_list.data.database.dao.enitity.RoomCategory
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchase
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchaseList
 import com.persAssistant.shopping_list.presentation.App
+import com.persAssistant.shopping_list.presentation.purchase.CreatorPurchaseActivity
+import com.persAssistant.shopping_list.presentation.purchase.CreatorPurchaseViewModel
+import com.persAssistant.shopping_list.presentation.purchase.PurchaseActivity
+import com.persAssistant.shopping_list.presentation.purchase.PurchaseViewModel
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -33,7 +37,6 @@ abstract class RoomDataBaseHelper : RoomDatabase() {
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         // creating default category
-                        val app = App()
                         val dataBaseHelper = getInstance(context)
                         val categoryDao = dataBaseHelper.getCategoryRoomDao()
                         val defaultRoomCategory = RoomCategory(DbStruct.Category.Cols.DEFAULT_CATEGORIES_COUNT,"Универсальная категория")
@@ -44,7 +47,6 @@ abstract class RoomDataBaseHelper : RoomDatabase() {
                             .subscribeOn(Schedulers.single())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({
-                                app.defaultCategoryId = defaultRoomCategory.id!!
                             }, {})
                     }
                 })

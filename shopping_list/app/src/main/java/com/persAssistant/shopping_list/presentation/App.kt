@@ -13,7 +13,7 @@ class App: Application() {
     lateinit var purchaseService: PurchaseService
     lateinit var purchaseListService: PurchaseListService
     //temporaries variable
-    var defaultCategoryId = DbStruct.Category.Cols.DEFAULT_CATEGORIES_COUNT
+//    var defaultCategoryId = DbStruct.Category.Cols.DEFAULT_CATEGORIES_COUNT
 
     override fun onCreate() {
         super.onCreate()
