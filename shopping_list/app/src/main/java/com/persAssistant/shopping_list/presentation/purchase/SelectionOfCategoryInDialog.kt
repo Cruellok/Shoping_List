@@ -16,7 +16,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class SelectionOfCategoryInTheDialog {
+class SelectionOfCategoryInDialog {
 
     interface DialogButtonsClickedListener{
         fun okClickListener(category: Category)

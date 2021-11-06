@@ -31,8 +31,8 @@ abstract class PurchaseActivity: AppCompatActivity() {
         })
 
         ui.llSelectionOfCategoriesForPurchases.setOnClickListener {
-            SelectionOfCategoryInTheDialog.show(this@PurchaseActivity, object:
-                SelectionOfCategoryInTheDialog.DialogButtonsClickedListener{
+            SelectionOfCategoryInDialog.show(this@PurchaseActivity, object:
+                SelectionOfCategoryInDialog.DialogButtonsClickedListener{
                 override fun okClickListener(category: Category) {
                     viewModel.setCategory(category)
                 }
