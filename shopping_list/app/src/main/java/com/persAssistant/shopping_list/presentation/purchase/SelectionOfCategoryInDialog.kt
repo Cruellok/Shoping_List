@@ -45,12 +45,12 @@ class SelectionOfCategoryInDialog {
                 override fun deleteItem(category: Category) {}
                 override fun editItem(category: Category) {}
             })
-            initAdapter(categoryAdapter)
+            initAdapter(activity, categoryAdapter)
             recyclerView.adapter = categoryAdapter
         }
 
-        private fun initAdapter(categoryAdapter: CategoryAdapter) {
-            val app = App()
+        private fun initAdapter(activity: Activity, categoryAdapter: CategoryAdapter) {
+            val app = (activity.applicationContext as App)
             app.categoryService.getAll()
                 .subscribeOn(Schedulers.single())
                 .observeOn(AndroidSchedulers.mainThread())

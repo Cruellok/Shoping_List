@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout >
+    <data>
+        <variable
+            name="vm"
+            type="com.persAssistant.shopping_list.presentation.list_of_category_fragment.ListOfCategoryViewModel" />
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-
     <TextView
         android:id="@+id/tv_recyclerCategory"
         android:layout_width="match_parent"
@@ -17,8 +24,9 @@
         android:id="@+id/recyclerView_category"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tv_recyclerCategory"
-        >
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:adapter="@{vm.categoryAdapter}"
+        android:layout_below="@+id/tv_recyclerCategory">
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,3 +42,4 @@
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </RelativeLayout>
+</layout>

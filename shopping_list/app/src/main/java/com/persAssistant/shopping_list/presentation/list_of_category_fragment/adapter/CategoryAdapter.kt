@@ -3,7 +3,6 @@ package com.persAssistant.shopping_list.presentation.list_of_category_fragment.a
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView

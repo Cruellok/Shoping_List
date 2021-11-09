@@ -2,8 +2,10 @@ package com.persAssistant.shopping_list.presentation.purchase
 
 import android.app.Application
 import com.persAssistant.shopping_list.data.database.DbStruct
+import com.persAssistant.shopping_list.data.database.enitities.Category
 import com.persAssistant.shopping_list.data.database.enitities.Purchase
 import com.persAssistant.shopping_list.presentation.App
+import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -12,23 +14,20 @@ class EditorPurchaseViewModel(application: Application, private var purchaseId: 
     init {
         val app = getApplication<App>()
         app.purchaseService.getById(purchaseId)
+            .flatMap { purchase ->
+                app.categoryService.getById(purchase.categoryId)
+                    .map {
+                        Pair<Purchase, Category>(purchase,it)
+                    }
+            }
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                name.value = it.name
-                price.value = it.price.toString()
-                categoryId = it.categoryId
-                listId = it.listId
-                initCategoryName(app,categoryId)
-            }, {})
-    }
-
-    private fun initCategoryName (app: App, categoryId: Long){
-        app.categoryService.getById(categoryId)
-            .subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                categoryName.value = it.name
+                categoryName.value = it.second.name
+                name.value = it.first.name
+                price.value = it.first.price.toString()
+                categoryId = it.first.categoryId
+                listId = it.first.listId
             }, {})
     }
 
