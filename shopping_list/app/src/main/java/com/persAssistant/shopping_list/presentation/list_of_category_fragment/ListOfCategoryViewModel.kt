@@ -2,9 +2,8 @@ package com.persAssistant.shopping_list.presentation.list_of_category_fragment
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import com.persAssistant.shopping_list.data.database.dao.enitity.RoomCategory
 import com.persAssistant.shopping_list.data.database.enitities.Category
 import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.presentation.App
@@ -15,23 +14,27 @@ import java.util.*
 class ListOfCategoryViewModel(application: Application): AndroidViewModel(application)  {
 
     var categoryService: CategoryService
-    var listCategory = MutableLiveData<LinkedList<Category>>()
+    var categoryList = MutableLiveData<LinkedList<Category>>()
     var deleteCategoryId = MutableLiveData<Long>()
 
     init {
         val app = getApplication<App>()
         categoryService = app.categoryService
-        getAllCategories()
     }
 
-    var onChanges = categoryService.getChangeSingle()
+    fun init(lifecycleOwner: LifecycleOwner){
+        categoryService.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
+            initCategoryList()
+        })
+        initCategoryList()
+    }
 
-    fun getAllCategories() {
+    private fun initCategoryList() {
         categoryService.getAll()
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Есть данные*/
-                listCategory.value = it
+                categoryList.value = it
             }, {/*Ошибка*/ })
     }
 

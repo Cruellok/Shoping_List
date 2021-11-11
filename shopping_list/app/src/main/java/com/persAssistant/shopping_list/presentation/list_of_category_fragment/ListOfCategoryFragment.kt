@@ -25,7 +25,7 @@ class ListOfCategoryFragment : Fragment() {
     private lateinit var ui: RecyclerCategoryBinding
     private lateinit var categoryAdapter: CategoryAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         ui = RecyclerCategoryBinding.inflate(layoutInflater)
 
         categoryAdapter = CategoryAdapter(LinkedList(), object : OnCategoryClickListener {
@@ -52,13 +52,11 @@ class ListOfCategoryFragment : Fragment() {
             categoryAdapter.removeCategory(it)
         })
 
-        viewModel.listCategory.observe(requireActivity(), androidx.lifecycle.Observer {
+        viewModel.categoryList.observe(requireActivity(), androidx.lifecycle.Observer {
             categoryAdapter.updateItems(it)
         })
 
-        viewModel.onChanges.observe(requireActivity(), androidx.lifecycle.Observer {
-            viewModel.getAllCategories()
-        })
+        viewModel.init(this)
 
         val addCategory: FloatingActionButton = ui.btnAddCategory
         addCategory.setOnClickListener {
