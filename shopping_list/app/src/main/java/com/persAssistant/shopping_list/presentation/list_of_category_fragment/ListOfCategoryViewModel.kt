@@ -2,17 +2,21 @@ package com.persAssistant.shopping_list.presentation.list_of_category_fragment
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.persAssistant.shopping_list.data.database.dao.enitity.RoomCategory
 import com.persAssistant.shopping_list.data.database.enitities.Category
 import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.presentation.App
-import com.persAssistant.shopping_list.presentation.list_of_category_fragment.adapter.CategoryAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class ListOfCategoryViewModel(application: Application): AndroidViewModel(application)  {
 
-    lateinit var categoryAdapter: CategoryAdapter
     var categoryService: CategoryService
+    var listCategory = MutableLiveData<LinkedList<Category>>()
+    var deleteCategoryId = MutableLiveData<Long>()
 
     init {
         val app = getApplication<App>()
@@ -20,12 +24,14 @@ class ListOfCategoryViewModel(application: Application): AndroidViewModel(applic
         getAllCategories()
     }
 
+    var onChanges = categoryService.getChangeSingle()
+
     fun getAllCategories() {
         categoryService.getAll()
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Есть данные*/
-                categoryAdapter.updateItems(it)
+                listCategory.value = it
             }, {/*Ошибка*/ })
     }
 
@@ -34,7 +40,7 @@ class ListOfCategoryViewModel(application: Application): AndroidViewModel(applic
         .subscribeOn(Schedulers.single())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({/*Выполнено*/
-            categoryAdapter.removeCategory(category.id)
+            deleteCategoryId.value = category.id
         }, {/*Ошибка*/ })
     }
 }

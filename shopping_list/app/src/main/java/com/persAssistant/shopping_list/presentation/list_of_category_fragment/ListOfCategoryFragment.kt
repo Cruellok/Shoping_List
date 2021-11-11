@@ -46,13 +46,19 @@ class ListOfCategoryFragment : Fragment() {
         })
 
         viewModel = ListOfCategoryViewModel(app)
-        viewModel.categoryAdapter = categoryAdapter
+        ui.recyclerViewCategory.adapter = categoryAdapter
 
-        app.categoryService.getChangeSingle().observe(requireActivity(), androidx.lifecycle.Observer {
-            viewModel.getAllCategories()
+        viewModel.deleteCategoryId.observe(requireActivity(), androidx.lifecycle.Observer {
+            categoryAdapter.removeCategory(it)
         })
 
-        ui.vm = viewModel
+        viewModel.listCategory.observe(requireActivity(), androidx.lifecycle.Observer {
+            categoryAdapter.updateItems(it)
+        })
+
+        viewModel.onChanges.observe(requireActivity(), androidx.lifecycle.Observer {
+            viewModel.getAllCategories()
+        })
 
         val addCategory: FloatingActionButton = ui.btnAddCategory
         addCategory.setOnClickListener {
