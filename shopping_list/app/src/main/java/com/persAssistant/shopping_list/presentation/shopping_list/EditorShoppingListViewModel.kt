@@ -1,16 +1,16 @@
-package com.persAssistant.shopping_list.presentation.purchase_list
+package com.persAssistant.shopping_list.presentation.shopping_list
 
 import android.app.Application
-import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
+import com.persAssistant.shopping_list.data.database.enitities.ShoppingList
 import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class EditorPurchaseListViewModel(application: Application, private var id: Long): PurchaseListViewModel(application) {
+class EditorShoppingListViewModel(application: Application, private var id: Long): ShoppingListViewModel(application) {
 
     init {
         val app = getApplication<App>()
-        app.purchaseListService.getById(id)
+        app.shoppingListService.getById(id)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -21,8 +21,8 @@ class EditorPurchaseListViewModel(application: Application, private var id: Long
 
     override fun save() {
         val app = getApplication<App>()
-        val purchaseList = PurchaseList(id = id, name = name.value ?: "",date = date)
-        app.purchaseListService.update(purchaseList)
+        val shoppingList = ShoppingList(id = id, name = name.value ?: "",date = date)
+        app.shoppingListService.update(shoppingList)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

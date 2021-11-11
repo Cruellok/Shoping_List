@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.presentation.list_of_category_fragment.ListOfCategoryFragment
-import com.persAssistant.shopping_list.presentation.list_of_purchase_list_fragment.ListOfPurchaseListFragment
+import com.persAssistant.shopping_list.presentation.list_of_shopping_list_fragment.ListOfShoppingListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 open class MainActivity : AppCompatActivity() {
@@ -15,7 +15,7 @@ open class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottomNav.menu.getItem(0).isCheckable = true
-        setFragment(ListOfPurchaseListFragment())
+        setFragment(ListOfShoppingListFragment())
 
         bottomNav.setOnItemSelectedListener {menu ->
             when(menu.itemId){
@@ -24,7 +24,7 @@ open class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.bottomNav_list -> {
-                    setFragment(ListOfPurchaseListFragment())
+                    setFragment(ListOfShoppingListFragment())
                     true
                 }
                 else -> false

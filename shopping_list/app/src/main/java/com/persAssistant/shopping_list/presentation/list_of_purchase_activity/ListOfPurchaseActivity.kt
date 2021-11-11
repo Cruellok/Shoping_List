@@ -11,7 +11,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.Purchase
 import com.persAssistant.shopping_list.presentation.App
-import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.adapter.PurchaseAdapter
 import com.persAssistant.shopping_list.presentation.purchase.CreatorPurchaseActivity
 import com.persAssistant.shopping_list.presentation.purchase.EditorPurchaseActivity
 import com.persAssistant.shopping_list.presentation.purchase.PurchaseActivity
@@ -50,7 +49,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
             addPurchase.visibility = View.GONE
 
         addPurchase.setOnClickListener {
-            val intent = CreatorPurchaseActivity.getIntent(this, intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID, -1))
+            val intent = CreatorPurchaseActivity.getIntent(this, intent.getLongExtra(PurchaseActivity.KEY_SHOPPINGLIST_ID, -1))
             startActivity(intent)
         }
     }
@@ -87,7 +86,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
 
     private fun initAdapter() {
         val categoryId = intent.getLongExtra(PurchaseActivity.KEY_CATEGORY_ID, -1)
-        val purchaseListId = intent.getLongExtra(PurchaseActivity.KEY_PURCHASELIST_ID, -1)
+        val purchaseListId = intent.getLongExtra(PurchaseActivity.KEY_SHOPPINGLIST_ID, -1)
 
         if(purchaseListId == -1L && categoryId != -1L) {
             app.purchaseService.getAllByCategoryId(categoryId)

@@ -2,8 +2,8 @@ package com.persAssistant.shopping_list.data.database
 
 object DbStruct {
     //данные для листа
-    object PurchaseListTable {
-        const val tableName = "purchase_lists"
+    object ShoppingListTable {
+        const val tableName = "shopping_lists"
 
         object Cols {
             const val id = "_id"

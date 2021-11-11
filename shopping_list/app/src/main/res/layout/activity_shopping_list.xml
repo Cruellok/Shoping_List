@@ -2,8 +2,8 @@
 <layout >
     <data>
         <variable
-            name="vmPurchaseList"
-            type="com.persAssistant.shopping_list.presentation.purchase_list.PurchaseListViewModel" />
+            name="vmShoppingList"
+            type="com.persAssistant.shopping_list.presentation.shopping_list.ShoppingListViewModel" />
     </data>
 
 <LinearLayout
@@ -29,27 +29,27 @@
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="@={vmPurchaseList.name}"/>
+            android:text="@={vmShoppingList.name}"/>
 
 
         <TextView
-            android:id="@+id/tv_date_purchaseList"
+            android:id="@+id/tv_date_shoppingList"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:layout_height="match_parent"
             android:hint="@string/select_the_time"
-            android:text="@={vmPurchaseList.strDate}"/>
+            android:text="@={vmShoppingList.strDate}"/>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_save_purchaseList"
+        android:id="@+id/btn_save_shoppingList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#4CAF50"
         android:textColor="@android:color/white"
-        android:onClick="@{view -> vmPurchaseList.save()}"
+        android:onClick="@{view -> vmShoppingList.save()}"
         android:text="@string/save"/>
 
 

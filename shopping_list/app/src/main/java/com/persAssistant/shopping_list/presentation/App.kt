@@ -1,17 +1,16 @@
 package com.persAssistant.shopping_list.presentation
 
 import android.app.Application
-import com.persAssistant.shopping_list.data.database.DbStruct
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.data.database.service.CategoryService
-import com.persAssistant.shopping_list.data.database.service.PurchaseListService
+import com.persAssistant.shopping_list.data.database.service.ShoppingListService
 import com.persAssistant.shopping_list.data.database.service.PurchaseService
 
 class App: Application() {
 
     lateinit var categoryService: CategoryService
     lateinit var purchaseService: PurchaseService
-    lateinit var purchaseListService: PurchaseListService
+    lateinit var shoppingListService: ShoppingListService
 
     override fun onCreate() {
         super.onCreate()
@@ -24,8 +23,8 @@ class App: Application() {
         val purchaseDao = dataBaseHelper.getPurchaseRoomDao()
         purchaseService = PurchaseService(purchaseDao)
 
-        val purchaseListDao = dataBaseHelper.getPurchaseListRoomDao()
-        purchaseListService = PurchaseListService(purchaseListDao)
+        val shoppingListDao = dataBaseHelper.getShoppingListRoomDao()
+        shoppingListService = ShoppingListService(shoppingListDao)
 
     }
 

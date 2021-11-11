@@ -13,7 +13,6 @@ import com.persAssistant.shopping_list.databinding.RecyclerCategoryBinding
 import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.category.CreatorCategoryActivity
 import com.persAssistant.shopping_list.presentation.category.EditorCategoryActivity
-import com.persAssistant.shopping_list.presentation.list_of_category_fragment.adapter.CategoryAdapter
 import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.ListOfPurchaseActivity
 import com.persAssistant.shopping_list.presentation.purchase.PurchaseActivity
 import java.util.*
@@ -44,10 +43,9 @@ class ListOfCategoryFragment : Fragment() {
                 startActivity(intent)
             }
         })
-
-        viewModel = ListOfCategoryViewModel(app)
         ui.recyclerViewCategory.adapter = categoryAdapter
 
+        viewModel = ListOfCategoryViewModel(app)
         viewModel.deleteCategoryId.observe(requireActivity(), androidx.lifecycle.Observer {
             categoryAdapter.removeCategory(it)
         })

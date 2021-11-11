@@ -15,7 +15,7 @@ abstract class PurchaseActivity: AppCompatActivity() {
     protected lateinit var viewModel: PurchaseViewModel
 
     companion object {
-        const val KEY_PURCHASELIST_ID = "PURCHASE_LIST_ID"
+        const val KEY_SHOPPINGLIST_ID = "PURCHASE_LIST_ID"
         const val KEY_PURCHASE_ID = "PURCHASE_ID"
         const val KEY_CATEGORY_ID = "CATEGORY_ID"
     }

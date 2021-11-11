@@ -11,7 +11,7 @@ abstract class PurchaseViewModel(application: Application): AndroidViewModel(app
     var name = MutableLiveData<String>()
     var price = MutableLiveData<String>()
     var categoryId: Long = DbStruct.Category.Cols.DEFAULT_CATEGORIES_COUNT
-    var listId: Long = DbStruct.PurchaseListTable.Cols.INVALID_ID
+    var listId: Long = DbStruct.ShoppingListTable.Cols.INVALID_ID
     var categoryName = MutableLiveData<String>()
 
     fun setCategory(category: Category){

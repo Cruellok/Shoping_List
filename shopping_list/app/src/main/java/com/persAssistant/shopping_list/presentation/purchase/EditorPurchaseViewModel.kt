@@ -5,7 +5,6 @@ import com.persAssistant.shopping_list.data.database.DbStruct
 import com.persAssistant.shopping_list.data.database.enitities.Category
 import com.persAssistant.shopping_list.data.database.enitities.Purchase
 import com.persAssistant.shopping_list.presentation.App
-import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -32,7 +31,7 @@ class EditorPurchaseViewModel(application: Application, private var purchaseId: 
     }
 
     override fun save() {
-        if(listId != DbStruct.PurchaseListTable.Cols.INVALID_ID){
+        if(listId != DbStruct.ShoppingListTable.Cols.INVALID_ID){
             val app = getApplication<App>()
             if(price.value == null)
                 price.value = "0"

@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.presentation.list_of_category_fragment.adapter
+package com.persAssistant.shopping_list.presentation.list_of_category_fragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,6 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.Category
-import com.persAssistant.shopping_list.presentation.list_of_category_fragment.OnCategoryClickListener
 import java.util.*
 
 class CategoryAdapter (private var items: LinkedList<Category>, private val onCategoryClickListener: OnCategoryClickListener) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {

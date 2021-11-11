@@ -2,8 +2,8 @@
 <layout >
     <data>
         <variable
-            name="vmPurchaseList"
-            type="com.persAssistant.shopping_list.presentation.purchase_list.PurchaseListViewModel" />
+            name="vmShoppingList"
+            type="com.persAssistant.shopping_list.presentation.shopping_list.ShoppingListViewModel" />
     </data>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,17 +18,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/TV_date_recycler_purchaseList"
+            android:id="@+id/TV_date_recycler_shoppingList"
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:hint="time"
-            android:text="@={vmPurchaseList.strDate}"
+            android:text="@={vmShoppingList.strDate}"
             android:gravity="center_vertical|center_horizontal"
             />
 
         <TextView
-            android:id="@+id/TV_name_recycler_purchaseList"
+            android:id="@+id/TV_name_recycler_shoppingList"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"

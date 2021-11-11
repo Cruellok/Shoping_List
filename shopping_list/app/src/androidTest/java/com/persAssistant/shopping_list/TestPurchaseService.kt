@@ -5,9 +5,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.data.database.enitities.Category
 import com.persAssistant.shopping_list.data.database.enitities.Purchase
-import com.persAssistant.shopping_list.data.database.enitities.PurchaseList
+import com.persAssistant.shopping_list.data.database.enitities.ShoppingList
 import com.persAssistant.shopping_list.data.database.service.CategoryService
-import com.persAssistant.shopping_list.data.database.service.PurchaseListService
+import com.persAssistant.shopping_list.data.database.service.ShoppingListService
 import com.persAssistant.shopping_list.data.database.service.PurchaseService
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,14 +32,14 @@ class TestPurchaseService : CommonTest() {
     private val foodCategory = Category(name = "Еда")
     private val homeCategory = Category(name = "Дом")
 
-    //---PurchaseList---
-    private val purchaseListDao = dataBaseHelper.getPurchaseListRoomDao()
-    private val purchaseListService = PurchaseListService(purchaseListDao)
+    //---ShoppingList---
+    private val shoppingListDao = dataBaseHelper.getShoppingListRoomDao()
+    private val shoppingListService = ShoppingListService(shoppingListDao)
     private val dailyTime = 1000*60*60*24
     private val today = Date()
     private val yesterday = Date(today.time - dailyTime)
-    private val everydayLifeList = PurchaseList(name = "быт", date = today )
-    private val carList = PurchaseList(name = "Автомобиль", date = yesterday )
+    private val everydayLifeList = ShoppingList(name = "быт", date = today )
+    private val carList = ShoppingList(name = "Автомобиль", date = yesterday )
 
     //---Purchase---
     private val purchaseDao = dataBaseHelper.getPurchaseRoomDao()
@@ -51,9 +51,9 @@ class TestPurchaseService : CommonTest() {
         categoryService.insert(undefinedCategory).blockingGet()
         categoryService.insert(homeCategory).blockingGet()
 
-        //---PurchaseList---
-        purchaseListService.insert(everydayLifeList).blockingGet()
-        purchaseListService.insert(carList).blockingGet()
+        //---ShoppingList---
+        shoppingListService.insert(everydayLifeList).blockingGet()
+        shoppingListService.insert(carList).blockingGet()
     }
 
     @Test
@@ -178,7 +178,7 @@ class TestPurchaseService : CommonTest() {
     }
 
     @Test
-    fun nonexistentPurchaseListAndCategoryTest() {
+    fun nonexistentShoppingListAndCategoryTest() {
         initialized()
         val games = Purchase(name = "игрушка", categoryId = -100, listId = 1, isCompleted = 0)
 
@@ -190,7 +190,7 @@ class TestPurchaseService : CommonTest() {
     }
 
     @Test
-    fun nonexistentPurchaseListTest() {
+    fun nonexistentShoppingListTest() {
         val car = Category( name= "Машина")
         //---insert---
         categoryService.insert(car).blockingGet()
@@ -213,7 +213,7 @@ class TestPurchaseService : CommonTest() {
         val car = Category( name= "Машина")
 
         //---insert---
-        purchaseListService.insert(everydayLifeList).blockingGet()
+        shoppingListService.insert(everydayLifeList).blockingGet()
         categoryService.insert(car).blockingGet()
 
         val games = Purchase(name = "Игрушка", categoryId = car.id!!, listId = everydayLifeList.id!!, isCompleted = 0)

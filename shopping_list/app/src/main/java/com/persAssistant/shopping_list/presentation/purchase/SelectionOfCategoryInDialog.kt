@@ -11,7 +11,7 @@ import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.Category
 import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.list_of_category_fragment.OnCategoryClickListener
-import com.persAssistant.shopping_list.presentation.list_of_category_fragment.adapter.CategoryAdapter
+import com.persAssistant.shopping_list.presentation.list_of_category_fragment.CategoryAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*

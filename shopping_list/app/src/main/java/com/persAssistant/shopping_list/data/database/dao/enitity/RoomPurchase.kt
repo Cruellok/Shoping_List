@@ -13,8 +13,8 @@ import com.persAssistant.shopping_list.data.database.DbStruct
                 childColumns = arrayOf(DbStruct.Purchase.Cols.categoryId),
                 onDelete = SET_DEFAULT),
 
-                ForeignKey(entity = RoomPurchaseList::class,
-                parentColumns = arrayOf(DbStruct.PurchaseListTable.Cols.id),
+                ForeignKey(entity = RoomShoppingList::class,
+                parentColumns = arrayOf(DbStruct.ShoppingListTable.Cols.id),
                 childColumns = arrayOf(DbStruct.Purchase.Cols.listId),
                 onDelete = CASCADE)])
 

@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.presentation.list_of_purchase_activity.adapter
+package com.persAssistant.shopping_list.presentation.list_of_purchase_activity
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,6 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.data.database.enitities.Purchase
-import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.OnPurchaseClickListener
 import java.util.*
 
 class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPurchaseClickListener: OnPurchaseClickListener)

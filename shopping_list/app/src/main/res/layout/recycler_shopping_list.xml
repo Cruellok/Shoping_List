@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout >
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="vm"
-            type="com.persAssistant.shopping_list.presentation.list_of_category_fragment.ListOfCategoryViewModel" />
+            type="com.persAssistant.shopping_list.presentation.list_of_shopping_list_fragment.ListOfShoppingListViewModel" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         >
+
         <TextView
-            android:id="@+id/tv_recyclerCategory"
+            android:id="@+id/tv_recyclerShoppingList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Categories"
+            android:text="List"
             android:textSize="40sp"
             android:gravity="center"
-            />
+            >
+        </TextView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_category"
+            android:id="@+id/recycler_view_shopping_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_below="@+id/tv_recyclerCategory">
+            android:layout_below="@+id/tv_recyclerShoppingList"
+            >
         </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add_category"
+            android:id="@+id/btn_add_shoppingList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -37,8 +39,6 @@
             android:layout_marginEnd="35dp"
             android:layout_marginBottom="48dp"
             android:src="@drawable/ic_add">
-
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
 </RelativeLayout>
 </layout>

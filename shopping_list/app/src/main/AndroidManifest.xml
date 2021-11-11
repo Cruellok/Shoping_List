@@ -21,8 +21,8 @@
         <activity android:name=".presentation.purchase.CreatorPurchaseActivity" />
         <activity android:name=".presentation.purchase.EditorPurchaseActivity" />
         <activity android:name=".presentation.list_of_purchase_activity.ListOfPurchaseActivity" />
-        <activity android:name=".presentation.purchase_list.CreatorPurchaseListActivity" />
-        <activity android:name=".presentation.purchase_list.EditorPurchaseListActivity" />
+        <activity android:name=".presentation.shopping_list.CreatorShoppingListActivity" />
+        <activity android:name=".presentation.shopping_list.EditorShoppingListActivity" />
     </application>
 
 </manifest>

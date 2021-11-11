@@ -161,7 +161,7 @@
 
 
     <Button
-        android:id="@+id/btn_save_purchaseList"
+        android:id="@+id/btn_save_shoppingList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#4CAF50"
