@@ -3,8 +3,10 @@ package com.persAssistant.shopping_list
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
+import com.persAssistant.shopping_list.data.database.repositories.ShoppingListRepository
 import com.persAssistant.shopping_list.domain.enitities.ShoppingList
 import com.persAssistant.shopping_list.data.database.service.ShoppingListService
+import com.persAssistant.shopping_list.domain.interactors.ShoppingListInteractor
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,6 +25,8 @@ class TestShoppingListService : CommonTest(){
     private val dataBaseHelper = RoomDataBaseHelper.getInstance(appContext)
     private val shoppingListDao = dataBaseHelper.getShoppingListRoomDao()
     private val shoppingListService = ShoppingListService(shoppingListDao)
+    private val shoppingListRepository = ShoppingListRepository(shoppingListService)
+    private val shoppingListInteractor = ShoppingListInteractor(shoppingListRepository)
 
     @Test
     fun shoppingListTest() {
@@ -38,33 +42,33 @@ class TestShoppingListService : CommonTest(){
         var carList = ShoppingList(name = "Автомобиль", date = today )
         var homeList = ShoppingList(name = "Дом", date = today )
 
-        shoppingListService.insert(travelList).blockingGet()
-        shoppingListService.insert(carList).blockingGet()
-        shoppingListService.insert(homeList).blockingGet()
+        shoppingListInteractor.insert(travelList).blockingGet()
+        shoppingListInteractor.insert(carList).blockingGet()
+        shoppingListInteractor.insert(homeList).blockingGet()
         //Проверка инсерта, что вернется объект по добавленному id
-        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = travelList.id, name = "Путешествие", date = today ), shoppingListService.getById(travelList.id!!).blockingGet())
-        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = carList.id, name = "Автомобиль", date = today ), shoppingListService.getById(carList.id!!).blockingGet())
-        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = homeList.id, name = "Дом", date = today ), shoppingListService.getById(homeList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = travelList.id, name = "Путешествие", date = today ), shoppingListInteractor.getById(travelList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = carList.id, name = "Автомобиль", date = today ), shoppingListInteractor.getById(carList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = homeList.id, name = "Дом", date = today ), shoppingListInteractor.getById(homeList.id!!).blockingGet())
 
         //---Update---
         travelList = ShoppingList(id = travelList.id, name = "Тренировка", date = tomorrow )
         carList = ShoppingList(id = carList.id, name = "Работа", date = yesterday )
         homeList = ShoppingList(id = homeList.id, name = "Дом", date = afterTomorrow )
 
-        shoppingListService.update(travelList).blockingGet()
-        shoppingListService.update(carList).blockingGet()
-        shoppingListService.update(homeList).blockingGet()
+        shoppingListInteractor.update(travelList).blockingGet()
+        shoppingListInteractor.update(carList).blockingGet()
+        shoppingListInteractor.update(homeList).blockingGet()
         //Проверка инсерта, что вернется объект по добавленному id
-        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = travelList.id  , name = "Тренировка", date = tomorrow ), shoppingListService.getById(travelList.id!!).blockingGet())
-        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = carList.id , name = "Работа", date = yesterday ), shoppingListService.getById(carList.id!!).blockingGet())
-        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = homeList.id , name = "Дом", date = afterTomorrow ), shoppingListService.getById(homeList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = travelList.id  , name = "Тренировка", date = tomorrow ), shoppingListInteractor.getById(travelList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = carList.id , name = "Работа", date = yesterday ), shoppingListInteractor.getById(carList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат ShoppingList ", ShoppingList(id = homeList.id , name = "Дом", date = afterTomorrow ), shoppingListInteractor.getById(homeList.id!!).blockingGet())
 
         //---Delete---
-        shoppingListService.delete(carList).blockingGet()
+        shoppingListInteractor.delete(carList).blockingGet()
         //Проверка инсерта, что вернется объект по добавленному id
-        assertEquals("Функция вернула не верный результат ShoppingList ", null, shoppingListService.getById(carList.id!!).blockingGet())
+        assertEquals("Функция вернула не верный результат ShoppingList ", null, shoppingListInteractor.getById(carList.id!!).blockingGet())
 
         //---Get All---
-        assertEquals("Функция вернула не верный результат ShoppingList ", 2, shoppingListService.getAll().blockingGet().size)
+        assertEquals("Функция вернула не верный результат ShoppingList ", 2, shoppingListInteractor.getAll().blockingGet().size)
     }
 }

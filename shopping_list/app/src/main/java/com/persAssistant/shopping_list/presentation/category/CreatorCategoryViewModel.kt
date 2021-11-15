@@ -11,7 +11,7 @@ class CreatorCategoryViewModel(application: Application) : CategoryViewModel(app
     override fun save() {
         val app = getApplication<App>()
         val category = Category(name = name.value ?: "")
-        app.categoryService.insert(category)
+        app.categoryInteractor.insert(category)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

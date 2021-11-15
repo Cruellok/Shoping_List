@@ -1,34 +1,46 @@
 package com.persAssistant.shopping_list.domain.interactors
 
+import androidx.lifecycle.LiveData
+import com.persAssistant.shopping_list.data.database.dao.enitity.RoomCategory
 import com.persAssistant.shopping_list.domain.enitities.Category
 import com.persAssistant.shopping_list.domain.interactor_interfaces.CategoryInteractorInterface
 import com.persAssistant.shopping_list.domain.interactor_repositories.CategoryRepositoryInterface
+import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.Single
+import java.util.*
 
 class CategoryInteractor(private val categoryRepositoryInterface: CategoryRepositoryInterface):
     CategoryInteractorInterface() {
 
-    override fun getChangeSingle() {
-        categoryRepositoryInterface.getChangeSingle()
+    // сигнал об изменении в таблице
+    override fun getChangeSingle(): LiveData<List<RoomCategory>> {
+        return categoryRepositoryInterface.getChangeSingle()
     }
 
-    override fun insert(category: Category) {
-        categoryRepositoryInterface.insert(category)
+    // добавления записи в таблицу
+    override fun insert(category: Category): Completable {
+        return categoryRepositoryInterface.insert(category)
     }
 
-    override fun getAll() {
-        categoryRepositoryInterface.getAll()
+    //запрос всех списков
+    override fun getAll(): Single<LinkedList<Category>> {
+        return categoryRepositoryInterface.getAll()
     }
 
-    override fun getById(id: Long) {
-        categoryRepositoryInterface.getById(id)
+    //запрос одного списка по айди
+    override fun getById(id: Long): Maybe<Category> {
+        return categoryRepositoryInterface.getById(id)
     }
 
-    override fun update(category: Category) {
-        categoryRepositoryInterface.update(category)
+    //обновление списка
+    override fun update(category: Category): Completable {
+        return categoryRepositoryInterface.update(category)
     }
 
-    override fun delete(category: Category) {
-        categoryRepositoryInterface.delete(category)
+    //удаление списка
+    override fun delete(category: Category): Completable {
+        return categoryRepositoryInterface.delete(category)
     }
 
 }

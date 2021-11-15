@@ -1,7 +1,6 @@
 package com.persAssistant.shopping_list.presentation.list_of_category_fragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,9 +29,7 @@ class ListOfCategoryFragment : Fragment() {
 
         categoryAdapter = CategoryAdapter(LinkedList(), object : OnCategoryClickListener {
             override fun clickedCategoryItem(category: Category) {
-                val intent = Intent(requireContext(), ListOfPurchaseActivity::class.java)
-                intent.putExtra(KEY_CATEGORY_ID, category.id)
-                intent.putExtra(CLICKED_FROM_CATEGORY_FRAGMENT, CLICKED_FROM_CATEGORY_FRAGMENT)
+                val intent = ListOfPurchaseActivity.getIntent(requireContext(),category.id!!, CLICKED_FROM_CATEGORY_FRAGMENT)
                 startActivity(intent)
             }
 

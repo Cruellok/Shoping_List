@@ -1,32 +1,44 @@
 package com.persAssistant.shopping_list.data.database.repositories
 
+import androidx.lifecycle.LiveData
+import com.persAssistant.shopping_list.data.database.dao.enitity.RoomShoppingList
 import com.persAssistant.shopping_list.domain.interactor_repositories.ShoppingListRepositoryInterface
 import com.persAssistant.shopping_list.data.database.service.ShoppingListService
 import com.persAssistant.shopping_list.domain.enitities.ShoppingList
+import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.Single
+import java.util.*
 
 class ShoppingListRepository(private val shoppingListService: ShoppingListService): ShoppingListRepositoryInterface() {
 
-    override fun getChangeSingle() {
-        shoppingListService.getChangeSingle()
+    // сигнал об изменении в таблице
+    override fun getChangeSingle(): LiveData<List<RoomShoppingList>> {
+        return shoppingListService.getChangeSingle()
     }
 
-    override fun insert(shoppingList: ShoppingList) {
-        shoppingListService.insert(shoppingList)
+    // добавления записи в таблицу
+    override fun insert(shoppingList: ShoppingList): Completable {
+        return shoppingListService.insert(shoppingList)
     }
 
-    override fun getAll() {
-        shoppingListService.getAll()
+    //запрос всех списков
+    override fun getAll(): Single<LinkedList<ShoppingList>> {
+        return shoppingListService.getAll()
     }
 
-    override fun getById(id: Long) {
-        shoppingListService.getById(id)
+    //запрос одного списка по айди
+    override fun getById(id: Long): Maybe<ShoppingList> {
+        return shoppingListService.getById(id)
     }
 
-    override fun update(shoppingList: ShoppingList) {
-        shoppingListService.update(shoppingList)
+    //обновление списка
+    override fun update(shoppingList: ShoppingList): Completable {
+        return shoppingListService.update(shoppingList)
     }
 
-    override fun delete(shoppingList: ShoppingList) {
-        shoppingListService.delete(shoppingList)
+    //удаление списка по айди
+    override fun delete(shoppingList: ShoppingList): Completable {
+        return shoppingListService.delete(shoppingList)
     }
 }

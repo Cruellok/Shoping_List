@@ -1,36 +1,54 @@
 package com.persAssistant.shopping_list.data.database.repositories
 
+import androidx.lifecycle.LiveData
+import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchase
 import com.persAssistant.shopping_list.domain.interactor_repositories.PurchaseRepositoryInterface
 import com.persAssistant.shopping_list.data.database.service.PurchaseService
 import com.persAssistant.shopping_list.domain.enitities.Purchase
+import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.Single
+import java.util.*
 
 class PurchaseRepository(private val purchaseService: PurchaseService): PurchaseRepositoryInterface() {
 
-    override fun getChangeSingle() {
-        purchaseService.getChangeSingle()
+    // сигнал об изменении в таблице
+    override fun getChangeSingle(): LiveData<List<RoomPurchase>> {
+        return purchaseService.getChangeSingle()
     }
 
-    override fun insert(purchase: Purchase) {
-        purchaseService.insert(purchase)
+    // добавления записи в таблицу
+    override fun insert(purchase: Purchase): Completable {
+        return purchaseService.insert(purchase)
     }
 
-    override fun getAll() {
-        purchaseService.getAll()
+    //запрос одного списка по айди
+    override fun getAll(): Single<LinkedList<Purchase>> {
+        return purchaseService.getAll()
     }
 
-    override fun getAllByListId(id: Long) {
-        purchaseService.getAllByListId(id)
+    //запрос всех списков
+    override fun getById(id: Long): Maybe<Purchase> {
+        return purchaseService.getById(id)
     }
 
-    override fun getAllByCategoryId(id: Long) {
-        purchaseService.getAllByCategoryId(id)
+    //запрос списка покупок относящегося к определенной покупке по айди
+    override fun getAllByListId(id: Long): Single<LinkedList<Purchase>> {
+        return purchaseService.getAllByListId(id)
     }
 
-    override fun update(purchase: Purchase) {
-        purchaseService.update(purchase)
+    //запрос категорий относящихся к определенной покупке по айди
+    override fun getAllByCategoryId(id: Long): Single<LinkedList<Purchase>> {
+        return purchaseService.getAllByCategoryId(id)
     }
 
-    override fun delete(purchase: Purchase) {
-        purchaseService.delete(purchase)
+    //обновление списка
+    override fun update(purchase: Purchase): Completable {
+        return purchaseService.update(purchase)
+    }
+
+    //удаление списка
+    override fun delete(purchase: Purchase): Completable {
+        return purchaseService.delete(purchase)
     }
 }

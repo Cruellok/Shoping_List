@@ -1,5 +1,7 @@
 package com.persAssistant.shopping_list.presentation.list_of_purchase_activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,17 @@ class ListOfPurchaseActivity: AppCompatActivity() {
 
     companion object{
         const val CLICKED_FROM_CATEGORY_FRAGMENT = "CLICKED_FROM_CATEGORY_FRAGMENT"
+
+        fun getIntent(context: Context, id: Long, clickFrom: String?): Intent {
+            val intent = Intent(context, ListOfPurchaseActivity::class.java)
+            if (clickFrom == CLICKED_FROM_CATEGORY_FRAGMENT){
+                intent.putExtra(PurchaseActivity.KEY_CATEGORY_ID, id)
+                intent.putExtra(CLICKED_FROM_CATEGORY_FRAGMENT, clickFrom)
+            }else
+                intent.putExtra(PurchaseActivity.KEY_SHOPPINGLIST_ID, id)
+
+            return intent
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +67,9 @@ class ListOfPurchaseActivity: AppCompatActivity() {
             purchaseAdapter.removePurchase(it)
         })
 
-        initAdapter()
+        val categoryId = intent.getLongExtra(PurchaseActivity.KEY_CATEGORY_ID, -1)
+        val shoppingListId = intent.getLongExtra(PurchaseActivity.KEY_SHOPPINGLIST_ID, -1)
+        viewModel.init(this,categoryId,shoppingListId)
 
         val addPurchase: FloatingActionButton = ui.btnAddPurchase
         val clickedFromCategoryFragment: String? = intent.getStringExtra(CLICKED_FROM_CATEGORY_FRAGMENT)
@@ -65,17 +80,5 @@ class ListOfPurchaseActivity: AppCompatActivity() {
             val intent = CreatorPurchaseActivity.getIntent(this, intent.getLongExtra(PurchaseActivity.KEY_SHOPPINGLIST_ID, -1))
             startActivity(intent)
         }
-    }
-
-    private fun initAdapter() {
-        val categoryId = intent.getLongExtra(PurchaseActivity.KEY_CATEGORY_ID, -1)
-        val shoppingListId = intent.getLongExtra(PurchaseActivity.KEY_SHOPPINGLIST_ID, -1)
-
-        if(shoppingListId == -1L && categoryId != -1L) {
-            viewModel.init(this, categoryId, viewModel.categories)
-        }else if(shoppingListId != -1L && categoryId == -1L) {
-            viewModel.init(this, shoppingListId, viewModel.shoppingList)
-        }else
-            throw Exception("Ошибка в ListOfPurchaseActivity отсутствует listId или categoryId")
     }
 }

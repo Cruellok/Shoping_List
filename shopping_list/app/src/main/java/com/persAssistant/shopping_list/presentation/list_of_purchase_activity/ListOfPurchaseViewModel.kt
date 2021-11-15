@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.persAssistant.shopping_list.domain.enitities.Purchase
-import com.persAssistant.shopping_list.data.database.service.PurchaseService
+import com.persAssistant.shopping_list.domain.interactors.PurchaseInteractor
 import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -13,30 +13,40 @@ import java.util.*
 
 class ListOfPurchaseViewModel(application: Application): AndroidViewModel(application)  {
 
-    var purchaseService: PurchaseService
+    var purchaseInteractor: PurchaseInteractor
     var purchaseList = MutableLiveData<LinkedList<Purchase>>()
     var deletePurchaseId = MutableLiveData<Long>()
 
-    val categories = "categories"
-    val shoppingList = "shoppingList"
+    private var entity = ""
+    private val categories = "categories"
+    private val shoppingList = "shoppingList"
 
     init {
         val app = getApplication<App>()
-        purchaseService = app.purchaseService
+        purchaseInteractor = app.purchaseInteractor
     }
 
-    fun init(lifecycleOwner: LifecycleOwner, id: Long, entity: String){
-        purchaseService.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
+    fun init(lifecycleOwner: LifecycleOwner, categoryId: Long, shoppingListId: Long){
+        if(shoppingListId == -1L && categoryId != -1L) {
+            entity = categories
+            getAllByCategoryId(categoryId)
+        }else if(shoppingListId != -1L && categoryId == -1L) {
+            entity = shoppingList
+            getAllByListId(shoppingListId)
+        }else
+            throw Exception("Ошибка в ListOfPurchaseViewModel отсутствует listId или categoryId")
+
+        purchaseInteractor.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
             when (entity) {
-                categories -> getAllByCategoryId(id)
-                shoppingList -> getAllByListId(id)
+                categories -> getAllByCategoryId(categoryId)
+                shoppingList -> getAllByListId(shoppingListId)
                 else -> false
             }
         })
     }
 
     fun deleteItemPurchase(purchase: Purchase){
-        purchaseService.delete(purchase)
+        purchaseInteractor.delete(purchase)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Выполнено*/
@@ -45,7 +55,7 @@ class ListOfPurchaseViewModel(application: Application): AndroidViewModel(applic
     }
 
     private fun getAllByCategoryId(id: Long) {
-        purchaseService.getAllByCategoryId(id)
+        purchaseInteractor.getAllByCategoryId(id)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Есть данные*/
@@ -53,7 +63,7 @@ class ListOfPurchaseViewModel(application: Application): AndroidViewModel(applic
             }, {/*Ошибка*/ })
     }
     private fun getAllByListId(id: Long) {
-        purchaseService.getAllByListId(id)
+        purchaseInteractor.getAllByListId(id)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Есть данные*/

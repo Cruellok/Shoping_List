@@ -10,7 +10,7 @@ class EditorCategoryViewModel(application: Application, private var id: Long): C
 
     init {
         val app = getApplication<App>()
-        app.categoryService.getById(id)
+        app.categoryInteractor.getById(id)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -21,7 +21,7 @@ class EditorCategoryViewModel(application: Application, private var id: Long): C
     override fun save() {
         val app = getApplication<App>()
         val category = Category(id = id, name = name.value ?: "")
-        app.categoryService.update(category)
+        app.categoryInteractor.update(category)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

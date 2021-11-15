@@ -8,6 +8,9 @@ import com.persAssistant.shopping_list.data.database.repositories.ShoppingListRe
 import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.data.database.service.ShoppingListService
 import com.persAssistant.shopping_list.data.database.service.PurchaseService
+import com.persAssistant.shopping_list.domain.interactors.CategoryInteractor
+import com.persAssistant.shopping_list.domain.interactors.PurchaseInteractor
+import com.persAssistant.shopping_list.domain.interactors.ShoppingListInteractor
 
 class App: Application() {
 
@@ -19,6 +22,10 @@ class App: Application() {
     lateinit var purchaseRepository: PurchaseRepository
     lateinit var shoppingListRepository: ShoppingListRepository
 
+    lateinit var categoryInteractor: CategoryInteractor
+    lateinit var purchaseInteractor: PurchaseInteractor
+    lateinit var shoppingListInteractor: ShoppingListInteractor
+
     override fun onCreate() {
         super.onCreate()
 
@@ -27,14 +34,17 @@ class App: Application() {
         val categoryDao = dataBaseHelper.getCategoryRoomDao()
         categoryService = CategoryService(categoryDao)
         categoryRepository = CategoryRepository(categoryService)
+        categoryInteractor = CategoryInteractor(categoryRepository)
 
         val purchaseDao = dataBaseHelper.getPurchaseRoomDao()
         purchaseService = PurchaseService(purchaseDao)
         purchaseRepository = PurchaseRepository(purchaseService)
+        purchaseInteractor = PurchaseInteractor(purchaseRepository)
 
         val shoppingListDao = dataBaseHelper.getShoppingListRoomDao()
         shoppingListService = ShoppingListService(shoppingListDao)
         shoppingListRepository = ShoppingListRepository(shoppingListService)
+        shoppingListInteractor = ShoppingListInteractor(shoppingListRepository)
     }
 
 }

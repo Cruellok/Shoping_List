@@ -12,9 +12,9 @@ class EditorPurchaseViewModel(application: Application, private var purchaseId: 
 
     init {
         val app = getApplication<App>()
-        app.purchaseService.getById(purchaseId)
+        app.purchaseInteractor.getById(purchaseId)
             .flatMap { purchase ->
-                app.categoryService.getById(purchase.categoryId)
+                app.categoryInteractor.getById(purchase.categoryId)
                     .map {
                         Pair<Purchase, Category>(purchase,it)
                     }
@@ -37,7 +37,7 @@ class EditorPurchaseViewModel(application: Application, private var purchaseId: 
                 price.value = "0"
 
             val purchase = Purchase(id = purchaseId, name = name.value ?: "", categoryId = categoryId, listId = listId, price = price.value?.toDouble(), isCompleted = 0)
-            app.purchaseService.update(purchase)
+            app.purchaseInteractor.update(purchase)
                 .subscribeOn(Schedulers.single())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

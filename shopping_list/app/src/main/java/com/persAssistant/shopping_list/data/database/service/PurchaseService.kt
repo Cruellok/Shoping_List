@@ -12,6 +12,7 @@ import java.util.*
 
 class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao){
 
+    // сигнал об изменении в таблице
     fun getChangeSingle(): LiveData<List<RoomPurchase>> {
         return purchaseRoomDao.getChangeSingle()
     }
@@ -58,17 +59,17 @@ class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao){
         return processDaoPurchases(purchaseRoomDao.getAll())
     }
 
-    //запрос списка покупок относящегося к определенному по айди
+    //запрос списка покупок относящегося к определенной покупке по айди
     fun getAllByListId(id: Long): Single<LinkedList<Purchase>> {
         return processDaoPurchases(purchaseRoomDao.getAllByListId(id))
     }
 
-    //запрос categories относящегося к определенному по айди
+    //запрос категорий относящихся к определенной покупке по айди
     fun getAllByCategoryId(id: Long): Single<LinkedList<Purchase>> {
         return processDaoPurchases(purchaseRoomDao.getAllByCategoryId(id))
     }
 
-    //обновление списка по id
+    //обновление списка
     fun update(purchase: Purchase): Completable {
         val roomPurchase = RoomPurchase(
             id = purchase.id,
@@ -82,7 +83,7 @@ class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao){
         }
     }
 
-    //удаление списка по айди
+    //удаление списка
     fun delete(purchase: Purchase): Completable {
         val roomPurchase = RoomPurchase(
             id = purchase.id,

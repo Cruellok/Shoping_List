@@ -10,7 +10,7 @@ class EditorShoppingListViewModel(application: Application, private var id: Long
 
     init {
         val app = getApplication<App>()
-        app.shoppingListService.getById(id)
+        app.shoppingListInteractor.getById(id)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -22,7 +22,7 @@ class EditorShoppingListViewModel(application: Application, private var id: Long
     override fun save() {
         val app = getApplication<App>()
         val shoppingList = ShoppingList(id = id, name = name.value ?: "",date = date)
-        app.shoppingListService.update(shoppingList)
+        app.shoppingListInteractor.update(shoppingList)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

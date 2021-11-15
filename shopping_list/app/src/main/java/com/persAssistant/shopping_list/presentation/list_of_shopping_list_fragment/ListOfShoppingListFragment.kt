@@ -30,8 +30,7 @@ class ListOfShoppingListFragment: Fragment() {
         shoppingListAdapter = ShoppingListAdapter(LinkedList(), object: OnShoppingListClickListener {
 
             override fun clickedShoppingListItem(shoppingList: ShoppingList) {
-                val intent = Intent(requireContext(), ListOfPurchaseActivity::class.java)
-                intent.putExtra(PurchaseActivity.KEY_SHOPPINGLIST_ID, shoppingList.id)
+                val intent = ListOfPurchaseActivity.getIntent(requireContext(),shoppingList.id!!,"")
                 startActivity(intent)
             }
 
@@ -65,7 +64,6 @@ class ListOfShoppingListFragment: Fragment() {
         
         return ui.root
     }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

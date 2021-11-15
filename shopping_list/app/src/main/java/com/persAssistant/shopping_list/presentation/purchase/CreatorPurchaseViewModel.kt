@@ -15,7 +15,7 @@ class CreatorPurchaseViewModel(application: Application, purchaseListId: Long) :
     }
 
     private fun initCategoryName (app: App, categoryId: Long){
-        app.categoryService.getById(categoryId)
+        app.categoryInteractor.getById(categoryId)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -29,7 +29,7 @@ class CreatorPurchaseViewModel(application: Application, purchaseListId: Long) :
             price.value = "0"
 
         val purchase = Purchase(name = name.value ?: "", categoryId = categoryId, listId = listId, price = price.value?.toDouble(), isCompleted = 0)
-        app.purchaseService.insert(purchase)
+        app.purchaseInteractor.insert(purchase)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

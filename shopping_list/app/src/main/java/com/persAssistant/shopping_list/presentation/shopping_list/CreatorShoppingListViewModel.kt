@@ -12,7 +12,7 @@ class CreatorShoppingListViewModel (application: Application) : ShoppingListView
 
         val app = getApplication<App>()
         val shoppingList = ShoppingList(name = name.value ?: "",date = date)
-        app.shoppingListService.insert(shoppingList)
+        app.shoppingListInteractor.insert(shoppingList)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

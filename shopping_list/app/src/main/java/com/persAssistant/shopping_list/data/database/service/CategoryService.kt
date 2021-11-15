@@ -12,6 +12,7 @@ import java.util.*
 
 class CategoryService(private val categoryDao: CategoryRoomDao){
 
+    // сигнал об изменении в таблице
     fun getChangeSingle(): LiveData<List<RoomCategory>>{
         return categoryDao.getChangeSingle()
     }
@@ -60,7 +61,7 @@ class CategoryService(private val categoryDao: CategoryRoomDao){
         }
     }
 
-    //удаление списка по айди
+    //удаление списка
     fun delete(category: Category): Completable{
         val roomCategory = RoomCategory(id = category.id,name = category.name)
         return Completable.fromAction{

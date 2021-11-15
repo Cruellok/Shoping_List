@@ -1,37 +1,55 @@
 package com.persAssistant.shopping_list.domain.interactors
 
+import androidx.lifecycle.LiveData
+import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchase
 import com.persAssistant.shopping_list.domain.enitities.Purchase
 import com.persAssistant.shopping_list.domain.interactor_interfaces.PurchaseInteractorInterface
 import com.persAssistant.shopping_list.domain.interactor_repositories.PurchaseRepositoryInterface
+import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.Single
+import java.util.*
 
 class PurchaseInteractor(private val purchaseRepositoryInterface: PurchaseRepositoryInterface):
     PurchaseInteractorInterface() {
 
-    override fun getChangeSingle() {
-        purchaseRepositoryInterface.getChangeSingle()
+    // сигнал об изменении в таблице
+    override fun getChangeSingle(): LiveData<List<RoomPurchase>> {
+        return purchaseRepositoryInterface.getChangeSingle()
     }
 
-    override fun insert(purchase: Purchase) {
-        purchaseRepositoryInterface.insert(purchase)
+    // добавления записи в таблицу
+    override fun insert(purchase: Purchase): Completable {
+        return purchaseRepositoryInterface.insert(purchase)
     }
 
-    override fun getAll() {
-        purchaseRepositoryInterface.getAll()
+    //запрос одного списка по айди
+    override fun getAll(): Single<LinkedList<Purchase>> {
+        return purchaseRepositoryInterface.getAll()
     }
 
-    override fun getAllByListId(id: Long) {
-        purchaseRepositoryInterface.getAllByListId(id)
+    //запрос всех списков
+    override fun getById(id: Long): Maybe<Purchase> {
+        return purchaseRepositoryInterface.getById(id)
     }
 
-    override fun getAllByCategoryId(id: Long) {
-        purchaseRepositoryInterface.getAllByCategoryId(id)
+    //запрос списка покупок относящегося к определенной покупке по айди
+    override fun getAllByListId(id: Long): Single<LinkedList<Purchase>> {
+        return purchaseRepositoryInterface.getAllByListId(id)
     }
 
-    override fun update(purchase: Purchase) {
-        purchaseRepositoryInterface.update(purchase)
+    //запрос категорий относящихся к определенной покупке по айди
+    override fun getAllByCategoryId(id: Long): Single<LinkedList<Purchase>> {
+        return purchaseRepositoryInterface.getAllByCategoryId(id)
     }
 
-    override fun delete(purchase: Purchase) {
-        purchaseRepositoryInterface.delete(purchase)
+    //обновление списка
+    override fun update(purchase: Purchase): Completable {
+        return purchaseRepositoryInterface.update(purchase)
+    }
+
+    //удаление списка
+    override fun delete(purchase: Purchase): Completable {
+        return purchaseRepositoryInterface.delete(purchase)
     }
 }

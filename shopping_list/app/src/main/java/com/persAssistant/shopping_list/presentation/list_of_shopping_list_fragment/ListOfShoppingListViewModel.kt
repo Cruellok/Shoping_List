@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.persAssistant.shopping_list.domain.enitities.ShoppingList
-import com.persAssistant.shopping_list.data.database.service.ShoppingListService
+import com.persAssistant.shopping_list.domain.interactors.ShoppingListInteractor
 import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -13,24 +13,24 @@ import java.util.*
 
 class ListOfShoppingListViewModel(application: Application): AndroidViewModel(application)  {
 
-    var shoppingListService: ShoppingListService
+    var shoppingListInteractor: ShoppingListInteractor
     var listOfShoppingList = MutableLiveData<LinkedList<ShoppingList>>()
     var deleteShoppingListId = MutableLiveData<Long>()
 
     init {
         val app = getApplication<App>()
-        shoppingListService = app.shoppingListService
+        shoppingListInteractor = app.shoppingListInteractor
     }
 
     fun init(lifecycleOwner: LifecycleOwner){
-        shoppingListService.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
+        shoppingListInteractor.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
             initShoppingList()
         })
         initShoppingList()
     }
 
     private fun initShoppingList() {
-        shoppingListService.getAll()
+        shoppingListInteractor.getAll()
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Есть данные*/
@@ -39,7 +39,7 @@ class ListOfShoppingListViewModel(application: Application): AndroidViewModel(ap
     }
 
     fun deleteItemShoppingList(shoppingList: ShoppingList){
-        shoppingListService.delete(shoppingList)
+        shoppingListInteractor.delete(shoppingList)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Выполнено*/

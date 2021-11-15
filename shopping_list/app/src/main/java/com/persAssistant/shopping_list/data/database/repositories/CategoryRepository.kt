@@ -1,33 +1,45 @@
 package com.persAssistant.shopping_list.data.database.repositories
 
+import androidx.lifecycle.LiveData
+import com.persAssistant.shopping_list.data.database.dao.enitity.RoomCategory
 import com.persAssistant.shopping_list.domain.interactor_repositories.CategoryRepositoryInterface
 import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.domain.enitities.Category
+import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.Single
+import java.util.*
 
 class CategoryRepository(private val categoryService: CategoryService): CategoryRepositoryInterface() {
 
-    override fun getChangeSingle() {
-        categoryService.getChangeSingle()
+    // сигнал об изменении в таблице
+    override fun getChangeSingle(): LiveData<List<RoomCategory>> {
+        return categoryService.getChangeSingle()
     }
 
-    override fun insert(category: Category) {
-        categoryService.insert(category)
+    // добавления записи в таблицу
+    override fun insert(category: Category): Completable {
+        return categoryService.insert(category)
     }
 
-    override fun getAll() {
-        categoryService.getAll()
+    //запрос всех списков
+    override fun getAll(): Single<LinkedList<Category>> {
+        return categoryService.getAll()
     }
 
-    override fun getById(id: Long) {
-        categoryService.getById(id)
+    //запрос одного списка по айди
+    override fun getById(id: Long): Maybe<Category> {
+        return categoryService.getById(id)
     }
 
-    override fun update(category: Category) {
-        categoryService.update(category)
+    //обновление списка
+    override fun update(category: Category): Completable {
+        return categoryService.update(category)
     }
 
-    override fun delete(category: Category) {
-        categoryService.delete(category)
+    //удаление списка
+    override fun delete(category: Category): Completable {
+        return categoryService.delete(category)
     }
 
 }

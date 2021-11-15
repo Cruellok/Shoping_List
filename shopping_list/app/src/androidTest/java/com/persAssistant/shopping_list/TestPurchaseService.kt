@@ -3,12 +3,18 @@ package com.persAssistant.shopping_list
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
+import com.persAssistant.shopping_list.data.database.repositories.CategoryRepository
+import com.persAssistant.shopping_list.data.database.repositories.PurchaseRepository
+import com.persAssistant.shopping_list.data.database.repositories.ShoppingListRepository
 import com.persAssistant.shopping_list.domain.enitities.Category
 import com.persAssistant.shopping_list.domain.enitities.Purchase
 import com.persAssistant.shopping_list.domain.enitities.ShoppingList
 import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.data.database.service.ShoppingListService
 import com.persAssistant.shopping_list.data.database.service.PurchaseService
+import com.persAssistant.shopping_list.domain.interactors.CategoryInteractor
+import com.persAssistant.shopping_list.domain.interactors.PurchaseInteractor
+import com.persAssistant.shopping_list.domain.interactors.ShoppingListInteractor
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -28,6 +34,8 @@ class TestPurchaseService : CommonTest() {
     //---Category---
     private val categoryDao = dataBaseHelper.getCategoryRoomDao()
     private val categoryService = CategoryService(categoryDao)
+    private val categoryRepository = CategoryRepository(categoryService)
+    private val categoryInteractor = CategoryInteractor(categoryRepository)
     private val undefinedCategory = Category(name = "Неопределенно")
     private val foodCategory = Category(name = "Еда")
     private val homeCategory = Category(name = "Дом")
@@ -35,6 +43,8 @@ class TestPurchaseService : CommonTest() {
     //---ShoppingList---
     private val shoppingListDao = dataBaseHelper.getShoppingListRoomDao()
     private val shoppingListService = ShoppingListService(shoppingListDao)
+    private val shoppingListRepository = ShoppingListRepository(shoppingListService)
+    private val shoppingListInteractor = ShoppingListInteractor(shoppingListRepository)
     private val dailyTime = 1000*60*60*24
     private val today = Date()
     private val yesterday = Date(today.time - dailyTime)
@@ -44,16 +54,18 @@ class TestPurchaseService : CommonTest() {
     //---Purchase---
     private val purchaseDao = dataBaseHelper.getPurchaseRoomDao()
     private val purchaseService = PurchaseService(purchaseDao)
+    private val purchaseRepository = PurchaseRepository(purchaseService)
+    private val purchaseInteractor = PurchaseInteractor(purchaseRepository)
 
     private fun initialized() {
         //---Category---
-        categoryService.insert(foodCategory).blockingGet()
-        categoryService.insert(undefinedCategory).blockingGet()
-        categoryService.insert(homeCategory).blockingGet()
+        categoryInteractor.insert(foodCategory).blockingGet()
+        categoryInteractor.insert(undefinedCategory).blockingGet()
+        categoryInteractor.insert(homeCategory).blockingGet()
 
         //---ShoppingList---
-        shoppingListService.insert(everydayLifeList).blockingGet()
-        shoppingListService.insert(carList).blockingGet()
+        shoppingListInteractor.insert(everydayLifeList).blockingGet()
+        shoppingListInteractor.insert(carList).blockingGet()
     }
 
     @Test
@@ -63,14 +75,14 @@ class TestPurchaseService : CommonTest() {
         val pliers = Purchase(name = "пассатижи", categoryId = undefinedCategory.id!!, listId = carList.id!!, isCompleted = 0)
 
         //---insert---
-        purchaseService.insert(pliers).blockingGet()
-        purchaseService.insert(bread).blockingGet()
+        purchaseInteractor.insert(pliers).blockingGet()
+        purchaseInteractor.insert(bread).blockingGet()
 
         //---getById---
         assertEquals("Функция вернула не верный результат insertTest ", Purchase(id = bread.id, name = "хлеб", categoryId = foodCategory.id!!, listId = everydayLifeList.id!!, isCompleted = 0),
-                purchaseService.getById(bread.id!!).blockingGet())
+            purchaseInteractor.getById(bread.id!!).blockingGet())
         assertEquals("Функция вернула не верный результат insertTest ", Purchase(id = pliers.id, name = "пассатижи", categoryId = undefinedCategory.id!!, listId = carList.id!!, isCompleted = 0),
-                purchaseService.getById(pliers.id!!).blockingGet())
+            purchaseInteractor.getById(pliers.id!!).blockingGet())
     }
 
     @Test
@@ -80,20 +92,20 @@ class TestPurchaseService : CommonTest() {
         var pliers = Purchase(name = "пассатижи", categoryId = undefinedCategory.id!!, listId = carList.id!!, isCompleted = 1)
 
         //---insert---
-        purchaseService.insert(pliers).blockingGet()
-        purchaseService.insert(bread).blockingGet()
+        purchaseInteractor.insert(pliers).blockingGet()
+        purchaseInteractor.insert(bread).blockingGet()
 
         //---Update---
         bread = Purchase(id = bread.id!!, name = "утюг", categoryId = homeCategory.id!!, listId = everydayLifeList.id!!, isCompleted = 1)
         pliers = Purchase(id = pliers.id!!, name = "лампочка", categoryId = undefinedCategory.id!!, listId = carList.id!!, isCompleted = 0)
-        purchaseService.update(pliers).blockingGet()
-        purchaseService.update(bread).blockingGet()
+        purchaseInteractor.update(pliers).blockingGet()
+        purchaseInteractor.update(bread).blockingGet()
 
         //---getById---
         assertEquals("Функция вернула не верный результат insertTest ", Purchase(id = bread.id, name = "утюг", categoryId = homeCategory.id!!, listId = everydayLifeList.id!!, isCompleted = 1),
-                purchaseService.getById(bread.id!!).blockingGet())
+            purchaseInteractor.getById(bread.id!!).blockingGet())
         assertEquals("Функция вернула не верный результат insertTest ", Purchase(id = pliers.id, name = "лампочка", categoryId = undefinedCategory.id!!, listId = carList.id!!, isCompleted = 0),
-                purchaseService.getById(pliers.id!!).blockingGet())
+            purchaseInteractor.getById(pliers.id!!).blockingGet())
     }
 
     @Test
@@ -102,10 +114,10 @@ class TestPurchaseService : CommonTest() {
         val bread = Purchase(name = "хлеб", categoryId = foodCategory.id!!, listId = everydayLifeList.id!!, isCompleted = 0)
 
         //---insert---
-        purchaseService.insert(bread).blockingGet()
+        purchaseInteractor.insert(bread).blockingGet()
 
         //---delete---
-        assertEquals("Функция вернула не верный результат insertTest ", null, purchaseService.delete(bread).blockingGet() )
+        assertEquals("Функция вернула не верный результат insertTest ", null, purchaseInteractor.delete(bread).blockingGet() )
     }
 
     @Test
@@ -119,16 +131,16 @@ class TestPurchaseService : CommonTest() {
         val bulb = Purchase(name = "лампочка", categoryId = undefinedCategory.id!!, listId = carList.id!!, isCompleted = 0)
 
         //---insert---
-        purchaseService.insert(iron).blockingGet()
-        purchaseService.insert(duck).blockingGet()
-        purchaseService.insert(bread).blockingGet()
-        purchaseService.insert(matches).blockingGet()
-        purchaseService.insert(pliers).blockingGet()
-        purchaseService.insert(bulb).blockingGet()
+        purchaseInteractor.insert(iron).blockingGet()
+        purchaseInteractor.insert(duck).blockingGet()
+        purchaseInteractor.insert(bread).blockingGet()
+        purchaseInteractor.insert(matches).blockingGet()
+        purchaseInteractor.insert(pliers).blockingGet()
+        purchaseInteractor.insert(bulb).blockingGet()
 
         //---getAllByListId---
-        assertEquals("Функция вернула не верный результат insertTest ", 2, purchaseService.getAllByListId(carList.id!!).blockingGet().size)
-        assertEquals("Функция вернула не верный результат insertTest ", 4, purchaseService.getAllByListId(everydayLifeList.id!!).blockingGet().size)
+        assertEquals("Функция вернула не верный результат insertTest ", 2, purchaseInteractor.getAllByListId(carList.id!!).blockingGet().size)
+        assertEquals("Функция вернула не верный результат insertTest ", 4, purchaseInteractor.getAllByListId(everydayLifeList.id!!).blockingGet().size)
     }
 
     @Test
@@ -142,17 +154,17 @@ class TestPurchaseService : CommonTest() {
         val bulb = Purchase(name = "лампочка", categoryId = undefinedCategory.id!!, listId = carList.id!!, isCompleted = 0)
 
         //---insert---
-        purchaseService.insert(iron).blockingGet()
-        purchaseService.insert(duck).blockingGet()
-        purchaseService.insert(bread).blockingGet()
-        purchaseService.insert(matches).blockingGet()
-        purchaseService.insert(pliers).blockingGet()
-        purchaseService.insert(bulb).blockingGet()
+        purchaseInteractor.insert(iron).blockingGet()
+        purchaseInteractor.insert(duck).blockingGet()
+        purchaseInteractor.insert(bread).blockingGet()
+        purchaseInteractor.insert(matches).blockingGet()
+        purchaseInteractor.insert(pliers).blockingGet()
+        purchaseInteractor.insert(bulb).blockingGet()
 
         //---getAllByCategoryId---
-        assertEquals("Функция вернула не верный результат insertTest ", 2, purchaseService.getAllByCategoryId(homeCategory.id!!).blockingGet().size)
-        assertEquals("Функция вернула не верный результат insertTest ", 3, purchaseService.getAllByCategoryId(undefinedCategory.id!!).blockingGet().size)
-        assertEquals("Функция вернула не верный результат insertTest ", 1, purchaseService.getAllByCategoryId(foodCategory.id!!).blockingGet().size)
+        assertEquals("Функция вернула не верный результат insertTest ", 2, purchaseInteractor.getAllByCategoryId(homeCategory.id!!).blockingGet().size)
+        assertEquals("Функция вернула не верный результат insertTest ", 3, purchaseInteractor.getAllByCategoryId(undefinedCategory.id!!).blockingGet().size)
+        assertEquals("Функция вернула не верный результат insertTest ", 1, purchaseInteractor.getAllByCategoryId(foodCategory.id!!).blockingGet().size)
     }
 
     @Test
@@ -166,15 +178,15 @@ class TestPurchaseService : CommonTest() {
         val bulb = Purchase(name = "лампочка", categoryId = undefinedCategory.id!!, listId = carList.id!!, isCompleted = 0)
 
         //---insert---
-        purchaseService.insert(iron).blockingGet()
-        purchaseService.insert(duck).blockingGet()
-        purchaseService.insert(bread).blockingGet()
-        purchaseService.insert(matches).blockingGet()
-        purchaseService.insert(pliers).blockingGet()
-        purchaseService.insert(bulb).blockingGet()
+        purchaseInteractor.insert(iron).blockingGet()
+        purchaseInteractor.insert(duck).blockingGet()
+        purchaseInteractor.insert(bread).blockingGet()
+        purchaseInteractor.insert(matches).blockingGet()
+        purchaseInteractor.insert(pliers).blockingGet()
+        purchaseInteractor.insert(bulb).blockingGet()
 
         //---getAll---
-        assertEquals("Функция вернула не верный результат insertTest ", 6, purchaseService.getAll().blockingGet().size )
+        assertEquals("Функция вернула не верный результат insertTest ", 6, purchaseInteractor.getAll().blockingGet().size )
     }
 
     @Test
@@ -183,7 +195,7 @@ class TestPurchaseService : CommonTest() {
         val games = Purchase(name = "игрушка", categoryId = -100, listId = 1, isCompleted = 0)
 
         //---insert---
-        purchaseService.insert(games).blockingGet()
+        purchaseInteractor.insert(games).blockingGet()
 
         //---CheckingId---
         assertEquals("Функция вернула не верный результат insertTest ", null, games.id)
@@ -193,16 +205,16 @@ class TestPurchaseService : CommonTest() {
     fun nonexistentShoppingListTest() {
         val car = Category( name= "Машина")
         //---insert---
-        categoryService.insert(car).blockingGet()
+        categoryInteractor.insert(car).blockingGet()
 
         val games = Purchase(name = "Игрушка", categoryId = car.id!!, listId = -100, isCompleted = 0)
 
         //---insert---
-        purchaseService.insert(games).blockingGet()
+        purchaseInteractor.insert(games).blockingGet()
 
         //---getAll---
         Thread.sleep(500)
-        assertEquals("Функция вернула не верный результат Category ", 2,  categoryService.getAll().blockingGet().size)
+        assertEquals("Функция вернула не верный результат Category ", 2,  categoryInteractor.getAll().blockingGet().size)
 
         //---CheckingId---
         assertEquals("Функция вернула не верный результат Purchase ", null, games.id)
@@ -213,26 +225,26 @@ class TestPurchaseService : CommonTest() {
         val car = Category( name= "Машина")
 
         //---insert---
-        shoppingListService.insert(everydayLifeList).blockingGet()
-        categoryService.insert(car).blockingGet()
+        shoppingListInteractor.insert(everydayLifeList).blockingGet()
+        categoryInteractor.insert(car).blockingGet()
 
         val games = Purchase(name = "Игрушка", categoryId = car.id!!, listId = everydayLifeList.id!!, isCompleted = 0)
 
         //---insert---
-        purchaseService.insert(games).blockingGet()
+        purchaseInteractor.insert(games).blockingGet()
 
         //---getAll---
         Thread.sleep(500)
         assertEquals("Функция вернула не верный результат Purchase ", 1L, games.id)
-        assertEquals("Функция вернула не верный результат Purchase ", 1, purchaseService.getAll().blockingGet().size)
-        assertEquals("Функция вернула не верный результат Category ", 2, categoryService.getAll().blockingGet().size)
+        assertEquals("Функция вернула не верный результат Purchase ", 1, purchaseInteractor.getAll().blockingGet().size)
+        assertEquals("Функция вернула не верный результат Category ", 2, categoryInteractor.getAll().blockingGet().size)
 
         //---delete---
-        categoryService.delete(car).blockingGet()
+        categoryInteractor.delete(car).blockingGet()
 
         //---getAll---
-        assertEquals("Функция вернула не верный результат Category ", 1, categoryService.getAll().blockingGet().size)
-        assertEquals("Функция вернула не верный результат Purchase ", 1, purchaseService.getAll().blockingGet().size)
+        assertEquals("Функция вернула не верный результат Category ", 1, categoryInteractor.getAll().blockingGet().size)
+        assertEquals("Функция вернула не верный результат Purchase ", 1, purchaseInteractor.getAll().blockingGet().size)
 
     }
 }

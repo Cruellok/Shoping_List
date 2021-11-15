@@ -11,7 +11,7 @@ import io.reactivex.Single
 @Dao
 interface CategoryRoomDao {
 
-    //запрос всех категорий
+    //запрос на одно любое изменение
     @Query("SELECT * FROM ${DbStruct.Category.tableName}")
     fun getChangeSingle(): LiveData<List<RoomCategory>>
 
