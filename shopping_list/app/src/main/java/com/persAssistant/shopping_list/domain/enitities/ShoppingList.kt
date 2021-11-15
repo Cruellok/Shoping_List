@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.data.database.enitities
+package com.persAssistant.shopping_list.domain.enitities
 
 import java.util.*
 

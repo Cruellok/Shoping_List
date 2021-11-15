@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.persAssistant.shopping_list.R
-import com.persAssistant.shopping_list.data.database.enitities.Category
+import com.persAssistant.shopping_list.domain.enitities.Category
 import com.persAssistant.shopping_list.databinding.ActivityPurchaseBinding
 import java.util.*
 
 abstract class PurchaseActivity: AppCompatActivity() {
     protected abstract fun createViewModel(): PurchaseViewModel
-    protected lateinit var ui: ActivityPurchaseBinding
+    private lateinit var ui: ActivityPurchaseBinding
     protected lateinit var viewModel: PurchaseViewModel
 
     companion object {

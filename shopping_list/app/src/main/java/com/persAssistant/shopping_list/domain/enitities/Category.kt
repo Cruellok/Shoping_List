@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.data.database.enitities
+package com.persAssistant.shopping_list.domain.enitities
 
 data class Category(
     var id:Long? = null,

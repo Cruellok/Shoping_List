@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import com.persAssistant.shopping_list.data.database.enitities.Category
+import com.persAssistant.shopping_list.domain.enitities.Category
 import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers

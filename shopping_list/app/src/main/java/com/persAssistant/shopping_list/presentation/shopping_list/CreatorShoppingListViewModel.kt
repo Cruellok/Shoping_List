@@ -1,7 +1,7 @@
 package com.persAssistant.shopping_list.presentation.shopping_list
 
 import android.app.Application
-import com.persAssistant.shopping_list.data.database.enitities.ShoppingList
+import com.persAssistant.shopping_list.domain.enitities.ShoppingList
 import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

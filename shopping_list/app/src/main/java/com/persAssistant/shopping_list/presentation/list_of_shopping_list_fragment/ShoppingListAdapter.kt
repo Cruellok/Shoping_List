@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
-import com.persAssistant.shopping_list.data.database.enitities.ShoppingList
+import com.persAssistant.shopping_list.domain.enitities.ShoppingList
 import java.text.SimpleDateFormat
 import java.util.*
 

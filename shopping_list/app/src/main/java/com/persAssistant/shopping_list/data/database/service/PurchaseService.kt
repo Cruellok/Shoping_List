@@ -3,7 +3,7 @@ package com.persAssistant.shopping_list.data.database.service
 import androidx.lifecycle.LiveData
 import com.persAssistant.shopping_list.data.database.dao.PurchaseRoomDao
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchase
-import com.persAssistant.shopping_list.data.database.enitities.Purchase
+import com.persAssistant.shopping_list.domain.enitities.Purchase
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single

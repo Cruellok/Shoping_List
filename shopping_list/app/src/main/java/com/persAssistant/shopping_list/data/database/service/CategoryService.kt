@@ -3,7 +3,7 @@ package com.persAssistant.shopping_list.data.database.service
 import androidx.lifecycle.LiveData
 import com.persAssistant.shopping_list.data.database.dao.CategoryRoomDao
 import com.persAssistant.shopping_list.data.database.dao.enitity.RoomCategory
-import com.persAssistant.shopping_list.data.database.enitities.Category
+import com.persAssistant.shopping_list.domain.enitities.Category
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -33,7 +33,9 @@ class CategoryService(private val categoryDao: CategoryRoomDao){
     fun getAll(): Single<LinkedList<Category>>{
         return categoryDao.getAll()
             .toObservable()
-            .flatMapIterable {/*list*/it}
+            .flatMapIterable {
+                /*list*/it
+            }
             .map{
                 Category(it.id, it.name)}
             .toList()

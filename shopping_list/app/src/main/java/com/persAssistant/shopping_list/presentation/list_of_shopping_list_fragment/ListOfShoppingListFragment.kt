@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.persAssistant.shopping_list.data.database.enitities.ShoppingList
+import com.persAssistant.shopping_list.domain.enitities.ShoppingList
 import com.persAssistant.shopping_list.databinding.RecyclerShoppingListBinding
 import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.ListOfPurchaseActivity

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
-import com.persAssistant.shopping_list.data.database.enitities.Category
+import com.persAssistant.shopping_list.domain.enitities.Category
 import java.util.*
 
 class CategoryAdapter (private var items: LinkedList<Category>, private val onCategoryClickListener: OnCategoryClickListener) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
