@@ -4,7 +4,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.data.database.repositories.ShoppingListRepository
-import com.persAssistant.shopping_list.domain.enitities.ShoppingList
+import com.persAssistant.shopping_list.domain.entities.ShoppingList
 import com.persAssistant.shopping_list.data.database.service.ShoppingListService
 import com.persAssistant.shopping_list.domain.interactors.ShoppingListInteractor
 
@@ -20,7 +20,7 @@ import java.util.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class TestShoppingListService : CommonTest(){
+class TestShoppingListInteractor : CommonTest(){
     private val appContext = InstrumentationRegistry.getInstrumentation().targetContext
     private val dataBaseHelper = RoomDataBaseHelper.getInstance(appContext)
     private val shoppingListDao = dataBaseHelper.getShoppingListRoomDao()

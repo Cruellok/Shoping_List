@@ -1,20 +1,17 @@
 package com.persAssistant.shopping_list.presentation.list_of_shopping_list_fragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.persAssistant.shopping_list.domain.enitities.ShoppingList
+import com.persAssistant.shopping_list.domain.entities.ShoppingList
 import com.persAssistant.shopping_list.databinding.RecyclerShoppingListBinding
 import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.ListOfPurchaseActivity
 import com.persAssistant.shopping_list.presentation.shopping_list.CreatorShoppingListActivity
 import com.persAssistant.shopping_list.presentation.shopping_list.EditorShoppingListActivity
-import com.persAssistant.shopping_list.presentation.purchase.PurchaseActivity
 import java.util.*
 
 class ListOfShoppingListFragment: Fragment() {
@@ -28,9 +25,8 @@ class ListOfShoppingListFragment: Fragment() {
         ui = RecyclerShoppingListBinding.inflate(layoutInflater)
 
         shoppingListAdapter = ShoppingListAdapter(LinkedList(), object: OnShoppingListClickListener {
-
             override fun clickedShoppingListItem(shoppingList: ShoppingList) {
-                val intent = ListOfPurchaseActivity.getIntent(requireContext(),shoppingList.id!!,"")
+                val intent = ListOfPurchaseActivity.getIntent(requireContext(),shoppingList.id!!)
                 startActivity(intent)
             }
 
@@ -56,8 +52,7 @@ class ListOfShoppingListFragment: Fragment() {
 
         viewModel.init(this)
 
-        val addShoppingList: FloatingActionButton = ui.btnAddShoppingList
-        addShoppingList.setOnClickListener {
+        ui.btnAddShoppingList.setOnClickListener {
             val intent = CreatorShoppingListActivity.getIntent(requireContext())
             startActivity(intent)
         }

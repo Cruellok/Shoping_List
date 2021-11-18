@@ -2,8 +2,8 @@ package com.persAssistant.shopping_list.data.database.service
 
 import androidx.lifecycle.LiveData
 import com.persAssistant.shopping_list.data.database.dao.PurchaseRoomDao
-import com.persAssistant.shopping_list.data.database.dao.enitity.RoomPurchase
-import com.persAssistant.shopping_list.domain.enitities.Purchase
+import com.persAssistant.shopping_list.data.database.dao.entity.RoomPurchase
+import com.persAssistant.shopping_list.domain.entities.Purchase
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -39,7 +39,8 @@ class PurchaseService(private val purchaseRoomDao: PurchaseRoomDao){
     //запрос одного списка по айди
     fun getById(id: Long): Maybe<Purchase> {
         return purchaseRoomDao.getById(id)
-            .map {Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
+            .map {
+                Purchase(it.id, it.name, it.categoryId, it.listId, it.price, it.isCompleted)}
     }
 
     private fun processDaoPurchases(single: Single<List<RoomPurchase>>): Single<LinkedList<Purchase>>{

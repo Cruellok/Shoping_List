@@ -6,9 +6,9 @@ import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.data.database.repositories.CategoryRepository
 import com.persAssistant.shopping_list.data.database.repositories.PurchaseRepository
 import com.persAssistant.shopping_list.data.database.repositories.ShoppingListRepository
-import com.persAssistant.shopping_list.domain.enitities.Category
-import com.persAssistant.shopping_list.domain.enitities.Purchase
-import com.persAssistant.shopping_list.domain.enitities.ShoppingList
+import com.persAssistant.shopping_list.domain.entities.Category
+import com.persAssistant.shopping_list.domain.entities.Purchase
+import com.persAssistant.shopping_list.domain.entities.ShoppingList
 import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.data.database.service.ShoppingListService
 import com.persAssistant.shopping_list.data.database.service.PurchaseService
@@ -27,7 +27,7 @@ import java.util.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class TestPurchaseService : CommonTest() {
+class TestPurchaseInteractor : CommonTest() {
     private val appContext = InstrumentationRegistry.getInstrumentation().targetContext
     private val dataBaseHelper = RoomDataBaseHelper.getInstance(appContext)
 

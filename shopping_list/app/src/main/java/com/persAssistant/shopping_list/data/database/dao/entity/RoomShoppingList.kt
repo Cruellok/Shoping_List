@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.data.database.dao.enitity
+package com.persAssistant.shopping_list.data.database.dao.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

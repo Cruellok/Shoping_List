@@ -1,8 +1,8 @@
 package com.persAssistant.shopping_list.domain.interactor_repositories
 
 import androidx.lifecycle.LiveData
-import com.persAssistant.shopping_list.data.database.dao.enitity.RoomShoppingList
-import com.persAssistant.shopping_list.domain.enitities.ShoppingList
+import com.persAssistant.shopping_list.data.database.dao.entity.RoomShoppingList
+import com.persAssistant.shopping_list.domain.entities.ShoppingList
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single

@@ -9,22 +9,17 @@ import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.data.database.service.ShoppingListService
 import com.persAssistant.shopping_list.data.database.service.PurchaseService
 import com.persAssistant.shopping_list.domain.interactors.CategoryInteractor
+import com.persAssistant.shopping_list.domain.interactors.FullPurchaseInteractor
 import com.persAssistant.shopping_list.domain.interactors.PurchaseInteractor
 import com.persAssistant.shopping_list.domain.interactors.ShoppingListInteractor
 
 class App: Application() {
 
-    lateinit var categoryService: CategoryService
-    lateinit var purchaseService: PurchaseService
-    lateinit var shoppingListService: ShoppingListService
-
-    lateinit var categoryRepository: CategoryRepository
-    lateinit var purchaseRepository: PurchaseRepository
-    lateinit var shoppingListRepository: ShoppingListRepository
-
     lateinit var categoryInteractor: CategoryInteractor
     lateinit var purchaseInteractor: PurchaseInteractor
     lateinit var shoppingListInteractor: ShoppingListInteractor
+
+    lateinit var fullPurchaseInteractor: FullPurchaseInteractor
 
     override fun onCreate() {
         super.onCreate()
@@ -32,19 +27,21 @@ class App: Application() {
         val dataBaseHelper = RoomDataBaseHelper.getInstance(this)
 
         val categoryDao = dataBaseHelper.getCategoryRoomDao()
-        categoryService = CategoryService(categoryDao)
-        categoryRepository = CategoryRepository(categoryService)
+        val categoryService = CategoryService(categoryDao)
+        val categoryRepository = CategoryRepository(categoryService)
         categoryInteractor = CategoryInteractor(categoryRepository)
 
         val purchaseDao = dataBaseHelper.getPurchaseRoomDao()
-        purchaseService = PurchaseService(purchaseDao)
-        purchaseRepository = PurchaseRepository(purchaseService)
+        val purchaseService = PurchaseService(purchaseDao)
+        val purchaseRepository = PurchaseRepository(purchaseService)
         purchaseInteractor = PurchaseInteractor(purchaseRepository)
 
         val shoppingListDao = dataBaseHelper.getShoppingListRoomDao()
-        shoppingListService = ShoppingListService(shoppingListDao)
-        shoppingListRepository = ShoppingListRepository(shoppingListService)
+        val shoppingListService = ShoppingListService(shoppingListDao)
+        val shoppingListRepository = ShoppingListRepository(shoppingListService)
         shoppingListInteractor = ShoppingListInteractor(shoppingListRepository)
+
+        fullPurchaseInteractor = FullPurchaseInteractor(purchaseInteractor,categoryInteractor)
     }
 
 }

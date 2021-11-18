@@ -2,8 +2,9 @@ package com.persAssistant.shopping_list.presentation.purchase
 
 import android.app.Application
 import com.persAssistant.shopping_list.data.database.DbStruct
-import com.persAssistant.shopping_list.domain.enitities.Category
-import com.persAssistant.shopping_list.domain.enitities.Purchase
+import com.persAssistant.shopping_list.domain.entities.Category
+import com.persAssistant.shopping_list.domain.entities.Purchase
+import com.persAssistant.shopping_list.domain.interactors.FullPurchaseInteractor
 import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -12,13 +13,7 @@ class EditorPurchaseViewModel(application: Application, private var purchaseId: 
 
     init {
         val app = getApplication<App>()
-        app.purchaseInteractor.getById(purchaseId)
-            .flatMap { purchase ->
-                app.categoryInteractor.getById(purchase.categoryId)
-                    .map {
-                        Pair<Purchase, Category>(purchase,it)
-                    }
-            }
+        app.fullPurchaseInteractor.getById(purchaseId)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

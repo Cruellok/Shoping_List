@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
-import com.persAssistant.shopping_list.domain.enitities.Category
+import com.persAssistant.shopping_list.domain.entities.Category
 import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.list_of_category_fragment.OnCategoryClickListener
 import com.persAssistant.shopping_list.presentation.list_of_category_fragment.CategoryAdapter

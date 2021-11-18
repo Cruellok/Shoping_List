@@ -3,15 +3,16 @@ package com.persAssistant.shopping_list.presentation.list_of_purchase_activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
-import com.persAssistant.shopping_list.domain.enitities.Purchase
+import com.persAssistant.shopping_list.domain.entities.Category
+import com.persAssistant.shopping_list.domain.entities.Purchase
 import java.util.*
 
-class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPurchaseClickListener: OnPurchaseClickListener)
+class PurchaseAdapter(private var items: LinkedList<Pair<Purchase, Category>>,
+                      private val onPurchaseClickListener: OnPurchaseClickListener)
     : RecyclerView.Adapter<PurchaseAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
@@ -20,9 +21,10 @@ class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPur
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val purchaseRecycleView = items[position]
-        holder.name.text = purchaseRecycleView.name
-        holder.price.text = purchaseRecycleView.price.toString()+ "₽"
-        holder.bindView(purchaseRecycleView, onPurchaseClickListener)
+        holder.name.text = purchaseRecycleView.first.name
+        holder.price.text = purchaseRecycleView.first.price.toString()+ "₽"
+        holder.category.text = purchaseRecycleView.second.name
+        holder.bindView(purchaseRecycleView.first, onPurchaseClickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,7 +37,7 @@ class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPur
         val name: TextView = view.findViewById(R.id.TV_name_recycler_purchase)
         val price: TextView = view.findViewById(R.id.TV_price_purchase_in_recycler)
         val menu: TextView = view.findViewById(R.id.TV_purchase_menu)
-        val category: ImageView = view.findViewById(R.id.IV_purchase)
+        val category: TextView = view.findViewById(R.id.TV_category_purchase_in_recycler)
 
         fun bindView(purchase: Purchase, onPurchaseClickListener: OnPurchaseClickListener){
             name.setOnClickListener {
@@ -67,13 +69,13 @@ class PurchaseAdapter(private var items: LinkedList<Purchase>, private val onPur
         }
     }
 
-    fun updateItems(items: LinkedList<Purchase>) {
+    fun updateItems(items: LinkedList<Pair<Purchase, Category>>) {
         this.items = items
         notifyDataSetChanged()
     }
 
     fun removePurchase(id: Long?){
-        val purchaseToRemove = items.find {it.id == id}
+        val purchaseToRemove = items.find {it.first.id == id}
         items.remove(purchaseToRemove)
         notifyDataSetChanged()
     }

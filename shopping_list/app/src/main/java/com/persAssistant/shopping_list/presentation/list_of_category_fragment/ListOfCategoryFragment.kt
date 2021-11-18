@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.persAssistant.shopping_list.domain.enitities.Category
+import com.persAssistant.shopping_list.domain.entities.Category
 import com.persAssistant.shopping_list.databinding.RecyclerCategoryBinding
 import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.category.CreatorCategoryActivity
 import com.persAssistant.shopping_list.presentation.category.EditorCategoryActivity
 import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.ListOfPurchaseActivity
-import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.ListOfPurchaseActivity.Companion.CLICKED_FROM_CATEGORY_FRAGMENT
-import com.persAssistant.shopping_list.presentation.purchase.PurchaseActivity.Companion.KEY_CATEGORY_ID
 import java.util.*
 
 class ListOfCategoryFragment : Fragment() {
@@ -29,7 +26,7 @@ class ListOfCategoryFragment : Fragment() {
 
         categoryAdapter = CategoryAdapter(LinkedList(), object : OnCategoryClickListener {
             override fun clickedCategoryItem(category: Category) {
-                val intent = ListOfPurchaseActivity.getIntent(requireContext(),category.id!!, CLICKED_FROM_CATEGORY_FRAGMENT)
+                val intent = ListOfPurchaseActivity.getIntentTwo(requireContext(),category.id!!)
                 startActivity(intent)
             }
 
@@ -55,8 +52,7 @@ class ListOfCategoryFragment : Fragment() {
 
         viewModel.init(this)
 
-        val addCategory: FloatingActionButton = ui.btnAddCategory
-        addCategory.setOnClickListener {
+        ui.btnAddCategory.setOnClickListener {
             val intent = CreatorCategoryActivity.getIntent(requireContext())
             startActivity(intent)
         }

@@ -4,7 +4,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.data.database.repositories.CategoryRepository
-import com.persAssistant.shopping_list.domain.enitities.Category
+import com.persAssistant.shopping_list.domain.entities.Category
 import com.persAssistant.shopping_list.data.database.service.CategoryService
 import com.persAssistant.shopping_list.domain.interactors.CategoryInteractor
 
@@ -19,7 +19,7 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class TestCategoryService : CommonTest() {
+class TestCategoryInteractor : CommonTest() {
     private val appContext = InstrumentationRegistry.getInstrumentation().targetContext
     private val dataBaseHelper = RoomDataBaseHelper.getInstance(appContext)
     private val categoryDao = dataBaseHelper.getCategoryRoomDao()

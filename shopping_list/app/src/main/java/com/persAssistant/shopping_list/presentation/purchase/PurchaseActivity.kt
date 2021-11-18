@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.persAssistant.shopping_list.R
-import com.persAssistant.shopping_list.domain.enitities.Category
+import com.persAssistant.shopping_list.domain.entities.Category
 import com.persAssistant.shopping_list.databinding.ActivityPurchaseBinding
 import java.util.*
 
@@ -15,9 +15,8 @@ abstract class PurchaseActivity: AppCompatActivity() {
     protected lateinit var viewModel: PurchaseViewModel
 
     companion object {
-        const val KEY_SHOPPINGLIST_ID = "PURCHASE_LIST_ID"
+        const val KEY_SHOPPING_LIST_ID = "SHOPPING_LIST_ID"
         const val KEY_PURCHASE_ID = "PURCHASE_ID"
-        const val KEY_CATEGORY_ID = "CATEGORY_ID"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
