@@ -18,7 +18,6 @@ class App: Application() {
     lateinit var categoryInteractor: CategoryInteractor
     lateinit var purchaseInteractor: PurchaseInteractor
     lateinit var shoppingListInteractor: ShoppingListInteractor
-
     lateinit var fullPurchaseInteractor: FullPurchaseInteractor
 
     override fun onCreate() {

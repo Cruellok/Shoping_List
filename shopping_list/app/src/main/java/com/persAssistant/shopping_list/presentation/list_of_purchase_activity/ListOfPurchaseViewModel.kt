@@ -15,19 +15,15 @@ import java.util.*
 
 class ListOfPurchaseViewModel(application: Application): AndroidViewModel(application)  {
 
-    val fullPurchaseInteractor: FullPurchaseInteractor
+    private val fullPurchaseInteractor: FullPurchaseInteractor
     var name = MutableLiveData<String>()
     var purchaseListPair = MutableLiveData<LinkedList<Pair<Purchase, Category>>>()
 
-//    var purchaseInteractor: PurchaseInteractor
-//    var purchaseList = MutableLiveData<LinkedList<Purchase>>()
     var deletePurchaseId = MutableLiveData<Long>()
     private var enum = false
 
     init {
         val app = getApplication<App>()
-//        purchaseInteractor = app.purchaseInteractor
-
         fullPurchaseInteractor = app.fullPurchaseInteractor
     }
 
@@ -56,9 +52,7 @@ class ListOfPurchaseViewModel(application: Application): AndroidViewModel(applic
         fullPurchaseInteractor.delete(purchase)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({/*Выполнено*/
-//                deletePurchaseId.value = purchase.id
-            }, {/*Ошибка*/ })
+            .subscribe({/*Выполнено*/ }, {/*Ошибка*/ })
     }
 
     private fun initByCategoryId(id: Long) {

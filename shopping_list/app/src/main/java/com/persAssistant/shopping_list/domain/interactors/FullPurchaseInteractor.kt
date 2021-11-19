@@ -12,7 +12,8 @@ import io.reactivex.Maybe
 import io.reactivex.Single
 import java.util.*
 
-class FullPurchaseInteractor (private val purchaseInteractorInterface: PurchaseInteractorInterface, private val categoryInteractorInterface: CategoryInteractorInterface):
+class FullPurchaseInteractor (private val purchaseInteractorInterface: PurchaseInteractorInterface,
+                              private val categoryInteractorInterface: CategoryInteractorInterface):
     FullPurchaseInteractorInterface() {
 
     override fun getChangeSingle(): LiveData<List<RoomPurchase>> {
