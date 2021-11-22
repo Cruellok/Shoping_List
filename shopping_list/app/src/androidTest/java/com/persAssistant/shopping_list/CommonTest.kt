@@ -8,6 +8,6 @@ abstract class CommonTest {
     init {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         appContext.deleteDatabase(RoomDataBaseHelper.DATABASE_NAME)
-//        Thread.sleep(1500)
+        Thread.sleep(100)
     }
 }

@@ -1,16 +1,14 @@
 package com.persAssistant.shopping_list.presentation.category
 
-import android.app.Application
 import com.persAssistant.shopping_list.domain.entities.Category
-import com.persAssistant.shopping_list.presentation.App
+import com.persAssistant.shopping_list.domain.interactor_interfaces.CategoryInteractorInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class EditorCategoryViewModel(application: Application, private var id: Long): CategoryViewModel(application) {
+class EditorCategoryViewModel(val categoryInteractor: CategoryInteractorInterface, private var id: Long): CategoryViewModel() {
 
     init {
-        val app = getApplication<App>()
-        app.categoryInteractor.getById(id)
+        categoryInteractor.getById(id)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -19,9 +17,9 @@ class EditorCategoryViewModel(application: Application, private var id: Long): C
     }
 
     override fun save() {
-        val app = getApplication<App>()
+
         val category = Category(id = id, name = name.value ?: "")
-        app.categoryInteractor.update(category)
+        categoryInteractor.update(category)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

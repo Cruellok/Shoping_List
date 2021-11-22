@@ -51,7 +51,7 @@ class SelectionOfCategoryInDialog {
 
         private fun initAdapter(activity: Activity, categoryAdapter: CategoryAdapter) {
             val app = (activity.applicationContext as App)
-            app.categoryInteractor.getAll()
+            app.appComponent.getCategoryInteractor().getAll()
                 .subscribeOn(Schedulers.single())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({/*Есть данные*/

@@ -1,31 +1,22 @@
 package com.persAssistant.shopping_list.presentation.list_of_purchase_activity
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.persAssistant.shopping_list.domain.entities.Category
 import com.persAssistant.shopping_list.domain.entities.Purchase
-import com.persAssistant.shopping_list.domain.interactors.FullPurchaseInteractor
-import com.persAssistant.shopping_list.domain.interactors.PurchaseInteractor
-import com.persAssistant.shopping_list.presentation.App
+import com.persAssistant.shopping_list.domain.interactor_interfaces.FullPurchaseInteractorInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class ListOfPurchaseViewModel(application: Application): AndroidViewModel(application)  {
 
-    private val fullPurchaseInteractor: FullPurchaseInteractor
-    var name = MutableLiveData<String>()
+class ListOfPurchaseViewModel (private val fullPurchaseInteractor: FullPurchaseInteractorInterface): ViewModel() {
+
     var purchaseListPair = MutableLiveData<LinkedList<Pair<Purchase, Category>>>()
-
     var deletePurchaseId = MutableLiveData<Long>()
+    var name = MutableLiveData<String>()
     private var enum = false
-
-    init {
-        val app = getApplication<App>()
-        fullPurchaseInteractor = app.fullPurchaseInteractor
-    }
 
     fun init(lifecycleOwner: LifecycleOwner, categoryId: Long, shoppingListId: Long){
         enum = when {

@@ -1,26 +1,18 @@
 package com.persAssistant.shopping_list.presentation.list_of_category_fragment
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.persAssistant.shopping_list.domain.entities.Category
-import com.persAssistant.shopping_list.domain.interactors.CategoryInteractor
-import com.persAssistant.shopping_list.presentation.App
+import com.persAssistant.shopping_list.domain.interactor_interfaces.CategoryInteractorInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class ListOfCategoryViewModel(application: Application): AndroidViewModel(application)  {
+class ListOfCategoryViewModel(val categoryInteractor: CategoryInteractorInterface): ViewModel()  {
 
-    var categoryInteractor: CategoryInteractor
     var categoryList = MutableLiveData<LinkedList<Category>>()
     var deleteCategoryId = MutableLiveData<Long>()
-
-    init {
-        val app = getApplication<App>()
-        categoryInteractor = app.categoryInteractor
-    }
 
     fun init(lifecycleOwner: LifecycleOwner){
         categoryInteractor.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {

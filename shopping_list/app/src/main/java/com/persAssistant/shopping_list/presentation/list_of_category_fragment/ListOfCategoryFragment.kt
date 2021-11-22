@@ -24,9 +24,10 @@ class ListOfCategoryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         ui = RecyclerCategoryBinding.inflate(layoutInflater)
 
+        // initialize Adapter
         categoryAdapter = CategoryAdapter(LinkedList(), object : OnCategoryClickListener {
             override fun clickedCategoryItem(category: Category) {
-                val intent = ListOfPurchaseActivity.getIntentTwo(requireContext(),category.id!!)
+                val intent = ListOfPurchaseActivity.getIntentByCategoryId(requireContext(),category.id!!)
                 startActivity(intent)
             }
 
@@ -41,7 +42,8 @@ class ListOfCategoryFragment : Fragment() {
         })
         ui.recyclerViewCategory.adapter = categoryAdapter
 
-        viewModel = ListOfCategoryViewModel(app)
+        // initialize ViewModel
+        viewModel = ListOfCategoryViewModel(app.appComponent.getCategoryInteractor())
         viewModel.deleteCategoryId.observe(requireActivity(), androidx.lifecycle.Observer {
             categoryAdapter.removeCategory(it)
         })

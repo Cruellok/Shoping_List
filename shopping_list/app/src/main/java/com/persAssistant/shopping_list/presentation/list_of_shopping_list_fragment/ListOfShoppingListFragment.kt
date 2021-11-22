@@ -24,9 +24,10 @@ class ListOfShoppingListFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         ui = RecyclerShoppingListBinding.inflate(layoutInflater)
 
+        // initialize Adapter
         shoppingListAdapter = ShoppingListAdapter(LinkedList(), object: OnShoppingListClickListener {
             override fun clickedShoppingListItem(shoppingList: ShoppingList) {
-                val intent = ListOfPurchaseActivity.getIntent(requireContext(),shoppingList.id!!)
+                val intent = ListOfPurchaseActivity.getIntentByShoppingListId(requireContext(),shoppingList.id!!)
                 startActivity(intent)
             }
 
@@ -41,7 +42,8 @@ class ListOfShoppingListFragment: Fragment() {
         })
         ui.recyclerViewShoppingList.adapter = shoppingListAdapter
 
-        viewModel = ListOfShoppingListViewModel(app)
+        // initialize ViewModel
+        viewModel = ListOfShoppingListViewModel(app.appComponent.getShoppingListInteractor())
         viewModel.deleteShoppingListId.observe(requireActivity(), androidx.lifecycle.Observer {
             shoppingListAdapter.removeShoppingList(it)
         })

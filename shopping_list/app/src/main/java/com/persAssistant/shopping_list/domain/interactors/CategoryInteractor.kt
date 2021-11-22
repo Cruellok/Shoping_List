@@ -9,8 +9,9 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import java.util.*
+import javax.inject.Inject
 
-class CategoryInteractor(private val categoryRepositoryInterface: CategoryRepositoryInterface):
+class CategoryInteractor @Inject constructor(private val categoryRepositoryInterface: CategoryRepositoryInterface):
     CategoryInteractorInterface() {
 
     // сигнал об изменении в таблице

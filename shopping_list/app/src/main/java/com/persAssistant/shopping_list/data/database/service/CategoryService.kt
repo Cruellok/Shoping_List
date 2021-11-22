@@ -9,8 +9,10 @@ import io.reactivex.Maybe
 import io.reactivex.Single
 import java.lang.Exception
 import java.util.*
+import javax.inject.Inject
 
-class CategoryService(private val categoryDao: CategoryRoomDao){
+//class CategoryService(private val categoryDao: CategoryRoomDao){
+class CategoryService @Inject constructor( private val categoryDao: CategoryRoomDao){
 
     // сигнал об изменении в таблице
     fun getChangeSingle(): LiveData<List<RoomCategory>>{

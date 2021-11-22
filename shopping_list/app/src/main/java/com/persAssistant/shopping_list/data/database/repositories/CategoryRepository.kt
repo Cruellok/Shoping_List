@@ -9,8 +9,10 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import java.util.*
+import javax.inject.Inject
 
-class CategoryRepository(private val categoryService: CategoryService): CategoryRepositoryInterface() {
+class CategoryRepository @Inject constructor(private val categoryService: CategoryService):
+    CategoryRepositoryInterface() {
 
     // сигнал об изменении в таблице
     override fun getChangeSingle(): LiveData<List<RoomCategory>> {

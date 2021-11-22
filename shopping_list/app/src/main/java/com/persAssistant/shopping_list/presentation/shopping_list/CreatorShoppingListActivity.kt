@@ -2,6 +2,7 @@ package com.persAssistant.shopping_list.presentation.shopping_list
 
 import android.content.Context
 import android.content.Intent
+import com.persAssistant.shopping_list.presentation.App
 
 class CreatorShoppingListActivity : ShoppingListActivity() {
 
@@ -12,6 +13,7 @@ class CreatorShoppingListActivity : ShoppingListActivity() {
     }
 
     override fun createViewModel(): ShoppingListViewModel {
-        return CreatorShoppingListViewModel(application)
+        val app = applicationContext as App
+        return CreatorShoppingListViewModel(app.appComponent.getShoppingListInteractor())
     }
 }

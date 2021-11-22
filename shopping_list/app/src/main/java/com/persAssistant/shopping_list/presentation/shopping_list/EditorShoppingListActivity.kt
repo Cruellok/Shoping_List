@@ -2,6 +2,7 @@ package com.persAssistant.shopping_list.presentation.shopping_list
 
 import android.content.Context
 import android.content.Intent
+import com.persAssistant.shopping_list.presentation.App
 import java.lang.Exception
 
 class EditorShoppingListActivity : ShoppingListActivity() {
@@ -16,9 +17,10 @@ class EditorShoppingListActivity : ShoppingListActivity() {
     }
 
     override fun createViewModel(): ShoppingListViewModel {
+        val app = applicationContext as App
         val id = intent.getLongExtra(KEY,-1L)
         if(id == -1L)
             throw Exception("Ошибка в EditorShoppingListActivity.getIntent отсутствует Id ")
-        return EditorShoppingListViewModel(application,id)
+        return EditorShoppingListViewModel(app.appComponent.getShoppingListInteractor(),id)
     }
 }

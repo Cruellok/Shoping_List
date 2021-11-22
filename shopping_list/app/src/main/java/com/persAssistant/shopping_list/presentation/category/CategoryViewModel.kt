@@ -1,10 +1,9 @@
 package com.persAssistant.shopping_list.presentation.category
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-abstract class CategoryViewModel(application: Application): AndroidViewModel(application) {
+abstract class CategoryViewModel: ViewModel() {
     var closeEvent = MutableLiveData<Unit>()
     var name = MutableLiveData<String>()
 

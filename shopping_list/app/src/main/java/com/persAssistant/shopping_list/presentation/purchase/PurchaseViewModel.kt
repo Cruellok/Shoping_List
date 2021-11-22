@@ -1,12 +1,11 @@
 package com.persAssistant.shopping_list.presentation.purchase
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.persAssistant.shopping_list.data.database.DbStruct
 import com.persAssistant.shopping_list.domain.entities.Category
 
-abstract class PurchaseViewModel(application: Application): AndroidViewModel(application) {
+abstract class PurchaseViewModel: ViewModel() {
     var closeEvent = MutableLiveData<Unit>()
     var name = MutableLiveData<String>()
     var price = MutableLiveData<String>()

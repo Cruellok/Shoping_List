@@ -25,27 +25,20 @@ class ListOfPurchaseActivity: AppCompatActivity() {
         const val CLICKED_FROM_CATEGORY_FRAGMENT = "CLICKED_FROM_CATEGORY_FRAGMENT"
         const val KEY_SHOPPING_LIST_ID = "PURCHASE_LIST_ID"
         const val KEY_CATEGORY_ID = "CATEGORY_ID"
-//        fun getIntent(context: Context, id: Long, canCreatePurchase: Boolean): Intent {
-//            val intent = Intent(context, ListOfPurchaseActivity::class.java)
-//            if (canCreatePurchase){
-//                intent.putExtra(KEY_SHOPPING_LIST_ID, id)
-//            }else {
-//                intent.putExtra(KEY_CATEGORY_ID, id)
-//                intent.putExtra(CLICKED_FROM_CATEGORY_FRAGMENT, CLICKED_FROM_CATEGORY_FRAGMENT)
-//            }
-//            return intent
-//        }
+        var canCreatePurchase = false
 
-        fun getIntent(context: Context, id: Long): Intent {
+        fun getIntentByShoppingListId(context: Context, id: Long): Intent {
             val intent = Intent(context, ListOfPurchaseActivity::class.java)
                 intent.putExtra(KEY_SHOPPING_LIST_ID, id)
+            this.canCreatePurchase = true
             return intent
         }
 
-        fun getIntentTwo(context: Context, id: Long): Intent{
+        fun getIntentByCategoryId(context: Context, id: Long): Intent{
             val intent = Intent(context, ListOfPurchaseActivity::class.java)
             intent.putExtra(KEY_CATEGORY_ID, id)
             intent.putExtra(CLICKED_FROM_CATEGORY_FRAGMENT, CLICKED_FROM_CATEGORY_FRAGMENT)
+            this.canCreatePurchase = false
             return intent
         }
     }
@@ -54,8 +47,9 @@ class ListOfPurchaseActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         ui = DataBindingUtil.setContentView(this,R.layout.recycler_purchase)
 
-        val app = (this.applicationContext as App)
-        viewModel = ListOfPurchaseViewModel(app)
+        val app = applicationContext as App
+        val fullPurchaseInteractor = app.appComponent.getFullPurchaseInteractor()
+        viewModel = ListOfPurchaseViewModel(fullPurchaseInteractor)
 
         purchaseAdapter = PurchaseAdapter(LinkedList(), object : OnPurchaseClickListener{
             override fun clickedPurchaseItem(purchase: Purchase) {}

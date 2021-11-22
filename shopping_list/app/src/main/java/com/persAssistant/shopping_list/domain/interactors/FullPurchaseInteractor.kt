@@ -11,23 +11,22 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import java.util.*
+import javax.inject.Inject
 
-class FullPurchaseInteractor (private val purchaseInteractorInterface: PurchaseInteractorInterface,
-                              private val categoryInteractorInterface: CategoryInteractorInterface):
-    FullPurchaseInteractorInterface() {
+
+class FullPurchaseInteractor @Inject constructor(private val purchaseInteractorInterface: PurchaseInteractorInterface,
+                              private val categoryInteractorInterface: CategoryInteractorInterface): FullPurchaseInteractorInterface() {
 
     override fun getChangeSingle(): LiveData<List<RoomPurchase>> {
         return purchaseInteractorInterface.getChangeSingle()
     }
 
+    override fun insert(purchase: Purchase): Completable {
+        return purchaseInteractorInterface.insert(purchase)
+    }
+
     override fun getById(id: Long): Maybe<Pair<Purchase, Category>> {
-        return purchaseInteractorInterface.getById(id)
-            .flatMap { purchase ->
-                categoryInteractorInterface.getById(purchase.categoryId)
-                    .map {
-                        Pair<Purchase, Category>(purchase, it)
-                    }
-            }
+        return processPurchasesById(id)
     }
 
     override fun getAllByListId(id: Long): Single<LinkedList<Pair<Purchase, Category>>> {
@@ -42,16 +41,17 @@ class FullPurchaseInteractor (private val purchaseInteractorInterface: PurchaseI
         return purchaseInteractorInterface.delete(purchase)
     }
 
-    private fun processInteractorInterfacePurchases(single: Single<LinkedList<Purchase>>):
-            Single<LinkedList<Pair<Purchase, Category>>>{
+    override fun update(purchase: Purchase): Completable {
+        return purchaseInteractorInterface.update(purchase)
+    }
+
+    private fun processInteractorInterfacePurchases(single: Single<LinkedList<Purchase>>): Single<LinkedList<Pair<Purchase, Category>>>{
         return single
             .toObservable()
             .flatMapIterable{it}
             .flatMap{ purchase->
-                categoryInteractorInterface.getById(purchase.categoryId)
-                    .map { category ->
-                        Pair<Purchase, Category>(purchase, category)
-                    }.toObservable()
+                processPurchasesById(purchase.id!!)
+                    .toObservable()
             }
             .toList()
             .map {
@@ -61,4 +61,13 @@ class FullPurchaseInteractor (private val purchaseInteractorInterface: PurchaseI
             }
     }
 
+    private fun processPurchasesById(id: Long): Maybe<Pair<Purchase, Category>>{
+        return purchaseInteractorInterface.getById(id)
+            .flatMap { purchase ->
+                categoryInteractorInterface.getById(purchase.categoryId)
+                    .map {
+                        Pair<Purchase, Category>(purchase, it)
+                    }
+            }
+    }
 }

@@ -2,34 +2,35 @@ package com.persAssistant.shopping_list.presentation.purchase
 
 import android.app.Application
 import com.persAssistant.shopping_list.domain.entities.Purchase
+import com.persAssistant.shopping_list.domain.interactor_interfaces.FullPurchaseInteractorInterface
 import com.persAssistant.shopping_list.presentation.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CreatorPurchaseViewModel(application: Application, purchaseListId: Long) : PurchaseViewModel(application) {
+class CreatorPurchaseViewModel(val fullPurchaseInteractor: FullPurchaseInteractorInterface,
+                               shoppingListId: Long) :
+    PurchaseViewModel() {
 
     init {
-        listId = purchaseListId
-        val app = getApplication<App>()
-        initCategoryName(app,categoryId)
+        listId = shoppingListId
+        initCategoryName(categoryId)
     }
 
-    private fun initCategoryName (app: App, categoryId: Long){
-        app.categoryInteractor.getById(categoryId)
+    private fun initCategoryName ( categoryId: Long){
+        fullPurchaseInteractor.getById(categoryId)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                categoryName.value = it.name
+                categoryName.value = it.second.name
             }, {})
     }
 
     override fun save() {
-        val app = getApplication<App>()
         if(price.value == null)
             price.value = "0"
 
         val purchase = Purchase(name = name.value ?: "", categoryId = categoryId, listId = listId, price = price.value?.toDouble(), isCompleted = 0)
-        app.purchaseInteractor.insert(purchase)
+        fullPurchaseInteractor.insert(purchase)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
