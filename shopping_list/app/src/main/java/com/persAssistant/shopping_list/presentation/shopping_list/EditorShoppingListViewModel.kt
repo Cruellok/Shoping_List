@@ -5,10 +5,13 @@ import com.persAssistant.shopping_list.domain.interactor_interfaces.ShoppingList
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class EditorShoppingListViewModel(val shoppingListInteractor: ShoppingListInteractorInterface, private var id: Long):
-    ShoppingListViewModel() {
+class EditorShoppingListViewModel(private val shoppingListInteractor: ShoppingListInteractorInterface): ShoppingListViewModel() {
 
-    init {
+    private var  shoppingListId: Long = 0
+
+    fun init(id: Long){
+        shoppingListId = id
+
         shoppingListInteractor.getById(id)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
@@ -19,7 +22,7 @@ class EditorShoppingListViewModel(val shoppingListInteractor: ShoppingListIntera
     }
 
     override fun save() {
-        val shoppingList = ShoppingList(id = id, name = name.value ?: "",date = date)
+        val shoppingList = ShoppingList(id = shoppingListId, name = name.value ?: "",date = date)
         shoppingListInteractor.update(shoppingList)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())

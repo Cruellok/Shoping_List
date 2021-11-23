@@ -14,6 +14,6 @@ class CreatorShoppingListActivity : ShoppingListActivity() {
 
     override fun createViewModel(): ShoppingListViewModel {
         val app = applicationContext as App
-        return CreatorShoppingListViewModel(app.appComponent.getShoppingListInteractor())
+        return app.appComponent.getCreatorShoppingListViewModel()
     }
 }

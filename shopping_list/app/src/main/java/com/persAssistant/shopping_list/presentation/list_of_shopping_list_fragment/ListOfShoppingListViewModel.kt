@@ -8,8 +8,9 @@ import com.persAssistant.shopping_list.domain.interactor_interfaces.ShoppingList
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
+import javax.inject.Inject
 
-class ListOfShoppingListViewModel(val shoppingListInteractor: ShoppingListInteractorInterface):
+class ListOfShoppingListViewModel @Inject constructor(private val shoppingListInteractor: ShoppingListInteractorInterface):
     ViewModel()  {
 
     var listOfShoppingList = MutableLiveData<LinkedList<ShoppingList>>()

@@ -18,9 +18,12 @@ class EditorShoppingListActivity : ShoppingListActivity() {
 
     override fun createViewModel(): ShoppingListViewModel {
         val app = applicationContext as App
-        val id = intent.getLongExtra(KEY,-1L)
-        if(id == -1L)
+        val shoppingListId = intent.getLongExtra(KEY,-1L)
+        if(shoppingListId == -1L)
             throw Exception("Ошибка в EditorShoppingListActivity.getIntent отсутствует Id ")
-        return EditorShoppingListViewModel(app.appComponent.getShoppingListInteractor(),id)
+
+        val viewModel = app.appComponent.getEditorShoppingListViewModel()
+        viewModel.init(shoppingListId)
+        return viewModel
     }
 }

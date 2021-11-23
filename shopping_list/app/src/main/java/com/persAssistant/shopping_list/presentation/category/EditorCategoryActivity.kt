@@ -21,6 +21,9 @@ class EditorCategoryActivity : CategoryActivity() {
         val id = intent.getLongExtra(KEY_CATEGORY,-1L)
         if(id == -1L)
             throw Exception("Ошибка в EditorCategoryActivity.getIntent отсутствует Id")
-        return EditorCategoryViewModel(app.appComponent.getCategoryInteractor(),id)
+//        return EditorCategoryViewModel(app.appComponent.getCategoryInteractor(),id)
+        val viewModel = app.appComponent.getEditorCategoryViewModel()
+        viewModel.init(id)
+        return viewModel
     }
 }

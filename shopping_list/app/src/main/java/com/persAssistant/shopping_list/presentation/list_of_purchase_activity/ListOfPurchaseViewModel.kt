@@ -4,43 +4,49 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.persAssistant.shopping_list.domain.entities.Category
+import com.persAssistant.shopping_list.domain.entities.FullPurchase
 import com.persAssistant.shopping_list.domain.entities.Purchase
 import com.persAssistant.shopping_list.domain.interactor_interfaces.FullPurchaseInteractorInterface
+import com.persAssistant.shopping_list.domain.interactors.PurchaseInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
+import javax.inject.Inject
 
 
-class ListOfPurchaseViewModel (private val fullPurchaseInteractor: FullPurchaseInteractorInterface): ViewModel() {
+class ListOfPurchaseViewModel @Inject constructor(val purchaseInteractor: PurchaseInteractor,
+                                                  val fullPurchaseInteractor: FullPurchaseInteractorInterface): ViewModel() {
 
-    var purchaseListPair = MutableLiveData<LinkedList<Pair<Purchase, Category>>>()
+    var purchaseListPair = MutableLiveData<LinkedList<FullPurchase>>()
     var deletePurchaseId = MutableLiveData<Long>()
     var name = MutableLiveData<String>()
     private var enum = false
 
-    fun init(lifecycleOwner: LifecycleOwner, categoryId: Long, shoppingListId: Long){
+    fun init(lifecycleOwner: LifecycleOwner, categoryId: Long, shoppingListId: Long,
+             canCreatePurchase: Boolean){
         enum = when {
-            categoryId != -1L -> {
-                initByCategoryId(categoryId)
+            canCreatePurchase -> {
+                initByListId(shoppingListId)
                 true
             }
-            shoppingListId != -1L -> {
-                initByListId(shoppingListId)
+            !canCreatePurchase -> {
+                initByCategoryId(categoryId)
                 false
             }
+
             else -> throw Exception("Ошибка в ListOfPurchaseViewModel отсутствует listId и categoryId")
         }
 
-        fullPurchaseInteractor.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
+        purchaseInteractor.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
             when (enum) {
-                true -> initByCategoryId(categoryId)
-                false -> initByListId(shoppingListId)
+                true -> initByListId(shoppingListId)
+                false -> initByCategoryId(categoryId)
             }
         })
     }
 
     fun deleteItemPurchase(purchase: Purchase){
-        fullPurchaseInteractor.delete(purchase)
+        purchaseInteractor.delete(purchase)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({/*Выполнено*/ }, {/*Ошибка*/ })

@@ -43,7 +43,8 @@ class ListOfCategoryFragment : Fragment() {
         ui.recyclerViewCategory.adapter = categoryAdapter
 
         // initialize ViewModel
-        viewModel = ListOfCategoryViewModel(app.appComponent.getCategoryInteractor())
+        viewModel = app.appComponent.getListOfCategoryViewModel()
+
         viewModel.deleteCategoryId.observe(requireActivity(), androidx.lifecycle.Observer {
             categoryAdapter.removeCategory(it)
         })

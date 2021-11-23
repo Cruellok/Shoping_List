@@ -21,6 +21,8 @@ class EditorPurchaseActivity: PurchaseActivity() {
         if(id == -1L)
             throw Exception("Ошибка в EditorPurchaseActivity.getIntent отсутствует Id")
 
-        return EditorPurchaseViewModel(app.appComponent.getFullPurchaseInteractor(), id)
+        val viewModel = app.appComponent.getEditorPurchaseViewModel()
+        viewModel.init(id)
+        return viewModel
     }
 }

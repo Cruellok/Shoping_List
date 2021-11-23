@@ -30,7 +30,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
         fun getIntentByShoppingListId(context: Context, id: Long): Intent {
             val intent = Intent(context, ListOfPurchaseActivity::class.java)
                 intent.putExtra(KEY_SHOPPING_LIST_ID, id)
-            this.canCreatePurchase = true
+            canCreatePurchase = true
             return intent
         }
 
@@ -38,7 +38,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
             val intent = Intent(context, ListOfPurchaseActivity::class.java)
             intent.putExtra(KEY_CATEGORY_ID, id)
             intent.putExtra(CLICKED_FROM_CATEGORY_FRAGMENT, CLICKED_FROM_CATEGORY_FRAGMENT)
-            this.canCreatePurchase = false
+            canCreatePurchase = false
             return intent
         }
     }
@@ -48,8 +48,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
         ui = DataBindingUtil.setContentView(this,R.layout.recycler_purchase)
 
         val app = applicationContext as App
-        val fullPurchaseInteractor = app.appComponent.getFullPurchaseInteractor()
-        viewModel = ListOfPurchaseViewModel(fullPurchaseInteractor)
+        viewModel = app.appComponent.getListOfPurchaseViewModel()
 
         purchaseAdapter = PurchaseAdapter(LinkedList(), object : OnPurchaseClickListener{
             override fun clickedPurchaseItem(purchase: Purchase) {}
@@ -75,7 +74,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
 
         val categoryId = intent.getLongExtra(KEY_CATEGORY_ID, -1)
         val shoppingListId = intent.getLongExtra(KEY_SHOPPING_LIST_ID, -1)
-        viewModel.init(this, categoryId, shoppingListId)
+        viewModel.init(this, categoryId, shoppingListId, canCreatePurchase)
 
         val buttonAdd: FloatingActionButton = ui.btnAddPurchase
         val clickedFromCategoryFragment: String? = intent.getStringExtra(CLICKED_FROM_CATEGORY_FRAGMENT)

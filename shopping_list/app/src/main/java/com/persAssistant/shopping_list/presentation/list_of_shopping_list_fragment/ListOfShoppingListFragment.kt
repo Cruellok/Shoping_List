@@ -43,7 +43,8 @@ class ListOfShoppingListFragment: Fragment() {
         ui.recyclerViewShoppingList.adapter = shoppingListAdapter
 
         // initialize ViewModel
-        viewModel = ListOfShoppingListViewModel(app.appComponent.getShoppingListInteractor())
+        viewModel = app.appComponent.getListOfShoppingListViewModel()
+
         viewModel.deleteShoppingListId.observe(requireActivity(), androidx.lifecycle.Observer {
             shoppingListAdapter.removeShoppingList(it)
         })

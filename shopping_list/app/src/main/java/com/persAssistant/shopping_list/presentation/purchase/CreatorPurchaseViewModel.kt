@@ -1,27 +1,27 @@
 package com.persAssistant.shopping_list.presentation.purchase
 
-import android.app.Application
 import com.persAssistant.shopping_list.domain.entities.Purchase
 import com.persAssistant.shopping_list.domain.interactor_interfaces.FullPurchaseInteractorInterface
-import com.persAssistant.shopping_list.presentation.App
+import com.persAssistant.shopping_list.domain.interactors.PurchaseInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class CreatorPurchaseViewModel(val fullPurchaseInteractor: FullPurchaseInteractorInterface,
-                               shoppingListId: Long) :
-    PurchaseViewModel() {
+class CreatorPurchaseViewModel @Inject constructor(val purchaseInteractor: PurchaseInteractor,
+                                                   val fullPurchaseInteractor: FullPurchaseInteractorInterface) : PurchaseViewModel() {
 
-    init {
+    fun init (shoppingListId: Long){
         listId = shoppingListId
         initCategoryName(categoryId)
     }
 
     private fun initCategoryName ( categoryId: Long){
-        fullPurchaseInteractor.getById(categoryId)
+        fullPurchaseInteractor.getAllByCategoryId(categoryId)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                categoryName.value = it.second.name
+                it.map {
+                categoryName.value = it.category.name }
             }, {})
     }
 
@@ -30,7 +30,7 @@ class CreatorPurchaseViewModel(val fullPurchaseInteractor: FullPurchaseInteracto
             price.value = "0"
 
         val purchase = Purchase(name = name.value ?: "", categoryId = categoryId, listId = listId, price = price.value?.toDouble(), isCompleted = 0)
-        fullPurchaseInteractor.insert(purchase)
+        purchaseInteractor.insert(purchase)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

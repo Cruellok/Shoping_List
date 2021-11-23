@@ -21,6 +21,8 @@ class CreatorPurchaseActivity: PurchaseActivity() {
         if (listId == -1L){
             throw Exception("Ошибка в PurchaseActivity отсутствует listId")
         }
-        return CreatorPurchaseViewModel(app.appComponent.getFullPurchaseInteractor(),listId)
+        val viewModel = app.appComponent.getCreatorPurchaseViewModel()
+        viewModel.init(listId)
+        return viewModel
     }
 }

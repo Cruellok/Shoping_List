@@ -8,8 +8,9 @@ import com.persAssistant.shopping_list.domain.interactor_interfaces.CategoryInte
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
+import javax.inject.Inject
 
-class ListOfCategoryViewModel(val categoryInteractor: CategoryInteractorInterface): ViewModel()  {
+class ListOfCategoryViewModel @Inject constructor(val categoryInteractor: CategoryInteractorInterface): ViewModel()  {
 
     var categoryList = MutableLiveData<LinkedList<Category>>()
     var deleteCategoryId = MutableLiveData<Long>()

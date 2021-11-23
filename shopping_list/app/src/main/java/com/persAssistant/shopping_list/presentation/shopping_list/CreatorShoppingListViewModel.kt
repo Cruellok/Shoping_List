@@ -4,12 +4,11 @@ import com.persAssistant.shopping_list.domain.entities.ShoppingList
 import com.persAssistant.shopping_list.domain.interactor_interfaces.ShoppingListInteractorInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class CreatorShoppingListViewModel (val shoppingListInteractor: ShoppingListInteractorInterface):
-    ShoppingListViewModel() {
+class CreatorShoppingListViewModel @Inject constructor(private val shoppingListInteractor: ShoppingListInteractorInterface): ShoppingListViewModel() {
 
     override fun save() {
-
         val shoppingList = ShoppingList(name = name.value ?: "",date = date)
         shoppingListInteractor.insert(shoppingList)
             .subscribeOn(Schedulers.single())

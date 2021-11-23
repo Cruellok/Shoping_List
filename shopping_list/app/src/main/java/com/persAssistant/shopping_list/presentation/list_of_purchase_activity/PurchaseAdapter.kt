@@ -8,10 +8,11 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.persAssistant.shopping_list.R
 import com.persAssistant.shopping_list.domain.entities.Category
+import com.persAssistant.shopping_list.domain.entities.FullPurchase
 import com.persAssistant.shopping_list.domain.entities.Purchase
 import java.util.*
 
-class PurchaseAdapter(private var items: LinkedList<Pair<Purchase, Category>>,
+class PurchaseAdapter(private var items: LinkedList<FullPurchase>,
                       private val onPurchaseClickListener: OnPurchaseClickListener)
     : RecyclerView.Adapter<PurchaseAdapter.ViewHolder>() {
 
@@ -21,10 +22,10 @@ class PurchaseAdapter(private var items: LinkedList<Pair<Purchase, Category>>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val purchaseRecycleView = items[position]
-        holder.name.text = purchaseRecycleView.first.name
-        holder.price.text = purchaseRecycleView.first.price.toString()+ "₽"
-        holder.category.text = purchaseRecycleView.second.name
-        holder.bindView(purchaseRecycleView.first, onPurchaseClickListener)
+        holder.name.text = purchaseRecycleView.purchase.name
+        holder.price.text = purchaseRecycleView.purchase.price.toString()+ "₽"
+        holder.category.text = purchaseRecycleView.category.name
+        holder.bindView(purchaseRecycleView.purchase, onPurchaseClickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -69,13 +70,13 @@ class PurchaseAdapter(private var items: LinkedList<Pair<Purchase, Category>>,
         }
     }
 
-    fun updateItems(items: LinkedList<Pair<Purchase, Category>>) {
+    fun updateItems(items: LinkedList<FullPurchase>) {
         this.items = items
         notifyDataSetChanged()
     }
 
     fun removePurchase(id: Long?){
-        val purchaseToRemove = items.find {it.first.id == id}
+        val purchaseToRemove = items.find {it.purchase.id == id}
         items.remove(purchaseToRemove)
         notifyDataSetChanged()
     }

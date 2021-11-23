@@ -33,8 +33,7 @@ class InteractorModule {
 
     @Provides
     @Singleton
-    fun provideFullPurchaseInteractor(purchaseInteractor: PurchaseInteractor,
-                                      categoryInteractor: CategoryInteractor): FullPurchaseInteractor {
+    fun provideFullPurchaseInteractor(purchaseInteractor: PurchaseInteractor, categoryInteractor: CategoryInteractor): FullPurchaseInteractor {
         return FullPurchaseInteractor(purchaseInteractor, categoryInteractor)
     }
 }
