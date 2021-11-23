@@ -1,5 +1,6 @@
 package com.persAssistant.shopping_list.domain.di.module.viewModelModule
 
+import com.persAssistant.shopping_list.domain.interactors.CategoryInteractor
 import com.persAssistant.shopping_list.domain.interactors.FullPurchaseInteractor
 import com.persAssistant.shopping_list.domain.interactors.PurchaseInteractor
 import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.ListOfPurchaseViewModel
@@ -12,8 +13,9 @@ import dagger.Provides
 class PurchaseViewModelModule {
     @Provides
     fun provideCreatorPurchaseViewModel(purchaseInteractor: PurchaseInteractor,
-                                        fullPurchaseInteractor: FullPurchaseInteractor): CreatorPurchaseViewModel {
-        return CreatorPurchaseViewModel(purchaseInteractor, fullPurchaseInteractor)
+                                        categoryInteractor: CategoryInteractor
+    ): CreatorPurchaseViewModel {
+        return CreatorPurchaseViewModel(purchaseInteractor, categoryInteractor)
     }
 
     @Provides
