@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.domain.di.module
+package com.persAssistant.shopping_list.di.module
 
 import com.persAssistant.shopping_list.data.database.repositories.CategoryRepository
 import com.persAssistant.shopping_list.data.database.repositories.PurchaseRepository

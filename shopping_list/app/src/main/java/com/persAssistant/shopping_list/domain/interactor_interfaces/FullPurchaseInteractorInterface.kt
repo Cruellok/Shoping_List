@@ -1,6 +1,7 @@
 package com.persAssistant.shopping_list.domain.interactor_interfaces
 
 import com.persAssistant.shopping_list.domain.entities.FullPurchase
+import com.persAssistant.shopping_list.domain.entities.Purchase
 import io.reactivex.Maybe
 import io.reactivex.Single
 import java.util.*

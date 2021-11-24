@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.domain.di.module
+package com.persAssistant.shopping_list.di.module
 
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.data.database.dao.CategoryRoomDao

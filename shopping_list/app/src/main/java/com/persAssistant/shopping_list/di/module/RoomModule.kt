@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.domain.di.module
+package com.persAssistant.shopping_list.di.module
 
 import android.content.Context
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper

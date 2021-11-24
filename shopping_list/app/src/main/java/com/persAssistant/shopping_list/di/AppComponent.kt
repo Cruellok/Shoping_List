@@ -1,14 +1,14 @@
-package com.persAssistant.shopping_list.domain.di
+package com.persAssistant.shopping_list.di
 
 import com.persAssistant.shopping_list.data.database.RoomDataBaseHelper
 import com.persAssistant.shopping_list.domain.interactors.CategoryInteractor
 import com.persAssistant.shopping_list.domain.interactors.FullPurchaseInteractor
 import com.persAssistant.shopping_list.domain.interactors.PurchaseInteractor
 import com.persAssistant.shopping_list.domain.interactors.ShoppingListInteractor
-import com.persAssistant.shopping_list.domain.di.module.*
-import com.persAssistant.shopping_list.domain.di.module.viewModelModule.CategoryViewModelModule
-import com.persAssistant.shopping_list.domain.di.module.viewModelModule.PurchaseViewModelModule
-import com.persAssistant.shopping_list.domain.di.module.viewModelModule.ShoppingListViewModelModule
+import com.persAssistant.shopping_list.di.module.*
+import com.persAssistant.shopping_list.di.module.viewModelModule.CategoryViewModelModule
+import com.persAssistant.shopping_list.di.module.viewModelModule.PurchaseViewModelModule
+import com.persAssistant.shopping_list.di.module.viewModelModule.ShoppingListViewModelModule
 import com.persAssistant.shopping_list.presentation.category.CreatorCategoryViewModel
 import com.persAssistant.shopping_list.presentation.category.EditorCategoryViewModel
 import com.persAssistant.shopping_list.presentation.list_of_category_fragment.ListOfCategoryViewModel

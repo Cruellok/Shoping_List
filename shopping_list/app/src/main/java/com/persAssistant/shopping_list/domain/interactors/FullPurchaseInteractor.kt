@@ -15,18 +15,6 @@ class FullPurchaseInteractor @Inject constructor(private val purchaseInteractorI
                               private val categoryInteractorInterface: CategoryInteractorInterface): FullPurchaseInteractorInterface() {
 
     override fun getById(id: Long): Maybe<FullPurchase> {
-        return processPurchasesById(id)
-    }
-
-    override fun getAllByListId(id: Long): Single<LinkedList<FullPurchase>> {
-        return processInteractorInterfacePurchases(purchaseInteractorInterface.getAllByListId(id))
-    }
-
-    override fun getAllByCategoryId(id: Long): Single<LinkedList<FullPurchase>> {
-        return processInteractorInterfacePurchases(purchaseInteractorInterface.getAllByCategoryId(id))
-    }
-
-    private fun processPurchasesById(id: Long): Maybe<FullPurchase>{
         return purchaseInteractorInterface.getById(id)
             .flatMap { purchase ->
                 categoryInteractorInterface.getById(purchase.categoryId)
@@ -36,13 +24,24 @@ class FullPurchaseInteractor @Inject constructor(private val purchaseInteractorI
             }
     }
 
-    private fun processInteractorInterfacePurchases(single: Single<LinkedList<Purchase>>): Single<LinkedList<FullPurchase>>{
+    override fun getAllByListId(id: Long): Single<LinkedList<FullPurchase>> {
+        return processPurchases(purchaseInteractorInterface.getAllByListId(id))
+    }
+
+    override fun getAllByCategoryId(id: Long): Single<LinkedList<FullPurchase>> {
+        return processPurchases(purchaseInteractorInterface.getAllByCategoryId(id))
+    }
+
+    private fun processPurchases(single: Single<LinkedList<Purchase>>): Single<LinkedList<FullPurchase>>{
         return single
             .toObservable()
             .flatMapIterable{it}
             .flatMap{ purchase->
-                processPurchasesById(purchase.id!!)
-                    .toObservable()
+                categoryInteractorInterface.getById(purchase.categoryId)
+                    .map {
+                        FullPurchase(purchase, it)
+                    }
+                .toObservable()
             }
             .toList()
             .map {

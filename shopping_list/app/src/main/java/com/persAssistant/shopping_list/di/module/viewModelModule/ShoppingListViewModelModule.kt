@@ -1,4 +1,4 @@
-package com.persAssistant.shopping_list.domain.di.module.viewModelModule
+package com.persAssistant.shopping_list.di.module.viewModelModule
 
 import com.persAssistant.shopping_list.domain.interactors.ShoppingListInteractor
 import com.persAssistant.shopping_list.presentation.list_of_shopping_list_fragment.ListOfShoppingListViewModel
