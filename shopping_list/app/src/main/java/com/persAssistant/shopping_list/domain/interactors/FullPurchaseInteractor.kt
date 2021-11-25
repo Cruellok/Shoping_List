@@ -17,30 +17,31 @@ class FullPurchaseInteractor @Inject constructor(private val purchaseInteractorI
     override fun getById(id: Long): Maybe<FullPurchase> {
         return purchaseInteractorInterface.getById(id)
             .flatMap { purchase ->
-                categoryInteractorInterface.getById(purchase.categoryId)
-                    .map {
-                        FullPurchase(purchase, it)
-                    }
+              convertToFullPurchase(purchase)
             }
     }
 
     override fun getAllByListId(id: Long): Single<LinkedList<FullPurchase>> {
-        return processPurchases(purchaseInteractorInterface.getAllByListId(id))
+        return convertToFullPurchasesList(purchaseInteractorInterface.getAllByListId(id))
     }
 
     override fun getAllByCategoryId(id: Long): Single<LinkedList<FullPurchase>> {
-        return processPurchases(purchaseInteractorInterface.getAllByCategoryId(id))
+        return convertToFullPurchasesList(purchaseInteractorInterface.getAllByCategoryId(id))
     }
 
-    private fun processPurchases(single: Single<LinkedList<Purchase>>): Single<LinkedList<FullPurchase>>{
+    private fun convertToFullPurchase(purchase: Purchase): Maybe<FullPurchase> {
+        return categoryInteractorInterface.getById(purchase.categoryId)
+            .map {
+                FullPurchase(purchase, it)
+            }
+    }
+
+    private fun convertToFullPurchasesList(single: Single<LinkedList<Purchase>>): Single<LinkedList<FullPurchase>>{
         return single
             .toObservable()
             .flatMapIterable{it}
             .flatMap{ purchase->
-                categoryInteractorInterface.getById(purchase.categoryId)
-                    .map {
-                        FullPurchase(purchase, it)
-                    }
+                convertToFullPurchase(purchase)
                 .toObservable()
             }
             .toList()

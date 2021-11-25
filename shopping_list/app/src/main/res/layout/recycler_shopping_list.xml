@@ -15,11 +15,9 @@
             android:id="@+id/tv_recyclerShoppingList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="List"
-            android:textSize="40sp"
             android:gravity="center"
-            >
-        </TextView>
+            android:text="Shopping List"
+            android:textSize="40sp"></TextView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_shopping_list"

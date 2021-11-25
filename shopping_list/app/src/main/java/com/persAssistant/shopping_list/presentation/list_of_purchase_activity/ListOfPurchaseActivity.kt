@@ -14,6 +14,7 @@ import com.persAssistant.shopping_list.presentation.App
 import com.persAssistant.shopping_list.presentation.purchase.CreatorPurchaseActivity
 import com.persAssistant.shopping_list.presentation.purchase.EditorPurchaseActivity
 import com.persAssistant.shopping_list.presentation.list_of_purchase_activity.ListOfPurchaseViewModel.*
+import java.lang.Exception
 import java.util.*
 
 class ListOfPurchaseActivity: AppCompatActivity() {
@@ -23,24 +24,23 @@ class ListOfPurchaseActivity: AppCompatActivity() {
     private lateinit var viewModel: ListOfPurchaseViewModel
 
     companion object{
-        const val KEY_SHOPPING_LIST_ID = "PURCHASE_LIST_ID"
-        const val KEY_CATEGORY_ID = "CATEGORY_ID"
-        const val KEY_CREATION_TYPE = "CREATION_TYPE"
-        const val KEY_VISIBILITY_BUTTON = "KEY_VISIBILITY_BUTTON"
+        private const val KEY_INDEX_TYPE = "INDEX_TYPE"
+        private const val KEY_PARENT_ID = "PARENT_ID"
+        private const val KEY_VISIBILITY_BUTTON = "VISIBILITY_BUTTON"
 
         fun getIntentByShoppingListId(context: Context, id: Long): Intent {
             val intent = Intent(context, ListOfPurchaseActivity::class.java)
-            intent.putExtra(KEY_SHOPPING_LIST_ID, id)
+            intent.putExtra(KEY_PARENT_ID, id)
             intent.putExtra(KEY_VISIBILITY_BUTTON, true)
-            intent.putExtra(KEY_CREATION_TYPE, IdTypes.SHOPPINGLIST.name)
+            intent.putExtra(KEY_INDEX_TYPE, IdTypes.SHOPPINGLIST.ordinal)
             return intent
         }
 
         fun getIntentByCategoryId(context: Context, id: Long): Intent{
             val intent = Intent(context, ListOfPurchaseActivity::class.java)
-            intent.putExtra(KEY_CATEGORY_ID, id)
+            intent.putExtra(KEY_PARENT_ID, id)
             intent.putExtra(KEY_VISIBILITY_BUTTON, false)
-            intent.putExtra(KEY_CREATION_TYPE, IdTypes.CATEGORY.name)
+            intent.putExtra(KEY_INDEX_TYPE, IdTypes.CATEGORY.ordinal)
             return intent
         }
     }
@@ -74,9 +74,18 @@ class ListOfPurchaseActivity: AppCompatActivity() {
             purchaseAdapter.removePurchase(it)
         })
 
-        val categoryId = intent.getLongExtra(KEY_CATEGORY_ID, -1)
-        val shoppingListId = intent.getLongExtra(KEY_SHOPPING_LIST_ID, -1)
-        viewModel.init(this, categoryId, shoppingListId, intent.getStringExtra(KEY_CREATION_TYPE)!!)
+        val parentId = intent.getLongExtra(KEY_PARENT_ID, -1)
+        if (parentId == -1L)
+            throw Exception (" Ошибка в ListOfPurchaseActivity отсутствует parentId ")
+
+        val idTypeIndex =  intent.getIntExtra(KEY_INDEX_TYPE, -1)
+        if (idTypeIndex == -1)
+            throw Exception (" Ошибка в ListOfPurchaseActivity отсутствует idTypeIndex ")
+
+        val type = IdTypes.values()[idTypeIndex]
+        viewModel.init(this, parentId, type)
+
+
 
         val buttonAdd: FloatingActionButton = ui.btnAddPurchase
         val buttonVisible = intent.getBooleanExtra(KEY_VISIBILITY_BUTTON,false)
@@ -84,7 +93,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
             buttonAdd.visibility = View.VISIBLE
 
         buttonAdd.setOnClickListener {
-            val intent = CreatorPurchaseActivity.getIntent(this, intent.getLongExtra(KEY_SHOPPING_LIST_ID, -1))
+            val intent = CreatorPurchaseActivity.getIntent(this, intent.getLongExtra(KEY_PARENT_ID, -1))
             startActivity(intent)
         }
     }

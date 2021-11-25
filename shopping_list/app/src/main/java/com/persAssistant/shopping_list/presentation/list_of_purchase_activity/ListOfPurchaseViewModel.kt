@@ -25,19 +25,19 @@ class ListOfPurchaseViewModel @Inject constructor(val purchaseInteractor: Purcha
         SHOPPINGLIST;
     }
 
-    fun init(lifecycleOwner: LifecycleOwner, categoryId: Long, shoppingListId: Long, name: String){
-        canCreatePurchase(categoryId,shoppingListId,name)
+    fun init(lifecycleOwner: LifecycleOwner, parentId: Long, type: IdTypes){
+        initByIdType(parentId, type)
 
         purchaseInteractor.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
-            canCreatePurchase(categoryId,shoppingListId,name)
+            initByIdType(parentId, type)
         })
     }
 
-    private fun canCreatePurchase(categoryId: Long, shoppingListId: Long, name: String){
-        when (name) {
-            IdTypes.SHOPPINGLIST.name -> initByListId(shoppingListId)
-            IdTypes.CATEGORY.name -> initByCategoryId(categoryId)
-        }
+    private fun initByIdType(parentId: Long, type: IdTypes){
+        if (type == IdTypes.SHOPPINGLIST)
+            initByListId(parentId)
+        else
+            initByCategoryId(parentId)
     }
 
     fun deleteItemPurchase(purchase: Purchase){
