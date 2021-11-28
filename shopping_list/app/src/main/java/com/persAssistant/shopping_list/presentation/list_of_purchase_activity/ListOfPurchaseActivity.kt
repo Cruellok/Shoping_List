@@ -20,8 +20,8 @@ import java.util.*
 class ListOfPurchaseActivity: AppCompatActivity() {
 
     private lateinit var purchaseAdapter: PurchaseAdapter
-    private lateinit var ui: RecyclerPurchaseBinding
-    private lateinit var viewModel: ListOfPurchaseViewModel
+    protected lateinit var ui: RecyclerPurchaseBinding
+    protected lateinit var viewModel: ListOfPurchaseViewModel
 
     companion object{
         private const val KEY_INDEX_TYPE = "INDEX_TYPE"

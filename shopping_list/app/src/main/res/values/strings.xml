@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">shopping_list</string>
+    <string name="app_name">shopping_list_app</string>
     <string name="failed_insert">Не удалось выполнить insert</string>
     <string name="failed_getAll">Не удалось выполнить getAll</string>
     <string name="failed_getById">Не удалось выполнить getById</string>

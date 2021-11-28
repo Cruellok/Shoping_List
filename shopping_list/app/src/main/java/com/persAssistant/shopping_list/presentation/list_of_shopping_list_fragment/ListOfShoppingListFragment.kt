@@ -21,7 +21,7 @@ class ListOfShoppingListFragment: Fragment() {
     private lateinit var viewModel: ListOfShoppingListViewModel
     private lateinit var shoppingListAdapter: ShoppingListAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         ui = RecyclerShoppingListBinding.inflate(layoutInflater)
 
         // initialize Adapter

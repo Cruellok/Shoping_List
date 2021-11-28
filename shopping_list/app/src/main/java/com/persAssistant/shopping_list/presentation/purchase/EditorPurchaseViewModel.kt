@@ -8,8 +8,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class EditorPurchaseViewModel @Inject constructor(val purchaseInteractor: PurchaseInteractor,
-                                                  val fullPurchaseInteractor: FullPurchaseInteractorInterface): PurchaseViewModel() {
+class EditorPurchaseViewModel @Inject constructor(private val purchaseInteractor: PurchaseInteractor,
+                                                  private val fullPurchaseInteractor: FullPurchaseInteractorInterface): PurchaseViewModel() {
 
     private var purchaseId: Long = 0
 

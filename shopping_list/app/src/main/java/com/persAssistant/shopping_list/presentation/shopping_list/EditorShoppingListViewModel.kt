@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 
 class EditorShoppingListViewModel(private val shoppingListInteractor: ShoppingListInteractorInterface): ShoppingListViewModel() {
 
-    private var  shoppingListId: Long = 0
+    private var shoppingListId: Long = 0
 
     fun init(id: Long){
         shoppingListId = id
