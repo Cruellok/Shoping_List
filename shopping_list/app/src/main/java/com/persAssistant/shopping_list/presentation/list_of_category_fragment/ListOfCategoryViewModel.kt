@@ -16,7 +16,7 @@ class ListOfCategoryViewModel @Inject constructor(val categoryInteractor: Catego
     var deleteCategoryId = MutableLiveData<Long>()
 
     fun init(lifecycleOwner: LifecycleOwner){
-        categoryInteractor.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
+        categoryInteractor.getChangeSignal().observe(lifecycleOwner, androidx.lifecycle.Observer {
             initCategoryList()
         })
         initCategoryList()

@@ -13,8 +13,8 @@ import java.util.*
 class ShoppingListInteractor(private val shoppingListRepositoryInterface: ShoppingListRepositoryInterface): ShoppingListInteractorInterface() {
 
     // сигнал об изменении в таблице
-    override fun getChangeSingle(): LiveData<List<RoomShoppingList>> {
-        return shoppingListRepositoryInterface.getChangeSingle()
+    override fun getChangeSignal(): LiveData<List<RoomShoppingList>> {
+        return shoppingListRepositoryInterface.getChangeSignal()
     }
 
     // добавления записи в таблицу

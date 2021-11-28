@@ -14,8 +14,8 @@ class PurchaseInteractor(private val purchaseRepositoryInterface: PurchaseReposi
     PurchaseInteractorInterface() {
 
     // сигнал об изменении в таблице
-    override fun getChangeSingle(): LiveData<List<RoomPurchase>> {
-        return purchaseRepositoryInterface.getChangeSingle()
+    override fun getChangeSignal(): LiveData<List<RoomPurchase>> {
+        return purchaseRepositoryInterface.getChangeSignal()
     }
 
     // добавления записи в таблицу

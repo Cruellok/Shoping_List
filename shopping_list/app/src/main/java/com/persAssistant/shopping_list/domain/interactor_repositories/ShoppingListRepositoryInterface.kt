@@ -10,7 +10,7 @@ import java.util.*
 
 
 abstract class ShoppingListRepositoryInterface {
-    abstract fun getChangeSingle(): LiveData<List<RoomShoppingList>>
+    abstract fun getChangeSignal(): LiveData<List<RoomShoppingList>>
     abstract fun insert(shoppingList: ShoppingList): Completable
     abstract fun getAll(): Single<LinkedList<ShoppingList>>
     abstract fun getById(id: Long): Maybe<ShoppingList>

@@ -16,7 +16,7 @@ import javax.inject.Inject
 class ListOfPurchaseViewModel @Inject constructor(val purchaseInteractor: PurchaseInteractorInterface,
                                                   val fullPurchaseInteractor: FullPurchaseInteractorInterface): ViewModel() {
 
-    var purchaseListPair = MutableLiveData<LinkedList<FullPurchase>>()
+    var fullPurchaseList = MutableLiveData<LinkedList<FullPurchase>>()
     var deletePurchaseId = MutableLiveData<Long>()
     var name = MutableLiveData<String>()
 
@@ -28,7 +28,7 @@ class ListOfPurchaseViewModel @Inject constructor(val purchaseInteractor: Purcha
     fun init(lifecycleOwner: LifecycleOwner, parentId: Long, type: IdTypes){
         initByIdType(parentId, type)
 
-        purchaseInteractor.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
+        purchaseInteractor.getChangeSignal().observe(lifecycleOwner, androidx.lifecycle.Observer {
             initByIdType(parentId, type)
         })
     }
@@ -53,7 +53,7 @@ class ListOfPurchaseViewModel @Inject constructor(val purchaseInteractor: Purcha
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 /*Есть данные*/
-                purchaseListPair.value = it
+                fullPurchaseList.value = it
             }, {/*Ошибка*/ })
     }
 
@@ -63,7 +63,7 @@ class ListOfPurchaseViewModel @Inject constructor(val purchaseInteractor: Purcha
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 /*Есть данные*/
-                purchaseListPair.value = it
+                fullPurchaseList.value = it
             }, {/*Ошибка*/ })
     }
 }

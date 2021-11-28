@@ -13,8 +13,8 @@ import java.util.*
 class PurchaseRepository(private val purchaseService: PurchaseService): PurchaseRepositoryInterface() {
 
     // сигнал об изменении в таблице
-    override fun getChangeSingle(): LiveData<List<RoomPurchase>> {
-        return purchaseService.getChangeSingle()
+    override fun getChangeSignal(): LiveData<List<RoomPurchase>> {
+        return purchaseService.getChangeSignal()
     }
 
     // добавления записи в таблицу

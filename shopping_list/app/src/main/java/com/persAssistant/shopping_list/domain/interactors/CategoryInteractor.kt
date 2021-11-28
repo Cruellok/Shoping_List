@@ -15,8 +15,8 @@ class CategoryInteractor @Inject constructor(private val categoryRepositoryInter
     CategoryInteractorInterface() {
 
     // сигнал об изменении в таблице
-    override fun getChangeSingle(): LiveData<List<RoomCategory>> {
-        return categoryRepositoryInterface.getChangeSingle()
+    override fun getChangeSignal(): LiveData<List<RoomCategory>> {
+        return categoryRepositoryInterface.getChangeSignal()
     }
 
     // добавления записи в таблицу

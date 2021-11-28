@@ -66,7 +66,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
         })
         ui.recyclerViewPurchase.adapter = purchaseAdapter
 
-        viewModel.purchaseListPair.observe(this, androidx.lifecycle.Observer {
+        viewModel.fullPurchaseList.observe(this, androidx.lifecycle.Observer {
             purchaseAdapter.updateItems(it)
         })
 
@@ -84,9 +84,7 @@ class ListOfPurchaseActivity: AppCompatActivity() {
 
         val type = IdTypes.values()[idTypeIndex]
         viewModel.init(this, parentId, type)
-
-
-
+        
         val buttonAdd: FloatingActionButton = ui.btnAddPurchase
         val buttonVisible = intent.getBooleanExtra(KEY_VISIBILITY_BUTTON,false)
         if (buttonVisible)

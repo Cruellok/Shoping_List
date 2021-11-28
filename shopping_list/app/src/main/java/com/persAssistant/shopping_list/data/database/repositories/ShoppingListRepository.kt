@@ -13,8 +13,8 @@ import java.util.*
 class ShoppingListRepository(private val shoppingListService: ShoppingListService): ShoppingListRepositoryInterface() {
 
     // сигнал об изменении в таблице
-    override fun getChangeSingle(): LiveData<List<RoomShoppingList>> {
-        return shoppingListService.getChangeSingle()
+    override fun getChangeSignal(): LiveData<List<RoomShoppingList>> {
+        return shoppingListService.getChangeSignal()
     }
 
     // добавления записи в таблицу

@@ -9,7 +9,7 @@ import io.reactivex.Single
 import java.util.*
 
 abstract class PurchaseInteractorInterface {
-    abstract fun getChangeSingle(): LiveData<List<RoomPurchase>>
+    abstract fun getChangeSignal(): LiveData<List<RoomPurchase>>
     abstract fun insert(purchase: Purchase): Completable
     abstract fun getAll(): Single<LinkedList<Purchase>>
     abstract fun getById(id: Long): Maybe<Purchase>

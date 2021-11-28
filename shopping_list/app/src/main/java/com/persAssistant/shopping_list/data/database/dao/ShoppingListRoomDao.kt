@@ -12,7 +12,7 @@ interface ShoppingListRoomDao {
 
     //запрос на одно любое изменение
     @Query("SELECT * FROM ${DbStruct.ShoppingListTable.tableName}")
-    fun getChangeSingle(): LiveData<List<RoomShoppingList>>
+    fun getChangeSignal(): LiveData<List<RoomShoppingList>>
 
     // добавления записи в таблицу
     @Insert

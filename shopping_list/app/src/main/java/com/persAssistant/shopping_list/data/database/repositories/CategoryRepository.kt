@@ -15,8 +15,8 @@ class CategoryRepository @Inject constructor(private val categoryService: Catego
     CategoryRepositoryInterface() {
 
     // сигнал об изменении в таблице
-    override fun getChangeSingle(): LiveData<List<RoomCategory>> {
-        return categoryService.getChangeSingle()
+    override fun getChangeSignal(): LiveData<List<RoomCategory>> {
+        return categoryService.getChangeSignal()
     }
 
     // добавления записи в таблицу

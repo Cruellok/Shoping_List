@@ -17,7 +17,7 @@ class ListOfShoppingListViewModel @Inject constructor(private val shoppingListIn
     var deleteShoppingListId = MutableLiveData<Long>()
 
     fun init(lifecycleOwner: LifecycleOwner){
-        shoppingListInteractor.getChangeSingle().observe(lifecycleOwner, androidx.lifecycle.Observer {
+        shoppingListInteractor.getChangeSignal().observe(lifecycleOwner, androidx.lifecycle.Observer {
             initShoppingList()
         })
         initShoppingList()

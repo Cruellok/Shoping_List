@@ -13,8 +13,8 @@ import java.util.*
 class ShoppingListService(private val shoppingListRoomDao: ShoppingListRoomDao) {
 
     // сигнал об изменении в таблице
-    fun getChangeSingle(): LiveData<List<RoomShoppingList>>{
-        return shoppingListRoomDao.getChangeSingle()
+    fun getChangeSignal(): LiveData<List<RoomShoppingList>>{
+        return shoppingListRoomDao.getChangeSignal()
     }
 
     // добавления записи в таблицу

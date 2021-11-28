@@ -13,7 +13,7 @@ interface CategoryRoomDao {
 
     //запрос на одно любое изменение
     @Query("SELECT * FROM ${DbStruct.Category.tableName}")
-    fun getChangeSingle(): LiveData<List<RoomCategory>>
+    fun getChangeSignal(): LiveData<List<RoomCategory>>
 
     // добавления записи в таблицу
     @Insert

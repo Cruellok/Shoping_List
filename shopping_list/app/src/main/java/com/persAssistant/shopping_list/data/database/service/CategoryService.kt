@@ -14,8 +14,8 @@ import javax.inject.Inject
 class CategoryService @Inject constructor( private val categoryDao: CategoryRoomDao){
 
     // сигнал об изменении в таблице
-    fun getChangeSingle(): LiveData<List<RoomCategory>>{
-        return categoryDao.getChangeSingle()
+    fun getChangeSignal(): LiveData<List<RoomCategory>>{
+        return categoryDao.getChangeSignal()
     }
 
     // добавления записи в таблицу
