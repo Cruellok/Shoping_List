@@ -2,7 +2,7 @@
 
 В этом проекте использовалось:
 1) Clean Architecture
-1) База данных Room
+1) Библиотека Room
 2) Паттерн MVVM 
 3) LiveData
 4) Dagger2 
